@@ -89,7 +89,7 @@ export default function RecipeDetails({recipe}) {
         .info span:last-child::after {
           content: ".";
         }
-      `}</style>
+      `}</style>    
     </div>
   )
 }

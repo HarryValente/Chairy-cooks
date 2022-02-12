@@ -64,7 +64,6 @@ export default function RecipeDetails({recipe}) {
           <h3>Method:</h3>
           <div>{documentToReactComponents(method)}</div>
       </div>
-
       <style jsx>{`
         h2,h3 {
           text-transform: uppercase;

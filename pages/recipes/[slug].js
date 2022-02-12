@@ -5,6 +5,9 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 // Next
 import Image from 'next/image'
 
+// Components
+import Skeleton from "../../components/Skeleton"
+
 // Link to contentful with API-Key / process.env is in the .env.local file for github concerns
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID,
@@ -24,7 +27,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false
+    fallback: true
   }
 }
 
@@ -40,30 +43,35 @@ export async function getStaticProps({params}) {
   }
 }
 
-export default function RecipeDetails({recipe}) {
-  const {featureImage, title, cookingTime, ingredients, method} = recipe.fields
+export default function RecipeDetails({ recipe }) {
+
+  if (!recipe) return <Skeleton />
+
+  const { featureImage, title, cookingTime, ingredients, method } = recipe.fields
 
   return (
     <div>
       <div className="banner">
-        <Image src={'https:' + featureImage.fields.file.url} 
-        width={featureImage.fields.file.details.image.width}
-        height={featureImage.fields.file.details.image.height}/>
-        <h2>{title}</h2>
+        <Image 
+          src={'https:' + featureImage.fields.file.url}
+          width={featureImage.fields.file.details.image.width}
+          height={featureImage.fields.file.details.image.height}
+        />
+        <h2>{ title }</h2>
       </div>
 
       <div className="info">
-        <p>Take about {cookingTime} mins to cook.</p>
+        <p>Takes about { cookingTime } mins to cook.</p>
         <h3>Ingredients:</h3>
 
         {ingredients.map(ing => (
-          <span key={ing}>{ing}</span>
+          <span key={ing}>{ ing }</span>
         ))}
       </div>
-
+        
       <div className="method">
-          <h3>Method:</h3>
-          <div>{documentToReactComponents(method)}</div>
+        <h3>Method:</h3>
+        <div>{documentToReactComponents(method)}</div>
       </div>
 
       <style jsx>{`
@@ -90,7 +98,7 @@ export default function RecipeDetails({recipe}) {
         .info span:last-child::after {
           content: ".";
         }
-      `}</style>    
+      `}</style>
     </div>
   )
 }

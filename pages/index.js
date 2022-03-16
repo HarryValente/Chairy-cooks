@@ -1,3 +1,6 @@
+// React
+import { useState } from "react/cjs/react.development";
+
 // Contentful
 import { createClient } from "contentful"
 
@@ -18,6 +21,8 @@ export async function getStaticProps() {
     revalidate: 1
   }
 }
+
+// const [recipeHead, setRecipeHead] = useState
 
 export default function Recipes({recipes}) {
   return (

@@ -13,6 +13,15 @@ export default function Layout({ children }) {
             <h2>Spread The Joy</h2>
           </a>
         </Link>
+
+        <Link href="/admin">
+          <div className='loginContainer'>
+            <a>
+              Login
+            </a>
+          </div>
+        </Link>
+
       </header>
 
       <div className="page-content">

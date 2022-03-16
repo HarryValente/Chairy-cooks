@@ -1,10 +1,15 @@
 // Next
 import Link from 'next/link'
 import Image from 'next/image'
+import Button from './Button'
 
 export default function RecipeCard({recipe}) {
   const { title, slug, cookingTime, thumbnail } = recipe.fields
 
+  const saveRecipeToLS = async (card) => {
+    console.log('hi')
+    console.log(card)
+  }
 
   return (
     <div className="card">
@@ -19,6 +24,11 @@ export default function RecipeCard({recipe}) {
         <div className="info">
           <h4>{title}</h4>
           <p>Takes approx {cookingTime} mins to make</p>
+          <Button
+            onClick={card => saveRecipeToLS(card)}
+          >
+            +
+          </Button>
         </div>
         <div className="actions">
           <Link href={'/recipes/' + slug}>

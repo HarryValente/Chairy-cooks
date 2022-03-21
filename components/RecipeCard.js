@@ -16,17 +16,27 @@ export default function RecipeCard({recipe}) {
       <div className="featured">
         <Image 
           src={'https:' + thumbnail.fields.file.url} 
-          width={thumbnail.fields.file.details.image.width} 
-          height={thumbnail.fields.file.details.image.height} 
+          width={285} 
+          height={285} 
+          // height={thumbnail.fields.file.details.image.height} 
         />
       </div>
-      <div className="content">
+      <div className='content'>
+        <p>Italian, Vegetarian, Light</p>
+        <h1>{title}</h1>
+        <h4>Super thick blueberry banana smoothies are a breeze to whip up for a morning on the go. This recipe can be made with or without dairy pick whichever version works best for you!</h4>
+        <Link href={'/recipes/' + slug}>
+            <h5>Full recipe</h5>
+        </Link>
+        <Button className={'absolute bottom-0 left-0'} onClick={card => saveRecipeToLS(card)}>
+          +
+        </Button>
+      </div>
+      {/* <div className="content">
         <div className="info">
           <h4>{title}</h4>
           <p>Takes approx {cookingTime} mins to make</p>
-          <Button
-            onClick={card => saveRecipeToLS(card)}
-          >
+          <Button onClick={card => saveRecipeToLS(card)}>
             +
           </Button>
         </div>
@@ -35,19 +45,50 @@ export default function RecipeCard({recipe}) {
             <a>Cook this</a>
           </Link>
         </div>
-      </div>
+      </div> */}
 
       <style jsx>{`
-        .card {
-          transform: rotateZ(-1deg);
+        .card{
+          width: 650px;
+          height: 285px;
+          display: flex;
+          background-color: #ffffff;
+          // padding: 5px;
+          transition: 0.5s;
+          box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px;
+          border: 1px solid rgba(71, 71, 71, 0.1);
         }
         .content {
-          background: #fff;
-          box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
-          margin: 0;
-          position: relative;
-          top: -40px;
-          left: -10px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-around;
+          text-align: center;
+          padding: 10px;
+          max-width: 360px;
+        }
+        .content p{
+          color: #f14400;
+          text-decoration: underline;
+          margin: 0 0 0 10px;
+          align-self: flex-start;
+          font-size: 14px;
+        }
+        .content h1{
+          font-size: 24px;
+          font-weight: 700;
+          margin-top: -20px;
+        }
+        .content h4{
+          font-size: 12px;
+          font-weight: 500;
+        }
+        .content h5{
+          color: #f14400;
+          align-self: flex-end;
+          margin-right: 10px;
+          font-size: 16px;
+          font-weight: 600;
         }
         .info {
           padding: 16px;

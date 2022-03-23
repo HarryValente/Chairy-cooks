@@ -8,6 +8,8 @@ import { createClient } from "contentful"
 import RecipeCard from "../components/RecipeCard";
 import Image from "next/image";
 import FeaturedRecipe from "../components/FeaturedRecipe";
+import Advert from "../components/Advert";
+import MainIngrdientsTile from "../components/MainIngredientsTile";
 
 export async function getStaticProps() {
   // Link to contentful with API-Key / process.env is in the .env.local file for github concerns
@@ -39,9 +41,27 @@ export default function Recipes({recipes}) {
         {recipes.map(recipe => (
           <RecipeCard key={recipe.sys.id} recipe={recipe}/>
         ))}
-
       </div>
 
+      <Advert/>
+
+      <div className="main-ingredients">
+        <MainIngrdientsTile ingredientName="Chicken"/>
+        <MainIngrdientsTile ingredientName="Beef"/>
+        <MainIngrdientsTile ingredientName="Egg"/>
+        <MainIngrdientsTile ingredientName="Cheese"/>
+        <MainIngrdientsTile ingredientName="Lamb"/>
+        <MainIngrdientsTile ingredientName="Pasta"/>
+        <MainIngrdientsTile ingredientName="Dessert"/>
+        <MainIngrdientsTile ingredientName="Vegetarian"/>
+        <MainIngrdientsTile ingredientName="Vegan"/>
+        <MainIngrdientsTile ingredientName="Fish"/>
+        <MainIngrdientsTile ingredientName="Sausage"/>
+        <MainIngrdientsTile ingredientName="Pork"/>
+      </div>
+
+      <Advert/>
+      
       <style jsx>{`
         .featured-container {
           position: relative;
@@ -73,8 +93,17 @@ export default function Recipes({recipes}) {
         .recipe-list {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          grid-gap: 20px 60px;
-          margin-top: 50px;
+          grid-gap: 20px 40px;
+          width: 1190px;
+          margin: 60px auto;
+        }
+        .main-ingredients{
+          display: grid; 
+          grid-template-columns: 1fr 1fr 1fr; 
+          grid-template-rows: 0.7fr 0.7fr 0.7fr 0.7fr 0.7fr; 
+          // grid-template-rows: 250px 250px 250px 250px 250px; 
+          width: 1050px;
+          margin: auto;
         }
       `}
       </style>

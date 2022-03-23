@@ -49,11 +49,10 @@ export default function RecipeCard({recipe}) {
 
       <style jsx>{`
         .card{
-          width: 650px;
-          height: 285px;
+          width: 575px;
+          height: 212px;
           display: flex;
           background-color: #ffffff;
-          // padding: 5px;
           transition: 0.5s;
           box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px;
           border: 1px solid rgba(71, 71, 71, 0.1);
@@ -77,7 +76,7 @@ export default function RecipeCard({recipe}) {
         .content h1{
           font-size: 24px;
           font-weight: 700;
-          margin-top: -20px;
+          margin-top: 20px;
         }
         .content h4{
           font-size: 12px;

@@ -5,10 +5,15 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  overflow-y: scroll;
+}
+
 *{
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 body {
@@ -36,19 +41,17 @@ header a {
   text-transform: uppercase;
   display: inline-block;
 }
-header h1, header h2 {
+header h1, header h2, header h3 {
   margin: 0;
-}
-header span {
   display: block;
   line-height: 1em;
 }
-header span:first-child {
+header h3 {
   font-size: 1em;
   font-weight: 400;
 }
-header span:last-child {
-  font-size: 1.5em;
+header h1 {
+  font-size: 1.2em;
   font-weight: 800;
 }
 header h2 {

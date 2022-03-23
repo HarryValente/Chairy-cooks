@@ -6,10 +6,8 @@ export default function Layout({ children }) {
       <header>
         <Link href="/">
           <a>
-            <h1>
-              <span>Chairy</span>
-              <span>Cooks</span>
-            </h1>
+            <h3 className='test'>Chairy</h3>
+            <h1>Cooks</h1>
             <h2>Spread The Joy</h2>
           </a>
         </Link>

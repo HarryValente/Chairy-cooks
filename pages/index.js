@@ -46,22 +46,22 @@ export default function Recipes({recipes}) {
       <Advert/>
 
       <div className="main-ingredients">
-        <MainIngrdientsTile ingredientName="Chicken"/>
-        <MainIngrdientsTile ingredientName="Beef"/>
-        <MainIngrdientsTile ingredientName="Egg"/>
-        <MainIngrdientsTile ingredientName="Cheese"/>
-        <MainIngrdientsTile ingredientName="Lamb"/>
-        <MainIngrdientsTile ingredientName="Pasta"/>
-        <MainIngrdientsTile ingredientName="Dessert"/>
-        <MainIngrdientsTile ingredientName="Vegetarian"/>
-        <MainIngrdientsTile ingredientName="Vegan"/>
-        <MainIngrdientsTile ingredientName="Fish"/>
-        <MainIngrdientsTile ingredientName="Sausage"/>
-        <MainIngrdientsTile ingredientName="Pork"/>
+        <MainIngrdientsTile ingredientName="Chicken" image="/ad-placeholder.png"/>
+        <MainIngrdientsTile ingredientName="Beef" image="/ad-placeholder.png"/>
+        <MainIngrdientsTile ingredientName="Egg" image="/ad-placeholder.png"/>
+        <MainIngrdientsTile ingredientName="Cheese" image="/ad-placeholder.png"/>
+        <MainIngrdientsTile ingredientName="Lamb" image="/ad-placeholder.png"/>
+        <MainIngrdientsTile ingredientName="Pasta" image="/ad-placeholder.png"/>
+        <MainIngrdientsTile ingredientName="Dessert" image="/ad-placeholder.png"/>
+        <MainIngrdientsTile ingredientName="Vegetarian" image="/ad-placeholder.png"/>
+        <MainIngrdientsTile ingredientName="Vegan" image="/ad-placeholder.png"/>
+        <MainIngrdientsTile ingredientName="Fish" image="/ad-placeholder.png"/>
+        <MainIngrdientsTile ingredientName="Sausage" image="/ad-placeholder.png"/>
+        <MainIngrdientsTile ingredientName="Pork" image="/ad-placeholder.png"/>
       </div>
 
       <Advert/>
-      
+
       <style jsx>{`
         .featured-container {
           position: relative;

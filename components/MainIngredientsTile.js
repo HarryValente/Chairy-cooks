@@ -1,14 +1,17 @@
 // Next
 import Link from 'next/link'
 import Image from 'next/image'
-import Button from './Button'
 
-export default function MainIngrdientsTile({ingredientName}) {
+export default function MainIngrdientsTile({ingredientName, image}) {
 
 
   return (
-    <div className="feature">
-      <div className="img-here"></div>
+    <div className="feature">         
+      <Image 
+        src={image}
+        width={85} 
+        height={85} 
+      />
       <div className="feature-text">
         {`${ingredientName}`}
       </div>
@@ -24,13 +27,8 @@ export default function MainIngrdientsTile({ingredientName}) {
           flex-direction: column;
         }
         .feature:hover{
-          
+          transition: 0.3s;
           background-color: #f00;
-        }
-        .img-here{
-          background-color: grey;
-          width: 50px;
-          height: 50px;
         }
         
       `}

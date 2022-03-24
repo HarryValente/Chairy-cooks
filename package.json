@@ -18,7 +18,8 @@
     "firebase": "^9.4.1",
     "next": "10.0.8",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "react-toastify": "^8.2.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.2",

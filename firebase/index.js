@@ -25,7 +25,7 @@
 import { initializeApp } from "firebase/app";
 import { getStorage } from 'firebase/storage';
 import { getFirestore } from 'firebase/firestore'
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, getAuth } from 'firebase/auth'
 import { uploadBytes, uploadBytesResumable } from 'firebase/storage'
 
 // Firestore
@@ -56,6 +56,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getFirestore(app)
 const storage = getStorage(app);
+const auth = getAuth(app)
 
 // Add document to Firebase
 export const addFirebaseDoc = async (col, data, id) => {
@@ -78,25 +79,38 @@ export const addFirebaseDoc = async (col, data, id) => {
   return document
 }
 
+/**
+ * 
+ * @param {string} email 
+ * @param {string} password 
+ * @returns created user
+ * TODO - add error handling
+ */
 export const createFirebaseUser = async (email, password) => {
-  return new Promise((resolve, reject) => {
-    console.log(email, password)
-
-    createUserWithEmailAndPassword(userAuth, email, password)
-      .then(response => {
-        resolve(response.user.uid)
-
-        return userAuth.signOut()
-      })
-      .catch(error => {
-        if (error) {
-          throw new Error(error)
-        }
-
-        return reject(error)
-      })
+  return new Promise(async (resolve, reject) => {
+    // harry-joevalente@live.co.uk
+    await createUserWithEmailAndPassword(auth, email, password)
   })
 }
+
+export const loginFirebaseUser = async (email, password) => {
+  return new Promise(async (resolve, reject) => {
+    // harry-joevalente@live.co.uk
+    await signInWithEmailAndPassword(auth, email, password)
+    console.log('signed up')
+  })
+}
+
+export const signOutFirebaseUser = async () => {
+  signOut(auth).then(() => {
+    // Sign-out successful.
+    console.log('sign-out successful')
+  }).catch((error) => {
+    // An error happened.
+    console.log('sign-out unsuccessful')
+  });
+}
+
 
 export const deleteFirebaseDoc = async (col, id) =>
   await deleteDoc(doc(database, col, id))
@@ -130,6 +144,14 @@ export const addStorageItem = async (url, file, name) => {
       }
     )
   })
+}
+
+// Get item to Storage
+export const getStorageItem = async path => {
+  const reference = ref(storage, path)
+  const url = `https://storage.googleapis.com/chairy-cooks.appspot.com/${reference.fullPath}`
+
+  return url
 }
 
 // Generate Firebase ID
@@ -229,13 +251,6 @@ export const getFirebaseDocs = async (col, filter) => {
   } else {
     return null
   }
-}
-
-export const getStorageItem = async path => {
-  const reference = ref(storage, path)
-  const url = `https://storage.googleapis.com/chairy-cooks.appspot.com/${reference.fullPath}`
-
-  return url
 }
 
 // Update a Firebase

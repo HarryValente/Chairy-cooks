@@ -1,27 +1,3 @@
-
-
-
-
-
-// export const createFirebaseUser = async (email, password) => {
-//   return new Promise((resolve, reject) => {
-//     createUserWithEmailAndPassword(auth, email, password)
-//       .then(response => {
-//         resolve(response.user.uid)
-
-//         return auth.signOut()
-//       })
-//       .catch(error => {
-//         if (error) {
-//           throw new Error(error)
-//         }
-
-//         return reject(error)
-//       })
-//   })
-// }
-
-
 import { initializeApp } from "firebase/app";
 import { getStorage } from 'firebase/storage';
 import { getFirestore } from 'firebase/firestore'
@@ -42,6 +18,7 @@ import {
   updateDoc,
   serverTimestamp
 } from 'firebase/firestore'
+import router from "next/router";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD7lln8DFMGkvjqcjEStICg6cBptRd_W-A",
@@ -53,15 +30,14 @@ const firebaseConfig = {
   measurementId: "G-JQHQBCJY2S"
 };
 
-const app = initializeApp(firebaseConfig);
-const database = getFirestore(app)
-const storage = getStorage(app);
-const auth = getAuth(app)
+export const app = initializeApp(firebaseConfig);
+export const database = getFirestore(app)
+export const storage = getStorage(app);
+export const authentication = getAuth(app)
 
 // Add document to Firebase
 export const addFirebaseDoc = async (col, data, id) => {
   let document = null
-
   if (id) {
     document = await setDoc(doc(database, col, id), {
       ...data,
@@ -79,32 +55,44 @@ export const addFirebaseDoc = async (col, data, id) => {
   return document
 }
 
-/**
- * 
- * @param {string} email 
- * @param {string} password 
- * @returns created user
- * TODO - add error handling
- */
+
 export const createFirebaseUser = async (email, password) => {
   return new Promise(async (resolve, reject) => {
-    // harry-joevalente@live.co.uk
-    await createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(authentication, email, password)
+      .then(response => {
+        resolve(response.user.uid)
+        return response.user.uid
+      })
+      .catch(error => {
+        if (error) {
+          throw new Error(error)
+        }
+        return reject(error)
+      })
   })
 }
 
-export const loginFirebaseUser = async (email, password) => {
+export const loginFirebaseUser = (email, password) => {
   return new Promise(async (resolve, reject) => {
     // harry-joevalente@live.co.uk
-    await signInWithEmailAndPassword(auth, email, password)
-    console.log('signed up')
+    signInWithEmailAndPassword(authentication, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+
+      resolve(user)
+    })
+    .catch((error) => {
+      console.log(error.code)
+      console.log(error.message)
+      reject(error)
+    })
   })
 }
 
 export const signOutFirebaseUser = async () => {
-  signOut(auth).then(() => {
+  signOut(authentication).then(() => {
     // Sign-out successful.
-    console.log('sign-out successful')
+    router.push('/')
   }).catch((error) => {
     // An error happened.
     console.log('sign-out unsuccessful')

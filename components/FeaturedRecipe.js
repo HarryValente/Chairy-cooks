@@ -10,7 +10,7 @@ export default function FeaturedRecipe() {
   }
 
   return (
-    <div className="feature hover:mt-5">
+    <div className="feature hover:mb-5">
       <div className="img-here"></div>
       <div className="feature-text">
         <div> 
@@ -23,20 +23,26 @@ export default function FeaturedRecipe() {
       </div>
 
       <style jsx>{`
-        .featured-container {
-          position: relative;
-          max-width: 1200px;
-          height: 300px;
-          margin: auto;
-          margin-top: 50px;
-          display: flex;
-          justify-content: space-around;
-          align-items: center;
-        }
+        // .featured-container {
+        //   position: relative;
+        //   max-width: 1200px;
+        //   height: 300px;
+        //   margin: auto;
+        //   margin-top: 50px;
+        //   display: flex;
+        //   justify-content: space-around;
+        //   align-items: center;
+        // }
         .feature{
           width: 350px;
           height: 300px;
           overflow-y: hidden;
+          transition: 0.3s;
+        }
+        .feature:hover{
+          background-color: #3e8e41;
+          color: white;
+          margin-bottom: 35px;
         }
         .img-here{
           width: 350px;

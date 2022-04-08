@@ -10,6 +10,7 @@ import Image from "next/image";
 import FeaturedRecipe from "../components/FeaturedRecipe";
 import Advert from "../components/Advert";
 import MainIngrdientsTile from "../components/MainIngredientsTile";
+import Grid from "../components/Grid";
 
 export async function getStaticProps() {
   // Link to contentful with API-Key / process.env is in the .env.local file for github concerns
@@ -31,21 +32,26 @@ export async function getStaticProps() {
 export default function Recipes({recipes}) {
   return (
     <>
-      <div className="featured-container">
-        <FeaturedRecipe />
-        <FeaturedRecipe />
-        <FeaturedRecipe />
-      </div>
+      {/* <div className="featured-container"> */}
+        <Grid columns={3} className='col-span-full'>
+          <FeaturedRecipe />
+          <FeaturedRecipe />
+          <FeaturedRecipe />
+        </Grid>
+      {/* </div> */}
 
-      <div className="recipe-list">
+      {/* <div className="recipe-list"> */}
+      <Grid columns={2} className='mt-5 col-span-full'>
         {recipes.map(recipe => (
           <RecipeCard key={recipe.sys.id} recipe={recipe}/>
         ))}
-      </div>
+      </Grid>
+      {/* </div> */}
 
       <Advert/>
 
-      <div className="main-ingredients">
+      {/* <div className="main-ingredients"> */}
+      <Grid columns={3} className='col-span-full'>
         <MainIngrdientsTile ingredientName="Chicken" image="/ad-placeholder.png"/>
         <MainIngrdientsTile ingredientName="Beef" image="/ad-placeholder.png"/>
         <MainIngrdientsTile ingredientName="Egg" image="/ad-placeholder.png"/>
@@ -58,11 +64,12 @@ export default function Recipes({recipes}) {
         <MainIngrdientsTile ingredientName="Fish" image="/ad-placeholder.png"/>
         <MainIngrdientsTile ingredientName="Sausage" image="/ad-placeholder.png"/>
         <MainIngrdientsTile ingredientName="Pork" image="/ad-placeholder.png"/>
-      </div>
+      </Grid>
+      {/* </div> */}
 
       <Advert/>
 
-      <style jsx>{`
+      {/* <style jsx>{`
         .featured-container {
           position: relative;
           max-width: 1200px;
@@ -94,19 +101,21 @@ export default function Recipes({recipes}) {
           display: grid;
           grid-template-columns: 1fr 1fr;
           grid-gap: 20px 40px;
-          width: 1190px;
+          width: 1210px;
+          padding:10px;
           margin: 60px auto;
         }
         .main-ingredients{
           display: grid; 
           grid-template-columns: 1fr 1fr 1fr; 
           grid-template-rows: 0.7fr 0.7fr 0.7fr 0.7fr 0.7fr; 
-          // grid-template-rows: 250px 250px 250px 250px 250px; 
+
           width: 1050px;
           margin: auto;
         }
       `}
-      </style>
+      </style> */}
+
     </>
   )
 }

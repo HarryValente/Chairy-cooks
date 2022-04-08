@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Footer from './Footer'
 
 export default function Layout({ children }) {
   return (
@@ -12,7 +13,7 @@ export default function Layout({ children }) {
           </a>
         </Link>
 
-        <Link href="/admin">
+        <Link href="/profile">
           <div className='loginContainer'>
             <a>
               Login
@@ -29,6 +30,7 @@ export default function Layout({ children }) {
       <footer>
         <p>Copyright 2021 chairy cooks</p>
       </footer>
+      {/* <Footer /> */}
     </div>
   )
 }

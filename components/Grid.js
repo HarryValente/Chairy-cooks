@@ -28,7 +28,7 @@ export default ({
     case 3:
       columns = {
         default: 'grid-cols-2',
-        sm: 'sm:grid-cols-1 gap-4',
+        sm: 'sm:grid-cols-1 gap-2',
         md: 'md:grid-cols-2',
         lg: 'lg:grid-cols-3'
       }

@@ -20,7 +20,7 @@ export default function MainIngrdientsTile({ingredientName, image}) {
         .feature{
           height: 200px;
           overflow-y: hidden;
-          border: 1px black solid;
+          border: 1px #B0B3B8 solid;
           display: flex;
           justify-content: space-around;
           align-items: center;
@@ -29,6 +29,8 @@ export default function MainIngrdientsTile({ingredientName, image}) {
         .feature:hover{
           transition: 0.3s;
           background-color: #f00;
+          box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px;
+          border: 1px solid rgba(71, 71, 71, 0.1);
         }
         
       `}

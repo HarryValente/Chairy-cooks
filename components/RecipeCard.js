@@ -53,7 +53,6 @@ export default function RecipeCard({recipe}) {
           height: 212px;
           display: flex;
           background-color: #ffffff;
-          transition: 0.5s;
           box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px;
           border: 1px solid rgba(71, 71, 71, 0.1);
         }
@@ -110,6 +109,11 @@ export default function RecipeCard({recipe}) {
           background: #f01b29;
           padding: 16px 24px;
           text-decoration: none;
+        }
+        @media screen and (max-width: 1200px) {
+          .card {
+            max-width: 260px;
+          }
         }
       `}</style>
     </div>

@@ -2,12 +2,12 @@
 import { useEffect, useState } from 'react'
 
 // Components
-import Button from './Button'
-import Label from './Label'
+import Button from '../components/Button'
+import Label from '../components/Label'
 
 // Modules
-// import moment from 'moment'
-// import { motion } from 'framer-motion'
+import { motion } from 'framer-motion'
+// import { v4 as uuid } from 'uuid'
 
 export const Form = ({ children, onSubmit, error: e }) => {
   const [error, setError] = useState(null)
@@ -36,10 +36,11 @@ export const Form = ({ children, onSubmit, error: e }) => {
   )
 }
 
-export const FormError = ({ error }) => {
+const FormError = ({ error }) => {
   return (
     <motion.div
-      className='bg-red-100 bg-opacity-90 col-span-full font-medium mb-4 px-3 py-2 rounded text-red-600 text-sm'
+      // key={uuid()}
+      className='bg-red-100 bg-opacity-90 font-medium mb-4 p-2 rounded text-red-600 text-sm'
       initial={{
         opacity: 0
       }}
@@ -47,7 +48,6 @@ export const FormError = ({ error }) => {
         opacity: 1
       }}
     >
-      <i className='fa-solid fa-square-exclamation fa-lg mr-2' />
       {error}
     </motion.div>
   )
@@ -63,7 +63,6 @@ export const FormField = ({
   onChange,
   placeholder,
   required,
-  rows,
   tooltip,
   type,
   value
@@ -72,90 +71,41 @@ export const FormField = ({
     icon = 'fa-' + icon
   }
 
-  if (type == 'password' || !type) {
-    return (
-      <div className='w-full'>
-        <Label text={label} tooltip={tooltip} required={required} />
-        <span className='relative'>
-          {icon && (
-            <span className='absolute bg-red-100 flex h-5 items-center justify-center left-1.5 rounded text-red-500 top-1/2 transform -translate-y-1/2 w-5'>
-              <i className={`fa-regular ${icon} fa-xs`} />
-            </span>
-          )}
-          <input
-            autoFocus={autoFocus}
-            disabled={disabled || !onChange}
-            inputMode={inputMode}
-            onChange={e => onChange(e.target.value)}
-            placeholder={placeholder}
-            type={type ?? 'text'}
-            value={value ?? ''}
-            className={className + ' ' + (icon && 'pl-8')}
-            required={required}
-          />
-        </span>
-      </div>
-    )
-  } else if (type == 'textarea') {
-    return (
-      <div className='w-full'>
-        <Label text={label} tooltip={tooltip} required={required} />
-        <span className='relative'>
-          {icon && (
-            <span className='absolute bg-red-100 flex h-5 items-center justify-center left-1.5 rounded text-red-500 top-1/2 transform -translate-y-1/2 w-5'>
-              <i className={`fa-regular ${icon} fa-xs`} />
-            </span>
-          )}
-          <textarea
-            autoFocus={autoFocus}
-            disabled={disabled}
-            inputMode={inputMode}
-            onChange={e => onChange(e.target.value)}
-            value={value ?? ''}
-            className={className + ' ' + (icon && 'pl-8')}
-            required={required}
-            rows={rows}
-            placeholder={placeholder}
-          />
-        </span>
-      </div>
-    )
-  } else if (type == 'date') {
-    return (
-      <div className='w-full'>
-        <Label text={label} tooltip={tooltip} required={required} />
-        <span className='relative'>
-          {icon && (
-            <span className='absolute bg-red-100 flex h-5 items-center justify-center left-1.5 rounded text-red-500 top-1/2 transform -translate-y-1/2 w-5'>
-              <i className={`fa-regular ${icon} fa-xs`} />
-            </span>
-          )}
-          <input
-            type='date'
-            disabled={disabled}
-            inputMode={inputMode}
-            value={
-              value ?? moment(new Date()).add(1, 'day').format('YYYY-MM-DD')
-            }
-            onChange={e => onChange(e.target.value)}
-            className={className}
-            required={required}
-            rows={rows}
-          />
-        </span>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <Label text={label} tooltip={tooltip} required={required} />
+      <span className='relative'>
+        {icon && (
+          <span className='absolute bg-red-100 flex h-5 items-center justify-center left-1.5 rounded text-red-500 top-1/2 transform -translate-y-1/2 w-5'>
+            <i className={`fa-regular ${icon} fa-xs`} />
+          </span>
+        )}
+        <input
+          autoFocus={autoFocus}
+          disabled={disabled}
+          inputMode={inputMode}
+          onChange={e => onChange(e.target.value)}
+          placeholder={placeholder}
+          type={type ?? 'text'}
+          value={value ?? ''}
+          className={`${className ?? ''} ${
+            icon ? 'pl-8 pr-2 py-1' : 'px-2 py-1'
+          }`}
+          required={required}
+        />
+      </span>
+    </div>
+  )
 }
 
 export const FormSelect = ({
   className,
   disabled,
+  icon,
   label,
   onChange,
   options: data,
   tooltip,
-  required,
   value
 }) => {
   const [options, set] = useState([])
@@ -165,43 +115,48 @@ export const FormSelect = ({
   }, [data])
 
   return (
-    <div className='w-full'>
-      <Label text={label} tooltip={tooltip} required={required} />
-      <select
-        value={value ?? ''}
-        onChange={e => onChange(e.target.value)}
-        disabled={disabled}
-        required={required}
-        className={className}
-      >
-        <option value='' hidden>
-          Please select an option
-        </option>
-        {options &&
-          options.map(
-            option =>
-              option &&
-              option.name &&
-              option.value && (
-                <option key={option.value} value={option.value}>
-                  {option.name}
-                </option>
-              )
-          )}
-      </select>
+    <div>
+      <Label text={label} tooltip={tooltip} />
+      <span className='relative'>
+        {icon && (
+          <span className='absolute bg-red-100 flex h-5 items-center justify-center left-1.5 rounded text-red-500 top-1/2 transform -translate-y-1/2 w-5'>
+            <i className={`fa-regular ${icon} fa-xs`} />
+          </span>
+        )}
+        <select
+          value={value ?? ''}
+          onChange={e => onChange(e.target.value)}
+          disabled={disabled}
+          className={`${className ?? ''} ${
+            icon ? 'pl-8 pr-2 py-1' : 'px-2 py-1'
+          }`}
+        >
+          <option value='' hidden>
+            Please select an option
+          </option>
+          {options &&
+            options.map(option => (
+              <option key={option.value} value={option.value}>
+                {option.name}
+              </option>
+            ))}
+        </select>
+      </span>
     </div>
   )
 }
 
-export const FormSubmit = ({ children, icon, onClick, variant }) => {
+export const FormSubmit = ({ children, disabled, onClick }) => {
   return (
     <div className='col-span-full text-center'>
       <Button
+        // key={uuid()}
         type={!onClick ? 'submit' : 'button'}
-        variant={variant ?? 'primary'}
-        icon={icon ?? 'check'}
+        variant='primary'
+        icon='check'
         onClick={onClick}
         className='mx-auto'
+        disabled={disabled}
       >
         {children ?? 'Submit'}
       </Button>

@@ -1,55 +1,54 @@
 // Firebase
-import { addFirebaseDoc, createFirebaseUser, loginFirebaseUser, signOutFirebaseUser } from '../firebase/index'
+import { addFirebaseDoc, createFirebaseUser, signOutFirebaseUser, loginFirebaseUser } from '../firebase/index'
 import { auth } from '../firebase'
 
 // React
 import { useState } from 'react'
+
+// Next
+import { useRouter } from 'next/router'
 
 // Components
 import { Form, FormField, FormSubmit } from './Form'
 import Grid from './Grid'
 import Button from './Button'
 
-import { ToastContainer, toast } from 'react-toastify';
+// Context
+import { useAuthContext } from '../context/auth'
+
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
+
 export default () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const router = useRouter()
+  const [form, setForm] = useState({
+    email: 'harry-joevalente@live.co.uk',
+    password: 'chairy123',
+    saved_recipes: []
+  })
 
   const [error, setError] = useState(null)
 
   const [newAccount, setNewAccount] = useState(false)
 
-  const notify = (text) => toast(text);
-
-  const handleLogin = event => {
+  const handleLogin = async event => {
     event.preventDefault()
-
-    loginFirebaseUser( email, password)
-    // todo this .then doesnt run
-    .then((userCredential) => {
-      const user = userCredential.user;
-      console.log(user)
-      console.log('user')
-      notify('Logged in')
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorMessage)
-    });
-
+    await loginFirebaseUser(form.email, form.password)
+    
+    router.push('/templates')
   }
-  
-  const createAccount = event => {
+      // harry-joevalente@live.co.uk
+  const createAccount = async event => {
     event.preventDefault()
 
-    createFirebaseUser( email, password)
-    .then(async (userCred) => {
-      // const user = await addFirebaseDoc('users',)
-      console.log(userCred)
-      console.log('userCred')
+    await createFirebaseUser( form.email, form.password)
+    .then(async id => {
+      const data = { ...form, id }
+      setForm(data)
+      toast.info("Account created");
+      await addFirebaseDoc('users', data, id)
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -57,11 +56,11 @@ export default () => {
     });
   }
 
-  const signOut = event => {
+  const signOut = async event => {
     event.preventDefault()
 
-    signOutFirebaseUser()
-    notify('Signed out')
+    await signOutFirebaseUser()
+    router.reload()
   }
 
 
@@ -73,16 +72,16 @@ export default () => {
           <FormField
             autoFocus
             label='Email Address'
-            value={email}
+            value={form.email}
             inputMode='email'
-            onChange={e => setEmail(e)}
+            onChange={e => setForm(state => ({...state, email: e}))}
             className='text-black'
           />
           <FormField
             type='password'
             label='Password'
-            value={password}
-            onChange={e => setPassword(e)}
+            value={form.password}
+            onChange={e => setForm(state => ({...state, password: e}))}
             className='text-black'
           />
           <FormSubmit>Login to Chairy Cooks</FormSubmit>
@@ -100,16 +99,16 @@ export default () => {
           <FormField
             autoFocus
             label='Email Address'
-            value={email}
+            value={form.email}
             inputMode='email'
-            onChange={e => setEmail(e)}
+            onChange={e => setForm(state => ({...state, email: e}))}
             className='text-black'
           />
           <FormField
             type='password'
             label='Password'
-            value={password}
-            onChange={e => setPassword(e)}
+            value={form.password}
+            onChange={e => setForm(state => ({...state, password: e}))}
             className='text-black'
           />
           <FormSubmit>Create New Account</FormSubmit>
@@ -123,44 +122,7 @@ export default () => {
       </Form>}
 
       <button onClick={signOut}>Sign out</button>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
 
-      {/* <Form onSubmit={signOut} error={error}>
-        <Grid columns={2}>
-          <FormField
-            autoFocus
-            label='Email addy'
-            value={email}
-            inputMode='email'
-            onChange={e => setEmail(e)}
-            className='text-black'
-          />
-          <FormField
-            type='password'
-            label='Password'
-            value={password}
-            onChange={e => setPassword(e)}
-            className='text-black'
-          />
-          <FormSubmit>Create New Account</FormSubmit>
-          <Button
-          onClick={() => setNewAccount(state => !state)}
-          className='text-white'
-          >
-            Go back to Login
-          </Button>
-        </Grid>
-      </Form> */}
     </>
   )
 }

@@ -20,17 +20,19 @@ import { Widget, WidgetTitle, WidgetContent } from '../components/Widget'
 import { FormField, FormSelect, FormSubmit } from '../components/Form'
 
 import { uniqueId } from 'lodash'
+import { fetchSignInMethodsForEmail } from 'firebase/auth';
 
 export default ({ recipe: r }) => {
   const router = useRouter()
 
   const [form, setForm] = useForm()
   const [recipe, setRecipe] = useState({
-    ingredients: []
+    ingredients: [{}]
   })
 
   const [steps, setSteps] = useForm()
   const [ingredient, setIngredient] = useState([])
+  const [ingredientList, setIngredientList] = useState([])
   const [field, setField] = useForm()
 
   const [selectedChecks, setChecks] = useState([])
@@ -109,23 +111,17 @@ export default ({ recipe: r }) => {
   }
   
   const addFormIngredient = event => {
-      event.preventDefault()
-  
-      ingredient.push(form)
-      // setIngredient(form)
-      console.log(form)
-      console.log('form')
-      console.log(ingredient)
-      console.log('ingredient')
+    event.preventDefault()
 
-      // TODO Works on first run not second makes inner array so you have an array of arrays make array of objects
-      setRecipe({
-        ingredients: recipe.ingredients ? [...recipe.ingredients, ingredient] : ingredient
-      })
+    // TODO Works on first run not second makes inner array so you have an array of arrays make array of objects
+    // setRecipe({
+    //   ingredients: recipe.ingredients ? {...recipe.ingredients, ingredient} : ingredient
+    // })
 
-      setIngredient([])
+    setIngredientList([...ingredientList, ingredient])
+    setIngredient([])
   }
-
+    console.log(ingredientList)
   const addFormSteps = event => {
     event.preventDefault()
 
@@ -262,9 +258,9 @@ export default ({ recipe: r }) => {
             <WidgetContent>
               <form onSubmit={addFormIngredient}>
                 <Grid columns={1}>
-                  <FormField label='Ingredient' value={form.ingredient} onChange={e => setForm({ ingredient: e })} />
+                  <FormField label='Ingredient' value={ingredient} onChange={e => setIngredient(e)} />
                 </Grid>
-                <FormSubmit disabled={!form.ingredient}>Add Ingredient</FormSubmit>
+                <FormSubmit disabled={!ingredient}>Add Ingredient</FormSubmit>
               </form>
             </WidgetContent>
           </Widget>
@@ -327,19 +323,15 @@ export default ({ recipe: r }) => {
                     </span>
                     <span>
                       <Label text='ingredient' />
-                      {/* <p>{form.ingredient}</p> */}
-                      {/* Keep this bit here */}
-                      {/* TODO this is just messy */}
                       <Grid columns={1}>
                         <ul>
-                          {recipe.ingredients &&
-                            recipe.ingredients.map((ingredient, index) => {
+                          {ingredientList &&
+                            ingredientList.map((ingredient, index) => {
                               const id = uniqueId()
 
                               return (
-                                <li className={'flex flex-col h-24 items-center justify-center relative w-1/2'} >
-                                  {/* <p>{ingredient[0].ingredient}</p> */}
-                                  <p>{ingredient.ingredient}</p>
+                                <li className={'flex flex-col h-24 items-center justify-center relative w-1/2'} key={id}>
+                                  <p>{ingredient}</p>
                                 </li>
                               )
                             })}

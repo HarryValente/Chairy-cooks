@@ -21,19 +21,21 @@ import { FormField, FormSelect, FormSubmit } from '../components/Form'
 
 import { uniqueId } from 'lodash'
 
-export default ({ report: r }) => {
+export default ({ recipe: r }) => {
   const router = useRouter()
 
-  const [form, setForm] = useForm() // Report information/details
-  const [report, setReport] = useState({}) // Report Fields
+  const [form, setForm] = useForm()
+  const [recipe, setRecipe] = useState({
+    ingredients: []
+  })
 
-  const [category, setSteps] = useForm() // Temporary hold for creating categories
-  const [ingredient, setIngredient] = useForm() // Temporary hold for creating categories
-  const [field, setField] = useForm() // Temporary hold for creating fields
+  const [steps, setSteps] = useForm()
+  const [ingredient, setIngredient] = useState([])
+  const [field, setField] = useForm()
 
   const [selectedChecks, setChecks] = useState([])
 
-  // const [templates] = useFirebase([], '/report_templates/')
+  // const [templates] = useFirebase([], '/recipe_templates/')
 
   const RECIPE_CATEGORIES = [
     { name: 'Chicken', value: 'chicken' },
@@ -50,7 +52,7 @@ export default ({ report: r }) => {
     { name: 'Pork', value: 'pork' }
   ]
 
-  const REPORT_CHECKS = [
+  const recipe_CHECKS = [
     { name: 'Pass', value: 'pass' },
     { name: 'Defect', value: 'defect' },
     { name: 'Monitor', value: 'monitor' },
@@ -70,24 +72,24 @@ export default ({ report: r }) => {
 
     if (!existing) {
       // Create an object with the information and fields
-      const _report = {
+      const _recipe = {
         ...form,
-        fields: report,
+        fields: recipe,
         checks: selectedChecks
       }
 
-      await addFirebaseDoc('/report_templates/', _report)
+      await addFirebaseDoc('/recipe_templates/', _recipe)
 
       toast.success('Woo! That template went in with no problems')
     } else {
-      const _report = {
+      const _recipe = {
         id: r,
         ...form,
-        fields: report,
+        fields: recipe,
         checks: selectedChecks
       }
 
-      await updateFirebaseDoc('/report_templates/', r, _report)
+      await updateFirebaseDoc('/recipe_templates/', r, _recipe)
 
       toast.success('Wicked man! That template was updated')
     }
@@ -95,37 +97,56 @@ export default ({ report: r }) => {
     return router.push('/dashboard/templates')
   }
 
+  const addFormDetails = event => {
+    event.preventDefault()
+ 
+    setRecipe(state => ({
+      ...state,
+      details: form
+    }))
+
+    setForm(null)
+  }
+  
+  const addFormIngredient = event => {
+      event.preventDefault()
+  
+      ingredient.push(form)
+      // setIngredient(form)
+      console.log(form)
+      console.log('form')
+      console.log(ingredient)
+      console.log('ingredient')
+
+      // TODO Works on first run not second makes inner array so you have an array of arrays make array of objects
+      setRecipe({
+        ingredients: recipe.ingredients ? [...recipe.ingredients, ingredient] : ingredient
+      })
+
+      setIngredient([])
+  }
+
   const addFormSteps = event => {
     event.preventDefault()
 
-    setReport(state => {
-      return { ...state, [category.id]: { name: category.name, id: category.id, fields: [] } }
+    setRecipe(state => {
+      return { ...state, [steps.id]: { name: steps.name, id: steps.id, fields: [] } }
     })
 
     setSteps({ id: null, name: null })
   }
 
-  const addFormIngredient = event => {
-    event.preventDefault()
-
-    setReport(state => {
-      return { ...state, ingredient: ingredient.name }
-    })
-
-    setIngredient({ name: null })
-  }
-
   const addFieldToCategory = event => {
     event.preventDefault()
 
-    setReport(state => {
+    setRecipe(state => {
       return {
         ...state,
         [field.category_id]: {
           ...state[field.category_id],
           fields: [
             ...state[field.category_id].fields,
-            { id: field.id ?? null, im_code: field.im_code ?? null, status: null }
+            { id: field.id ?? null, status: null }
           ]
         }
       }
@@ -135,7 +156,7 @@ export default ({ report: r }) => {
   }
 
   const setFieldStatus = (category_id, field_id, status) => {
-    setReport(state => {
+    setRecipe(state => {
       return {
         ...state,
         [category_id]: {
@@ -160,189 +181,207 @@ export default ({ report: r }) => {
 
   // Auto generate Category ID
   useEffect(() => {
-    if (category.name) {
-      setSteps({ id: category.name.replaceAll(' ', '-').toLowerCase() })
+    if (steps.name) {
+      setSteps({ id: steps.name.replaceAll(' ', '-').toLowerCase() })
     }
-  }, [category.name])
+  }, [steps.name])
 
-  // Place Report details if existing
+  // Place recipe details if existing
   useEffect(async () => {
     if (r) {
-      const _report = await getFirebaseDoc('/report_templates/', r)
+      const _recipe = await getFirebaseDoc('/recipe_templates/', r)
 
       setForm({
         id: r,
-        name: _report.name,
-        desc: _report.desc,
-        category: _report.category,
-        type: _report.type
+        name: _recipe.name,
+        desc: _recipe.desc,
+        steps: _recipe.steps,
+        type: _recipe.type
       })
 
-      setReport(_report.fields)
+      setRecipe(_recipe.fields)
 
-      setChecks(_report.checks)
+      setChecks(_recipe.checks)
     }
   }, [r])
 
   return (
     <>
- 
       <Button variant='action' onClick={() => handleSubmit()}>
         {!r ? 'Add' : 'Update'} Recipe Template
       </Button>
 
-      <Grid columns={2} className='mb-8'>
-          <div>
+      <Grid columns={2} className='bg-gray-100 p-4 rounded text-xs'>
+        <div>
             <Grid columns={1}>
               <Widget>
                 <WidgetTitle icon='file-lines'>Recipe Details</WidgetTitle>
                 <WidgetContent>
-                  <Grid columns={1}>
-                    <FormField label='Name' value={form.name} onChange={e => setForm({ name: e })} />
-                    <FormField label='Description' value={form.desc} onChange={e => setForm({ desc: e })} />
-                    <Grid columns={2}>
-                      <FormSelect
-                        label='Type'
-                        value={form.type}
-                        onChange={e => setForm({ type: e })}
-                        options={RECIPE_DIFFICULTY}
-                      />
-                      <FormSelect
-                        label='Category'
-                        value={form.category}
-                        onChange={e => setForm({ category: e })}
-                        options={RECIPE_CATEGORIES}
-                      />
+                  <form onSubmit={addFormDetails}>
+                    <Grid columns={1}>
+                      <FormField label='Name' value={form.name} onChange={e => setForm({ name: e })} /> 
+                      <FormField label='Description' value={form.desc} onChange={e => setForm({ desc: e })} /> 
+                      <Grid columns={2}>
+                        <FormSelect
+                          label='Type'
+                          value={form.type}
+                          onChange={e => setForm({ type: e })}
+                          options={RECIPE_DIFFICULTY}
+                        />
+                        <FormSelect
+                          label='Category'
+                          value={form.steps}
+                          onChange={e => setForm({ steps: e })}
+                          options={RECIPE_CATEGORIES}
+                        />
+                      </Grid>
                     </Grid>
-                  </Grid>
+                    <FormSubmit disabled={!form}>Add Details</FormSubmit>
+                  </form>
                 </WidgetContent>
               </Widget>
             </Grid>
-          </div>
-          <div>
-            <Widget>
-              <WidgetTitle icon='folder-tree'>Steps</WidgetTitle>
-              <WidgetContent>
-                <form onSubmit={addFormSteps}>
-                  <Grid columns={2}>
-                    <FormField label='Name' value={category.name} onChange={e => setSteps({ name: e })} />
-                    <FormField label='ID' value={category.id} disabled />
-                  </Grid>
-                  <FormSubmit disabled={!category.name || !category.id}>Add A Step</FormSubmit>
-                </form>
-              </WidgetContent>
-            </Widget>
-          </div>
-          <div>
-            <Widget>
-              <WidgetTitle icon='folder-tree'>Ingredients</WidgetTitle>
-              <WidgetContent>
-                <form onSubmit={addFormIngredient}>
-                  {JSON.stringify(category.ingredient)}
-                  <Grid columns={2}>
-                    <FormField label='Ingredient' value={category.ingredient} onChange={e => setIngredient({ ingredient: e })} />
-                  </Grid>
-                  <FormSubmit disabled={!category.ingredient || !category.id}>Add Ingredient</FormSubmit>
-                  {/* <FormField label='Step Instructions' value={field.id} onChange={e => setField({ id: e })} /> */}
-                </form>
-              </WidgetContent>
-            </Widget>
-          </div>
-          <div>
-            <Widget>
-              <WidgetTitle icon='list-tree'>Fields</WidgetTitle>
-              <WidgetContent>
-                <form onSubmit={addFieldToCategory}>
-                  <Grid columns={2}>
-                    <FormSelect
-                      label='Category'
-                      value={field.category_id}
-                      onChange={e => setField({ category_id: e })}
-                      options={
-                        report &&
-                        Object.values(report).map(report => {
-                          return {
-                            name: report.name,
-                            value: report.id
-                          }
-                        })
-                      }
-                    />
-                    <FormField label='Step Instructions' value={field.id} onChange={e => setField({ id: e })} />
-                  </Grid>
-                  <FormSubmit disabled={!field.id || !field.category_id}>Add Instructions</FormSubmit>
-                </form>
-              </WidgetContent>
-            </Widget>
-          </div>
-        </Grid>
-        <Widget className='col-span-2 mt-8'>
-          <WidgetTitle icon='eye'>Preview</WidgetTitle>
-          <WidgetContent>
-            <Grid columns={2}>
-              <div className='border p-2 rounded'>
+        </div>
+        <div>
+          <Widget>
+            <WidgetTitle icon='folder-tree'>Steps</WidgetTitle>
+            <WidgetContent>
+              <form onSubmit={addFormSteps}>
+                <Grid columns={2}>
+                  <FormField label='Name' value={steps.name} onChange={e => setSteps({ name: e })} />
+                  <FormField label='ID' value={steps.id} disabled />
+                </Grid>
+                <FormSubmit disabled={!steps.name || !steps.id}>Add A Step</FormSubmit>
+              </form>
+            </WidgetContent>
+          </Widget>
+        </div>
+        <div>
+          <Widget>
+            <WidgetTitle icon='folder-tree'>Ingredients</WidgetTitle>
+            <WidgetContent>
+              <form onSubmit={addFormIngredient}>
                 <Grid columns={1}>
-                <Image 
-                  src='/ad-placeholder.png'
-                  width={85} 
-                  height={585} 
-                />
-                  <span>
-                    <Label text='Name' />
-                    <p>{form.name}</p>
-                  </span>
+                  <FormField label='Ingredient' value={form.ingredient} onChange={e => setForm({ ingredient: e })} />
                 </Grid>
-              </div>
-              <div className='border p-2 rounded'>
-                <Grid columns={1} className='text-center p-2 rounded gap-18 text-xs'>
-                  <span className='top-24'>
-                    <Label text='Description' />
-                    <p>{form.desc}</p>
-                  </span>
-                  <span>
-                    <Label text='Difficulty' />
-                    <p>{form.type}</p>
-                  </span>
-                  <span>
-                    <Label text='ingredient' />
-                    <p>{form.ingredient}</p>
-                  </span>
-                  <span>
-                    <Label text='Category' />
-                    <p>{form.category}</p>
-                  </span>
+                <FormSubmit disabled={!form.ingredient}>Add Ingredient</FormSubmit>
+              </form>
+            </WidgetContent>
+          </Widget>
+        </div>
+        <div>
+          <Widget>
+            <WidgetTitle icon='list-tree'>Fields</WidgetTitle>
+            <WidgetContent>
+              <form onSubmit={addFieldToCategory}>
+                <Grid columns={2}>
+                  <FormSelect
+                    label='Category'
+                    value={field.category_id}
+                    onChange={e => setField({ category_id: e })}
+                    options={
+                      recipe &&
+                      Object.values(recipe).map(recipe => {
+                        return {
+                          name: recipe.name,
+                          value: recipe.id
+                        }
+                      })
+                    }
+                  />
+                  <FormField label='Step Instructions' value={field.id} onChange={e => setField({ id: e })} />
                 </Grid>
-              </div>
-              <div className='border p-2 rounded'>
-                <Grid columns={1} className='text-center p-2 rounded gap-18 text-xs'>
-                  <Label text='Ingredients'/>
-                </Grid>
-              </div>
-              {Object.values(report).map((report, index) => {
-                return (
-                  <div key={index} className='border p-2 rounded'>
-                    <Label text={report.name} />
-                    <Grid columns={1}>
-                      <ul>
-                        {report &&
-                          report.fields.map((field, index) => {
-                            const id = uniqueId()
+                <FormSubmit disabled={!field.id || !field.category_id}>Add Instructions</FormSubmit>
+              </form>
+            </WidgetContent>
+          </Widget>
+        </div>
+      </Grid>
+      <div className='bg-gray-100 mt-4 p-4 rounded text-xs'>
+          <Widget className='col-span-2'>
+            <WidgetTitle icon='eye'>Preview</WidgetTitle>
+            <WidgetContent>
+              <Grid columns={2}>
+                <div className='border p-2 rounded'>
+                  <Grid columns={1}>
+                  <Image 
+                    src='/ad-placeholder.png'
+                    width={85} 
+                    height={585} 
+                  />
+                    <span>
+                      <Label text='Name' />
+                      <p>{form.name}</p>
+                    </span>
+                  </Grid>
+                </div>
+                <div className='border p-2 rounded'>
+                  <Grid columns={1} className='text-center p-2 rounded gap-18 text-xs'>
+                    <span className='top-24'>
+                      <Label text='Description' />
+                      <p>{form.desc}</p>
+                    </span>
+                    <span>
+                      <Label text='Difficulty' />
+                      <p>{form.type}</p>
+                    </span>
+                    <span>
+                      <Label text='ingredient' />
+                      {/* <p>{form.ingredient}</p> */}
+                      {/* Keep this bit here */}
+                      {/* TODO this is just messy */}
+                      <Grid columns={1}>
+                        <ul>
+                          {recipe.ingredients &&
+                            recipe.ingredients.map((ingredient, index) => {
+                              const id = uniqueId()
 
-                            return (
-                              <li className={'flex flex-col h-24 items-center justify-center relative w-1/2'} >
-                                <p>{field.id}</p>
-                              </li>
-                            )
-                          })}
-                      </ul>
-                    </Grid>
-                  </div>
-                )
-              })}
-            </Grid>
-          </WidgetContent>
-        </Widget>
-      {/* </Grid> */}
+                              return (
+                                <li className={'flex flex-col h-24 items-center justify-center relative w-1/2'} >
+                                  {/* <p>{ingredient[0].ingredient}</p> */}
+                                  <p>{ingredient.ingredient}</p>
+                                </li>
+                              )
+                            })}
+                        </ul>
+                      </Grid>
+                    </span>
+                    <span>
+                      <Label text='Category' />
+                      <p>{form.steps}</p>
+                    </span>
+                  </Grid>
+                </div>
+                <div className='border p-2 rounded'>
+                  <Grid columns={1} className='text-center p-2 rounded gap-18 text-xs'>
+                    <Label text='Ingredients'/>
+                  </Grid>
+                </div>
+                {Object.values(recipe).map((recipe, index) => {
+                  return (
+                    <div key={index} className='border p-2 rounded'>
+                      <Label text={recipe.name} />
+                      <Grid columns={1}>
+                        <ul>
+                          {recipe.fields &&
+                            recipe.fields.map((field, index) => {
+                              const id = uniqueId()
+
+                              return (
+                                <li className={'flex flex-col h-24 items-center justify-center relative w-1/2'} >
+                                  <p>{field.id}</p>
+                                </li>
+                              )
+                            })}
+                        </ul>
+                      </Grid>
+                    </div>
+                  )
+                })}
+              </Grid>
+            </WidgetContent>
+          </Widget>
+      </div>
     </>
   )
 }

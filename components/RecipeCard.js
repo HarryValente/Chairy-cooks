@@ -25,7 +25,7 @@ export default function RecipeCard({recipe}) {
         <p>Italian, Vegetarian, Light</p>
         <h1>{title}</h1>
         <h4>Super thick blueberry banana smoothies are a breeze to whip up for a morning on the go. This recipe can be made with or without dairy pick whichever version works best for you!</h4>
-        <Link href={'/recipes/' + slug}>
+        <Link href={'/recipe/' + slug}>
             <h5>Full recipe</h5>
         </Link>
         <Button className={'absolute bottom-0 left-0'} onClick={card => saveRecipeToLS(card)}>
@@ -41,7 +41,7 @@ export default function RecipeCard({recipe}) {
           </Button>
         </div>
         <div className="actions">
-          <Link href={'/recipes/' + slug}>
+          <Link href={'/recipe/' + slug}>
             <a>Cook this</a>
           </Link>
         </div>

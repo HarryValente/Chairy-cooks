@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 
 // Hooks
 import useForm from '../hooks/useForm'
+import useFirebase from '../hooks/useFirebase'
 
 // Next
 import { useRouter } from 'next/router'
@@ -37,7 +38,7 @@ export default ({ recipe: r }) => {
 
   const [selectedChecks, setChecks] = useState([])
 
-  // const [templates] = useFirebase([], '/recipe_templates/')
+  const [templates] = useFirebase([], '/recipe_templates/')
 
   const RECIPE_CATEGORIES = [
     { name: 'Chicken', value: 'chicken' },
@@ -79,21 +80,24 @@ export default ({ recipe: r }) => {
         fields: recipe,
         checks: selectedChecks
       }
-
       await addFirebaseDoc('/recipe_templates/', _recipe)
 
-      toast.success('Woo! That template went in with no problems')
+      // toast.success('Woo! That template went in with no problems')
     } else {
       const _recipe = {
         id: r,
         ...form,
         fields: recipe,
-        checks: selectedChecks
+        checks: selectedChecks,
+        ingredients: ingredientList  
       }
+
+      console.log(_recipe)
+      console.log('_recipe')
 
       await updateFirebaseDoc('/recipe_templates/', r, _recipe)
 
-      toast.success('Wicked man! That template was updated')
+      // toast.success('Wicked man! That template was updated')
     }
 
     return router.push('/dashboard/templates')
@@ -121,7 +125,7 @@ export default ({ recipe: r }) => {
     setIngredientList([...ingredientList, ingredient])
     setIngredient([])
   }
-    console.log(ingredientList)
+
   const addFormSteps = event => {
     event.preventDefault()
 

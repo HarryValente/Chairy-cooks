@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 
 // Context
-import { useAuthContext } from '@/context/auth'
+import { useAuthContext } from '../context/auth'
 
 // Firebase
 import { addFirebaseDoc, getFirebaseDocs, updateFirebaseDoc } from '../firebase/index'

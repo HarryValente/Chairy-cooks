@@ -11,8 +11,7 @@ import useFirebase from '../../hooks/useFirebase';
 
 export default () => {
   const [templates] = useFirebase([], '/recipe_templates/')
-console.log(templates)
-console.log('templates')
+
   return (
     <>
       <Link href='/templates/new'>

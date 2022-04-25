@@ -12,6 +12,9 @@ import Advert from "../components/Advert";
 import MainIngrdientsTile from "../components/MainIngredientsTile";
 import Grid from "../components/Grid";
 
+// Hooks
+import useFirebase from '../hooks/useFirebase';
+
 export async function getStaticProps() {
   // Link to contentful with API-Key / process.env is in the .env.local file for github concerns
   const client = createClient({
@@ -30,13 +33,13 @@ export async function getStaticProps() {
 // const [recipeHead, setRecipeHead] = useState
 
 export default function Recipes({recipes}) {
+  const [recipe] = useFirebase([], '/recipe_templates/')
+
   return (
     <>
       {/* <div className="featured-container"> */}
         <Grid columns={3} className='col-span-full'>
-          <FeaturedRecipe />
-          <FeaturedRecipe />
-          <FeaturedRecipe />
+          <FeaturedRecipe recipes={recipe}/>
         </Grid>
       {/* </div> */}
 

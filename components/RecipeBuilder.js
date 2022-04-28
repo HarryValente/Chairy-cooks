@@ -90,9 +90,9 @@ export default ({ recipe: r }) => {
         checks: selectedChecks
       }
 
-      // await addFirebaseDoc('/recipe_templates/', _recipe)
+      await addFirebaseDoc('/recipe_templates/', _recipe)
 
-      // toast.success('Woo! That template went in with no problems')
+      toast.success('Woo! That template went in with no problems')
     } else {
       const _recipe = {
         id: r,
@@ -104,7 +104,7 @@ export default ({ recipe: r }) => {
         tags: tagList  
       }
 
-      // await updateFirebaseDoc('/recipe_templates/', r, _recipe)
+      await updateFirebaseDoc('/recipe_templates/', r, _recipe)
 
       // toast.success('Wicked man! That template was updated')
     }
@@ -336,19 +336,9 @@ export default ({ recipe: r }) => {
                 <p>{recipe.details ? recipe.details.category : ''}</p>
               </div>
               <div className="cooking-info">
-                <p>Takes approx { recipe.details ? recipe.details.difficulty : '' } mins to cook.</p>
-                <div className="rating">
-                  <p>Rating:</p>
-                  <ul className="rating-list">
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStar} />
-                  </ul>
-                </div>
-                <p>Notes Read 141 community space.</p>
-                <div className='flex'>
+                <p>Takes approx 20 mins to cook.</p>
+                <p>{ recipe.details ? recipe.details.difficulty : '' }</p>
+                <div className='flex justify-center'>
                   {recipe.tags &&
                     recipe.tags.map((tag, index) => {
                       return (

@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 export default (key, initial) => {
-  console.log(key, initial)
   const [stored, setStored] = useState(() => {
     if (typeof window === 'undefined') {
       return initial

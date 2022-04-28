@@ -28,7 +28,6 @@ export const getStaticPaths = async () => {
     content_type: 'recipe'
   })
   const paths = res.items.map(item => {
-    console.log(item.fields.slug)
     return {
       params: {slug: item.fields.slug}
     }

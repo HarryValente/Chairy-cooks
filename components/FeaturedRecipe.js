@@ -18,9 +18,6 @@ export default ({recipes: data}) => {
     }
   }, [data])
 
-  console.log(recipe)
-  console.log('recipe')
-
   return (
     <>
       {recipe &&

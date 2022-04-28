@@ -35,7 +35,7 @@ export default ({}) => {
 
   const [_user] = useLocalStorage('_user')
 
-  const [report, set] = useState()
+  const [recipe, set] = useState()
   const [templates] = useFirebase([], '/recipe_templates/')
 
   const setFieldStatus = (category_id, field_id, status) => {
@@ -61,12 +61,12 @@ export default ({}) => {
     }
   }, [router, templates])
 
-  console.log(report)
-  console.log('report123')
+  console.log(recipe)
+  console.log('recipe')
   return (
     <ProtectedRoute>
       <>
-        {report && (
+        {recipe && (
           <>
             <div>
               <div className="banner">
@@ -75,50 +75,65 @@ export default ({}) => {
                     width={650}
                     height={650}
                   />
-                  <h2>{ report.name }</h2>
+                  <h2>{ recipe.name }</h2>
 
                   <div className="info">
                     <div className="description">
-                      <p>{report.desc}</p>
+                      <p>{recipe.desc}</p>
                     </div>
                     <div className="cooking-info">
-                      <p>Takes about { report.type } mins to cook.</p>
-                      <div className="rating">
-                        <p>Rating:</p>
-                        <ul className="rating-list">
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-                          <FontAwesomeIcon icon={faStar} />
-                        </ul>
+                      <p>Takes approx 20 mins to cook.</p>
+                      <p>{ recipe.fields.details ? recipe.fields.details.difficulty : '' }</p>
+                      <div className='flex justify-center'>
+                        {recipe.fields.tags &&
+                          recipe.fields.tags.map((tag, index) => {
+                            return (
+                              <p key={index}>{tag}, </p>
+                            )
+                          })
+                        }
                       </div>
-                      <p>Notes Read 141 community space.</p>
                     </div>
                   </div>
               </div>
 
               <div className="line-break"></div>
 
-              <div className="cooking-content">
-                  <div className="ingredients">
-                    <h3>Ingredients:</h3>
+              <div className="flex items-start justify-around w-full ">
+                <div className="w-4/12 h-1/2 p-5 ">
+                  <h3 className="mb-8">Ingredients:</h3>
+                  <ul>
+                    {recipe.fields.ingredients &&
+                      recipe.fields.ingredients.map((ingredient, index) => {
+                        return (
+                          <li className={'flex flex-col m-1 h-8 items-left justify-left relative w-full'} key={index}>
+                            <p>○ {ingredient}</p>
+                          </li>
+                        )
+                      })}
+                  </ul>
+                </div>
 
-                    {/* {ingredients.map(ing => (
-                      <ul className="ingredients-list">
-                        <li key={ing}>{ing}</li>
-                      </ul>
-                    ))} */}
-                  </div>
+                <div className="ad">
+                    ADVERT
+                </div>
 
-                  <div className="ad">
-                      ADVERT
-                  </div>
-
-                  <div className="method-container">
-                    <h3>Method:</h3>
-                    {/* <div className="method">{documentToReactComponents(method)}</div> */}
-                  </div>
+                {/* <div className="w-1/2"> */}
+                <div className="method-container">
+                  <h3 className='mb-8'>Method:</h3>
+                  <ul>
+                    {recipe.fields.steps &&
+                      recipe.fields.steps.map((step, index) => {
+                        return (
+                          <li className={'flex flex-col items-center justify-center relative w-full'} key={index}>
+                            <h1>{step.name}</h1>
+                            <p>{step.instruction}</p>
+                          </li>
+                        )
+                      })
+                    }
+                  </ul>
+                </div>
               </div>
 
               <h1 className="similar-title">Similar recipes</h1>
@@ -198,36 +213,14 @@ export default ({}) => {
                   .description{
                     text-align: center;
                   }
-                  .cooking-content{
-                    display: flex;
-                    align-items: flex-start;
-                    justify-content: space-around;
-                    width: 100%;
-                  }
-                  .ingredients{
-                    width: 30%;
-                    height: 50%;
-                    padding: 20px;
-                    font-size: 20px;
-                  }
-                  .ingredients h3{
-                    margin-bottom: 25px;
-                  }
-                  .ingredients-list{
-                    list-style-type: '-';
-                    margin-top: 6px;
-                  }
                   .ad{
                     display: none;
                   }
                   .method-container{
                     width: 70%;
-                    font-size: 20px;
+                    // font-size: 20px;
                   }
-                  .method-container h3{
-                    margin-bottom: 25px;
-                    margin: 20px;
-                  }
+                  
                   .method{
                     margin: 20px;
                   }

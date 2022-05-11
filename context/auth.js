@@ -1,5 +1,5 @@
 // React
-import { createContext, FC, useContext, useEffect, useState } from 'react'
+import { createContext, FC, useCallback, useContext, useEffect, useState } from 'react'
 
 // Next
 import { useRouter } from 'next/router'
@@ -85,7 +85,7 @@ const getAuth = () => {
           await handle(response.user)
           setLocalStorage(response.user.uid)
           resolve()
-          router.push('/')
+          // router.push('/')
           return setLoading(false)
         })
         .catch(error => {
@@ -96,14 +96,14 @@ const getAuth = () => {
     })
   }
 
-  const logout = () => {
-    signOut(authentication).then(() => {
-      toast.success('Logged out successfully')
-      router.push('/')
-    })
-
-    return router.reload()
-  }
+  const logout = useCallback(async () => {
+    await signOut(authentication)
+    await handle()
+    toast.success('Logged out successfully')
+    setLoading(false)
+    return router.push('/')
+    // return router.reload()
+  })
 
   useEffect(async () => {
     const fn = await onAuthStateChanged(authentication, user => handle(user))

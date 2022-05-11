@@ -12,20 +12,14 @@ import Image from "next/image";
 // Firebase
 import { addFirebaseDoc } from '../firebase/index'
 
-// Fontawesome
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee, faStar } from '@fortawesome/free-solid-svg-icons'
-
 // Components
 import Button from '../components/Button'
-import Checkbox from '../components/Checkbox'
 import Grid from '../components/Grid'
 import Label from '../components/Label'
 import { Widget, WidgetTitle, WidgetContent } from '../components/Widget'
 import { FormField, FormSelect, FormSubmit } from '../components/Form'
 
 import { find, uniqueId } from 'lodash'
-import { fetchSignInMethodsForEmail } from 'firebase/auth';
 
 export default ({ recipe: r }) => {
   const router = useRouter()
@@ -34,6 +28,7 @@ export default ({ recipe: r }) => {
   const [recipe, setRecipe] = useState({
     ingredients: [],
     tags: [],
+    author: [],
     steps: []
   })
 
@@ -44,6 +39,7 @@ export default ({ recipe: r }) => {
   const [ingredientList, setIngredientList] = useState([])
   const [stepsList, setStepsList] = useState([])
   const [tag, setTag] = useState([])
+  const [author, setAuthor] = useState([])
   const [tagList, setTagList] = useState([])
   const [logo, setLogo] = useState(null)
   const [instruction, setInstruction] = useForm()
@@ -51,11 +47,6 @@ export default ({ recipe: r }) => {
   const [selectedChecks, setChecks] = useState([])
 
   const [templates] = useFirebase([], '/recipe_templates/')
-
-  console.log(recipe)
-  console.log('recipe')
-  console.log(form)
-  console.log('form')
 
   const RECIPE_CATEGORIES = [
     { name: 'Chicken', value: 'chicken' },
@@ -143,6 +134,13 @@ export default ({ recipe: r }) => {
     setRecipe({...recipe, tags:[...recipe.tags, tag ]})
     setTag([])
   }
+
+  const addFormAuthor = event => {
+    event.preventDefault()
+    
+    setRecipe({...recipe, author:[ author ]})
+    setAuthor([])
+  }
   
   const addFormSteps = event => {
     event.preventDefault()
@@ -207,6 +205,9 @@ export default ({ recipe: r }) => {
     }
   }, [r])
 
+  console.log(recipe)
+  console.log('recipe')
+
   return (
     <>
       <Button variant='action' onClick={() => handleSubmit()}>
@@ -222,6 +223,7 @@ export default ({ recipe: r }) => {
                 <Grid columns={1}>
                   <FormField label='Name' value={form.name} onChange={e => setForm({ name: e })} /> 
                   <FormField label='Description' value={form.desc} onChange={e => setForm({ desc: e })} /> 
+                  <FormField label='Time' type='number' value={form.time} onChange={e => setForm({ time: e })} /> 
                   <Grid columns={2}>
                     <FormSelect
                       label='Difficulty'
@@ -253,6 +255,30 @@ export default ({ recipe: r }) => {
           >
             {logo ? `${logo.name}` : 'No file selected (.png)'}
           </div>
+        </Widget>
+
+        <Widget>
+          <WidgetTitle icon='folder-tree'>Author</WidgetTitle>
+          <WidgetContent>
+            <form onSubmit={addFormAuthor}>
+              <Grid columns={1}>
+                <FormField label='Recipe author' value={author} onChange={e => setAuthor(e)} />
+              </Grid>
+              <FormSubmit disabled={!author}>Add Author</FormSubmit>
+            </form>
+          </WidgetContent>
+        </Widget>
+
+        <Widget>
+          <WidgetTitle icon='folder-tree'>Similar recipes HAVE THIS A DROPDOWN FOR ALL PREVIOUS RECIPES</WidgetTitle>
+          <WidgetContent>
+            <form onSubmit={addFormTag}>
+              <Grid columns={1}>
+                <FormField label='Recipe tags' value={tag} onChange={e => setTag(e)} />
+              </Grid>
+              <FormSubmit disabled={!tag}>Add tag</FormSubmit>
+            </form>
+          </WidgetContent>
         </Widget>
 
         <Widget>
@@ -333,6 +359,7 @@ export default ({ recipe: r }) => {
             <div className="info">
               <div className="description">
                 <p>{recipe.details ? recipe.details.desc : ''}</p>
+                <p>{recipe.details ? recipe.details.time : ''}</p>
                 <p>{recipe.details ? recipe.details.category : ''}</p>
               </div>
               <div className="cooking-info">
@@ -386,7 +413,11 @@ export default ({ recipe: r }) => {
                   })
                 }
               </ul>
-              {/* <div className="method">{documentToReactComponents(method)}</div> */}
+              {recipe.author && (
+                <Grid columns={4}>
+                  <h1>{recipe.author}</h1>
+                </Grid>
+              )}
               </div>
           </div>
 

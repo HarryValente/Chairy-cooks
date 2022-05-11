@@ -1,7 +1,11 @@
+import { useAuthContext } from "../context/auth";
 import Link from 'next/link'
 import Footer from './Footer'
 
 export default function Layout({ children }) {
+  const { user } = useAuthContext()
+  console.log(user)
+  console.log('user')
   return (
     <div className="layout">
       <header>
@@ -13,13 +17,25 @@ export default function Layout({ children }) {
           </a>
         </Link>
 
-        <Link href="/profile">
-          <div className='loginContainer'>
-            <a>
-              Login
-            </a>
-          </div>
-        </Link>
+        {user ? (
+          <>
+            <Link href="/profile">
+              <div className='loginContainer'>
+                <a>
+                  Profile
+                </a>
+              </div>
+            </Link>
+          </>
+        ) : (
+          <Link href="/login">
+            <div className='loginContainer'>
+              <a>
+                Login
+              </a>
+            </div>
+          </Link>
+        )}
 
       </header>
 

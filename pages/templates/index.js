@@ -15,9 +15,7 @@ export default () => {
   return (
     <>
       <Link href='/templates/new'>
-        <a>
-          <Button variant='action'>Add Template</Button>
-        </a>
+        <Button variant='action' children={'Add new template'} />
       </Link>
 
       <TemplateList templates={templates} />

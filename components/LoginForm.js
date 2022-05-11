@@ -18,8 +18,7 @@ import { useAuthContext } from '../context/auth'
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
+import { Widget, WidgetTitle } from './Widget'
 
 export default () => {
   const router = useRouter()
@@ -29,15 +28,24 @@ export default () => {
     saved_recipes: []
   })
 
+  const { login, logout} = useAuthContext()
   const [error, setError] = useState(null)
 
   const [newAccount, setNewAccount] = useState(false)
 
   const handleLogin = async event => {
     event.preventDefault()
-    await loginFirebaseUser(form.email, form.password)
-    
-    router.push('/templates')
+
+    // await loginFirebaseUser(form.email, form.password)
+    login(form.email, form.password).catch(error => setError(error))
+    router.push('/profile')
+  }
+
+  const handleLogout = async e => {
+    e.preventDefault()
+
+    await logout()
+    await router.reload()
   }
       // harry-joevalente@live.co.uk
   const createAccount = async event => {
@@ -56,19 +64,13 @@ export default () => {
     });
   }
 
-  const signOut = async event => {
-    event.preventDefault()
-
-    await signOutFirebaseUser()
-    router.reload()
-  }
-
-
   return (
-    <>
+
+    <Widget>
       {!newAccount &&
       <Form onSubmit={handleLogin} error={error}>
-        <Grid columns={2}>
+        <WidgetTitle icon='file-lines'>Login</WidgetTitle>
+        <Grid columns={1}>
           <FormField
             autoFocus
             label='Email Address'
@@ -95,6 +97,7 @@ export default () => {
   
       {newAccount && 
       <Form onSubmit={createAccount} error={error}>
+        <WidgetTitle icon='file-lines'>Create New Account</WidgetTitle>
         <Grid columns={2}>
           <FormField
             autoFocus
@@ -120,9 +123,6 @@ export default () => {
           </Button>
         </Grid>
       </Form>}
-
-      <button onClick={signOut}>Sign out</button>
-
-    </>
+    </Widget>
   )
 }

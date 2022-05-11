@@ -20,6 +20,7 @@ import { faCoffee, faStar } from '@fortawesome/free-solid-svg-icons'
 import Layout from '../../components/Layout'
 import ProtectedRoute from '../../components/ProtectedRoute'
 import Grid from '../../components/Grid'
+import SEO from '../../components/SEO'
 import Button from '../../components/Button'
 import Label from '../../components/Label'
 import Page from '../../components/Page'
@@ -53,88 +54,87 @@ export default ({}) => {
   useEffect(async () => {
     if (router.query.id) {
       const _report = await getFirebaseDoc('recipe_templates/', router.query.id)
-      // const _template = templates.find(t => t.name == _report.report_code)
       const _template = templates.find(t => t.id == _report.id)
 
       if (_report && _template)
         set({ ..._report, template: _template })
     }
   }, [router, templates])
-
-  console.log(recipe)
-  console.log('recipe')
+console.log(recipe)
+console.log('recipe')
   return (
     <ProtectedRoute>
       <>
         {recipe && (
           <>
-            <div>
-              <div className="banner">
-                  <Image 
+            <SEO recipeDetails={recipe}/>
+            <Grid columns={2}>
+              <div className='image-container'>
+                <Image 
                     src={'/ad-placeholder.png'}
                     width={650}
                     height={650}
-                  />
-                  <h2>{ recipe.name }</h2>
-
-                  <div className="info">
-                    <div className="description">
-                      <p>{recipe.desc}</p>
-                    </div>
-                    <div className="cooking-info">
-                      <p>Takes approx 20 mins to cook.</p>
-                      <p>{ recipe.fields.details ? recipe.fields.details.difficulty : '' }</p>
-                      <div className='flex justify-center'>
-                        {recipe.fields.tags &&
-                          recipe.fields.tags.map((tag, index) => {
-                            return (
-                              <p key={index}>{tag}, </p>
-                            )
-                          })
-                        }
-                      </div>
-                    </div>
-                  </div>
+                />
+                <h2>{ recipe.name }</h2>
               </div>
-
-              <div className="line-break"></div>
-
-              <div className="flex items-start justify-around w-full ">
-                <div className="w-4/12 h-1/2 p-5 ">
-                  <h3 className="mb-8">Ingredients:</h3>
-                  <ul>
-                    {recipe.fields.ingredients &&
-                      recipe.fields.ingredients.map((ingredient, index) => {
-                        return (
-                          <li className={'flex flex-col m-1 h-8 items-left justify-left relative w-full'} key={index}>
-                            <p>○ {ingredient}</p>
-                          </li>
-                        )
-                      })}
-                  </ul>
+              <div className="info">
+                <div className="description">
+                  <p>{recipe.desc}</p>
                 </div>
-
-                <div className="ad">
-                    ADVERT
-                </div>
-
-                {/* <div className="w-1/2"> */}
-                <div className="method-container">
-                  <h3 className='mb-8'>Method:</h3>
-                  <ul>
-                    {recipe.fields.steps &&
-                      recipe.fields.steps.map((step, index) => {
+                <div className="cooking-info">
+                  <p>Takes approx 20 mins to cook.</p>
+                  <p>{ recipe.fields.details ? recipe.fields.details.difficulty : '' }</p>
+                  <div className='flex justify-center'>
+                    {recipe.fields.tags &&
+                      recipe.fields.tags.map((tag, index) => {
                         return (
-                          <li className={'flex flex-col items-center justify-center relative w-full'} key={index}>
-                            <h1>{step.name}</h1>
-                            <p>{step.instruction}</p>
-                          </li>
+                          <p key={index}>{tag}, </p>
                         )
                       })
                     }
-                  </ul>
+                  </div>
                 </div>
               </div>
+            </Grid>
+
+            <div className="line-break"></div>
+
+            <div className="flex items-start justify-around w-full ">
+              <div className="w-4/12 h-1/2 p-5 ">
+                <h3 className="mb-8">Ingredients:</h3>
+                <ul>
+                  {recipe.fields.ingredients && recipe.fields.ingredients.length > 0 && 
+                    recipe.fields.ingredients.map((ingredient, index) => {
+                      return (
+                        <li className={'flex flex-col m-1 h-8 items-left justify-left relative w-full'} key={index}>
+                          <p>○ {ingredient}</p>
+                        </li>
+                      )
+                    })}
+                </ul>
+              </div>
+
+              <div className="ad">
+                  ADVERT
+              </div>
+
+              {/* <div className="w-1/2"> */}
+              <div className="method-container">
+                <h3 className='mb-8'>Method:</h3>
+                <ul>
+                  {recipe.fields.steps &&
+                    recipe.fields.steps.map((step, index) => {
+                      return (
+                        <li className={'flex flex-col items-center justify-center relative w-full'} key={index}>
+                          <h1>{step.name}</h1>
+                          <p>{step.instruction}</p>
+                        </li>
+                      )
+                    })
+                  }
+                </ul>
+              </div>
+            </div>
 
               <h1 className="similar-title">Similar recipes</h1>
               <div className="similar-recipe-container">
@@ -166,11 +166,11 @@ export default ({}) => {
                   h2,h3 {
                     text-transform: uppercase;
                   }
-                  .banner {
+                  .image-container{
                     display: flex;
                     position: relative;
                   }
-                  .banner h2 {
+                  .image-container h2 {
                     margin: 0;
                     background: #fff;
                     display: inline-block;
@@ -196,22 +196,28 @@ export default ({}) => {
                     background-color: #000;
                   }
                   .info{
-                    margin-left: 25px;
-                    padding: 10px;
-                    width: 35%;
+                    padding: 40px;
                     background-color: #efece2;
                     font-size: 20px;
                     display: flex;
                     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
                     align-items: center;
-                    justify-content: space-around;
+                    justify-content: space-between;
                     flex-direction: column;
                   }
                   .info p {
                     margin: 0;
                   }
                   .description{
+                    padding: 40px;
                     text-align: center;
+                  }
+                  .cooking-info{
+                    height: 33%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-around;
+                    align-items: center;
                   }
                   .ad{
                     display: none;
@@ -220,7 +226,6 @@ export default ({}) => {
                     width: 70%;
                     // font-size: 20px;
                   }
-                  
                   .method{
                     margin: 20px;
                   }
@@ -345,7 +350,6 @@ export default ({}) => {
                     }
                   }
               `}</style>
-            </div>
           </>
         )}
       </>

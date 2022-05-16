@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import Image from "next/image";
 
 // Firebase
-import { addFirebaseDoc } from '../firebase/index'
+import { addFirebaseDoc, addStorageItem } from '../firebase/index'
 
 // Components
 import Button from '../components/Button'
@@ -42,9 +42,11 @@ export default ({ recipe: r }) => {
   const [author, setAuthor] = useState([])
   const [tagList, setTagList] = useState([])
   const [logo, setLogo] = useState(null)
+  const [file, setFile] = useState(null)
   const [instruction, setInstruction] = useForm()
 
   const [selectedChecks, setChecks] = useState([])
+  const [selectedSimilar, setSelectedSimilar] = useState('')
 
   const [templates] = useFirebase([], '/recipe_templates/')
 
@@ -112,13 +114,44 @@ export default ({ recipe: r }) => {
 
   const addFormDetails = event => {
     event.preventDefault()
- 
-    setRecipe(state => ({
-      ...state,
-      details: form
-    }))
+    
+    if (form.category && form.desc && form.difficulty && form.name && form.time) {
+      setRecipe(state => ({
+        ...state,
+        details: form
+      }))
+      setForm(null)
+    } else {
+      alert('You need to fill out the whole details section beany!!!')
+    }
+    
+  }
 
-    setForm(null)
+  const handleImageUpload = async () => {
+    try {
+      addStorageItem(`/recipes/`, file).then(async url => {
+        const _logo = {
+          name: file.name,
+          url: url
+        }
+
+        // const update = updateFirebaseDoc('users', `${_user}`, {
+        //   logo: _logo
+        // })
+
+        setFile(null)
+
+        // toast.promise(update, {
+        //   loading: 'Updating company details',
+        //   success: 'Company details updated',
+        //   error: 'Error updating company details'
+        // })
+      })
+    } catch (error) {
+      console.error({ error })
+
+      // toast.error('There was a problem')
+    }
   }
 
   const addFormIngredient = event => {
@@ -205,6 +238,8 @@ export default ({ recipe: r }) => {
     }
   }, [r])
 
+  console.log(form)
+  console.log('form')
   console.log(recipe)
   console.log('recipe')
 
@@ -220,6 +255,11 @@ export default ({ recipe: r }) => {
             <WidgetTitle icon='file-lines'>Recipe Details</WidgetTitle>
             <WidgetContent>
               <form onSubmit={addFormDetails}>
+
+              {!recipe.details && (
+                <p className='font-medium text-vapta-red text-sm'>You still need to link this recipes details</p>
+              )}
+
                 <Grid columns={1}>
                   <FormField label='Name' value={form.name} onChange={e => setForm({ name: e })} /> 
                   <FormField label='Description' value={form.desc} onChange={e => setForm({ desc: e })} /> 
@@ -245,7 +285,7 @@ export default ({ recipe: r }) => {
           </Widget>
         </Grid>
 
-        <Widget>
+        {/* <Widget>
           <WidgetTitle icon='folder-tree'>Image</WidgetTitle>
           <Label text={'Main image upload'} />
           <input type='file' className='hidden' ref={uploader} onChange={e => uploadLogo(e.target.files[0])} />
@@ -255,12 +295,62 @@ export default ({ recipe: r }) => {
           >
             {logo ? `${logo.name}` : 'No file selected (.png)'}
           </div>
+        </Widget> */}
+
+
+
+        <Widget title='Company Asset Images' icon='image' color='red'>
+          <Label text={'Logo upload'} />
+          <input
+            type='file'
+            className='hidden'
+            ref={uploader}
+            onChange={e => setFile(e.target.files[0])}
+          />
+
+          <div
+            className='bg-gray-100 border cursor-pointer flex flex-col items-center justify-center p-2 py-4 rounded text-sm'
+            onClick={() => uploader.current.click()}
+          >
+            {file ? `${file.name}` : 'No file selected (.png)'}
+          </div>
+
+          <Button
+            type='button'
+            variant='action'
+            onClick={() => handleImageUpload(file)}
+            disabled={!file}
+          >
+            Upload File
+          </Button>
+
+          {/* <div className='w-1/4'>
+            {user && user.logo && (
+              <>
+                <Grid columns={2}>
+                  <Link href={user.logo.url}>
+                    <a target='_blank'>
+                      <Image alt='Logo' src={user.logo.url} width={100} height={100} />
+                    </a>
+                  </Link>
+                  {user.logo.name}
+                </Grid>
+              </>
+            )}
+          </div> */}
+          <Grid columns={4}></Grid>
         </Widget>
+
+
 
         <Widget>
           <WidgetTitle icon='folder-tree'>Author</WidgetTitle>
           <WidgetContent>
             <form onSubmit={addFormAuthor}>
+              {recipe.author.length == 0 && (
+                <p className='font-medium text-vapta-red text-sm'>You still need to add an author</p>
+              )}
+
               <Grid columns={1}>
                 <FormField label='Recipe author' value={author} onChange={e => setAuthor(e)} />
               </Grid>
@@ -270,13 +360,59 @@ export default ({ recipe: r }) => {
         </Widget>
 
         <Widget>
-          <WidgetTitle icon='folder-tree'>Similar recipes HAVE THIS A DROPDOWN FOR ALL PREVIOUS RECIPES</WidgetTitle>
+          <WidgetTitle icon='folder-tree'>Similar recipes</WidgetTitle>
           <WidgetContent>
             <form onSubmit={addFormTag}>
-              <Grid columns={1}>
-                <FormField label='Recipe tags' value={tag} onChange={e => setTag(e)} />
-              </Grid>
-              <FormSubmit disabled={!tag}>Add tag</FormSubmit>
+
+              {!form.similar_recipe_ids && (
+                <p className='font-medium text-vapta-red text-sm'>You still need to link similar recipes</p>
+              )}
+
+              <FormSelect
+                label='All recipes'
+                value={selectedSimilar}
+                onChange={e => setSelectedSimilar(e)}
+                options={templates
+                  .map(template => {
+                    return {
+                      name: template.name,
+                      value: template.id
+                    }
+                  })}
+                className='bg-white'
+              />
+              <FormSubmit
+                variant='action'
+                icon='circle-plus'
+                onClick={() => {
+                  setForm({
+                    similar_recipe_ids: form.similar_recipe_ids
+                      ? [...form.similar_recipe_ids, selectedSimilar]
+                      : [selectedSimilar]
+                  })
+                  setSelectedSimilar('')
+                }}
+                className='ml-auto w-fit'
+              >
+                Add similar recipe
+              </FormSubmit>
+              {form.similar_recipe_ids &&
+                form.similar_recipe_ids.map(id => {
+                  const technician = templates.find(item => item.id == id)
+
+                  if (technician) {
+                    return (
+                      <p className='flex items-end space-x-4 group'>
+                        <p className='text-sm'>{technician.name}</p>
+                      </p>
+                    )
+                  } else {
+                    return null
+                  }
+                })
+              }
+     
+              {/* <FormSubmit disabled={!tag}>Add Similar recipes</FormSubmit> */}
             </form>
           </WidgetContent>
         </Widget>
@@ -285,6 +421,9 @@ export default ({ recipe: r }) => {
           <WidgetTitle icon='folder-tree'>Tags</WidgetTitle>
           <WidgetContent>
             <form onSubmit={addFormTag}>
+              {recipe.tags.length == 0 && (
+                <p className='font-medium text-vapta-red text-sm'>You still need to add relevant tags for this recipe</p>
+              )}
               <Grid columns={1}>
                 <FormField label='Recipe tags' value={tag} onChange={e => setTag(e)} />
               </Grid>
@@ -297,6 +436,11 @@ export default ({ recipe: r }) => {
           <WidgetTitle icon='folder-tree'>Ingredients</WidgetTitle>
           <WidgetContent>
             <form onSubmit={addFormIngredient}>
+
+              {recipe.ingredients.length == 0 && (
+                <p className='font-medium text-vapta-red text-sm'>You still need to add ingredients</p>
+              )}
+
               <Grid columns={1}>
                 <FormField label='Ingredient' value={ingredient} onChange={e => setIngredient(e)} />
               </Grid>
@@ -309,6 +453,11 @@ export default ({ recipe: r }) => {
           <WidgetTitle icon='folder-tree'>Steps</WidgetTitle>
           <WidgetContent>
             <form onSubmit={addFormSteps}>
+
+              {recipe.steps.length == 0 && (
+                <p className='font-medium text-vapta-red text-sm'>You still need to link add the steps to this recipe</p>
+              )}
+
               <Grid columns={2}>
                 <FormField label='Name' value={steps.name} onChange={e => setSteps({ name: e })} />
                 <FormField label='ID' value={steps.id} disabled />
@@ -322,6 +471,11 @@ export default ({ recipe: r }) => {
           <WidgetTitle icon='list-tree'>Instructions</WidgetTitle>
           <WidgetContent>
             <form onSubmit={addInstructionToStep}>
+
+              {recipe.steps.length > 0 && (
+                <p className='font-medium text-emerald-500 text-sm'>Steps have been added make sure to add instructions :)</p>
+              )}
+
               <Grid columns={2}>
                 <FormSelect
                   label='Step'
@@ -421,28 +575,30 @@ export default ({ recipe: r }) => {
               </div>
           </div>
 
-          {/*<h1 className="similar-title">Similar recipes</h1>
+          <h1 className="similar-title">Similar recipes</h1>
           <div className="similar-recipe-container">
- 
-           {similarRecipesArr.map(similarRecipe => {          
-            return (
-              // <Link href={'/recipes/' + slug}>
-                <div className="similar-recipe">
-                  <Image 
-                    src={'https:' + similarRecipe.image}
-                    width={190}
-                    height={65}
-                    objectFit="cover"
-                  />
-                  <div className="similar-details">
-                    <h4>{similarRecipe.title}</h4>
-                    <p>Ciara Beecroft</p>
-                  </div>
-                </div>
-              // </Link>
-            )
-          })} 
-          </div>*/}
+            {form.similar_recipe_ids &&
+              form.similar_recipe_ids.map(id => {
+                const similarRecipe = templates.find(item => item.id == id)
+                if (similarRecipe) {
+                  return (
+                    <div key={id} className='similar-recipe'>
+                      {/* <Image 
+                        src={'/ad-placeholder.png'}
+                        width={650}
+                        height={650}
+                      /> */}
+                      <div className="similar-details">
+                        <h4>{similarRecipe.name}</h4>
+                      </div>
+                    </div>
+                  )
+                } else {
+                  return null
+                }
+              })
+            }
+          </div>
                 
           <style jsx>{`
                   h2,h3 {

@@ -10,6 +10,7 @@ import Image from "next/image";
 import FeaturedRecipe from "../components/FeaturedRecipe";
 import Advert from "../components/Advert";
 import MainIngrdientsTile from "../components/MainIngredientsTile";
+import SEO from "../components/SEO";
 import Grid from "../components/Grid";
 
 // Hooks
@@ -37,6 +38,7 @@ export default function Recipes({recipes}) {
 
   return (
     <>
+      <SEO title={'Chairy cooks - Homepage'} description={'Welcome to the homepage for Chairy cooks home of cheap tasty homemade meals from all around the world!'}/>
       {/* <div className="featured-container"> */}
         <Grid columns={3} className='col-span-full'>
           <FeaturedRecipe recipes={recipe}/>

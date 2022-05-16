@@ -1,18 +1,14 @@
 // Next
 import Head from 'next/head'
 
-export default (recipeDetails) => {
-  const recipe = recipeDetails.recipeDetails
+export default ({title, description, image, article}) => {
   return (
-    <>
-      {recipe && (   
+    <>  
         <Head>
-          {/* <title>test</title> */}
-          <title>{recipe.name}</title>
-
-          <meta name='description' content={recipe.desc} />
+          <title>{title}</title>
+          
+          <meta name='description' content={description} />
         </Head>
-      )}
     </>
 
   )

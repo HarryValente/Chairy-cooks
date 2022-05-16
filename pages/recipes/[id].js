@@ -67,7 +67,7 @@ console.log('recipe')
       <>
         {recipe && (
           <>
-            <SEO recipeDetails={recipe}/>
+            <SEO title={recipe.name} description={recipe.desc}/>
             <Grid columns={2}>
               <div className='image-container'>
                 <Image 

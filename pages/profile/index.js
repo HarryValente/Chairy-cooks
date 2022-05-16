@@ -21,6 +21,7 @@ import Grid from "../../components/Grid";
 import Button from "../../components/Button";
 import { Widget,  WidgetContent,  WidgetTitle } from "../../components/Widget";
 import ProtectedRoute from "../../components/ProtectedRoute";
+import SEO from "../../components/SEO";
 
 const profile = () => {
   const { user, logout} = useAuthContext()
@@ -63,9 +64,10 @@ const profile = () => {
   return ( 
     <>
       <ProtectedRoute>
+        <SEO title={'Chairy cooks - Account'} description={'Chairy cooks accounts page where you can view saved recipes!'}/>
         {user && user.admin && (
           <Link href="/templates">
-            <Button children={'To the report builder!!!'} />
+            <Button children={'To the recipe builder!!!'} />
           </Link>
         )}
         <Grid columns={2}>

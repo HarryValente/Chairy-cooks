@@ -36,11 +36,11 @@ export default ({}) => {
 
   const [_user] = useLocalStorage('_user')
 
-  const [recipe, set] = useState()
+  const [recipe, setRecipe] = useState()
   const [templates] = useFirebase([], '/recipe_templates/')
 
   const setFieldStatus = (category_id, field_id, status) => {
-    set(state => {
+    setRecipe(state => {
       return {
         ...state,
         [category_id]: {
@@ -54,20 +54,19 @@ export default ({}) => {
   useEffect(async () => {
     if (router.query.id) {
       const _report = await getFirebaseDoc('recipe_templates/', router.query.id)
-      const _template = templates.find(t => t.id == _report.id)
 
-      if (_report && _template)
-        set({ ..._report, template: _template })
+      if (_report)
+        setRecipe(_report)
     }
   }, [router, templates])
 console.log(recipe)
-console.log('recipe')
+console.log('recipe123')
   return (
     <ProtectedRoute>
       <>
         {recipe && (
           <>
-            <SEO title={recipe.name} description={recipe.desc}/>
+            <SEO title={recipe.recipe_information.details.name} description={recipe.recipe_information.details.desc}/>
             <Grid columns={2}>
               <div className='image-container'>
                 <Image 
@@ -75,18 +74,18 @@ console.log('recipe')
                     width={650}
                     height={650}
                 />
-                <h2>{ recipe.name }</h2>
+                <h2>{ recipe.recipe_information.details.name }</h2>
               </div>
               <div className="info">
                 <div className="description">
-                  <p>{recipe.desc}</p>
+                  <p>{recipe.recipe_information.details.desc}</p>
                 </div>
                 <div className="cooking-info">
                   <p>Takes approx 20 mins to cook.</p>
-                  <p>{ recipe.fields.details ? recipe.fields.details.difficulty : '' }</p>
+                  <p>{ recipe.recipe_information.details ? recipe.recipe_information.details.difficulty : '' }</p>
                   <div className='flex justify-center'>
-                    {recipe.fields.tags &&
-                      recipe.fields.tags.map((tag, index) => {
+                    {recipe.recipe_information.tags &&
+                      recipe.recipe_information.tags.map((tag, index) => {
                         return (
                           <p key={index}>{tag}, </p>
                         )
@@ -103,8 +102,8 @@ console.log('recipe')
               <div className="w-4/12 h-1/2 p-5 ">
                 <h3 className="mb-8">Ingredients:</h3>
                 <ul>
-                  {recipe.fields.ingredients && recipe.fields.ingredients.length > 0 && 
-                    recipe.fields.ingredients.map((ingredient, index) => {
+                  {recipe.recipe_information.ingredients && recipe.recipe_information.ingredients.length > 0 && 
+                    recipe.recipe_information.ingredients.map((ingredient, index) => {
                       return (
                         <li className={'flex flex-col m-1 h-8 items-left justify-left relative w-full'} key={index}>
                           <p>○ {ingredient}</p>
@@ -118,12 +117,11 @@ console.log('recipe')
                   ADVERT
               </div>
 
-              {/* <div className="w-1/2"> */}
               <div className="method-container">
                 <h3 className='mb-8'>Method:</h3>
                 <ul>
-                  {recipe.fields.steps &&
-                    recipe.fields.steps.map((step, index) => {
+                  {recipe.recipe_information.steps &&
+                    recipe.recipe_information.steps.map((step, index) => {
                       return (
                         <li className={'flex flex-col items-center justify-center relative w-full'} key={index}>
                           <h1>{step.name}</h1>

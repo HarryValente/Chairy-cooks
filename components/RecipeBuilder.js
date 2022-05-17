@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import Image from "next/image";
 
 // Firebase
-import { addFirebaseDoc, addStorageItem } from '../firebase/index'
+import { addFirebaseDoc, updateFirebaseDoc, addStorageItem, generateFirebaseId } from '../firebase/index'
 
 // Components
 import Button from '../components/Button'
@@ -28,7 +28,7 @@ export default ({ recipe: r }) => {
   const [recipe, setRecipe] = useState({
     ingredients: [],
     tags: [],
-    author: [],
+    author: '',
     steps: []
   })
 
@@ -41,11 +41,9 @@ export default ({ recipe: r }) => {
   const [tag, setTag] = useState([])
   const [author, setAuthor] = useState([])
   const [tagList, setTagList] = useState([])
-  const [logo, setLogo] = useState(null)
   const [file, setFile] = useState(null)
   const [instruction, setInstruction] = useForm()
 
-  const [selectedChecks, setChecks] = useState([])
   const [selectedSimilar, setSelectedSimilar] = useState('')
 
   const [templates] = useFirebase([], '/recipe_templates/')
@@ -77,39 +75,32 @@ export default ({ recipe: r }) => {
 
     if (!existing) {
       // Create an object with the information and fields
+      // NAME AND DESCRIPTION POSTED TWICE
       const _recipe = {
-        ...form,
-        fields: recipe,
-        checks: selectedChecks
+
+        id: generateFirebaseId(),
+        recipe_information: recipe,
       }
 
-      await addFirebaseDoc('/recipe_templates/', _recipe)
-
-      toast.success('Woo! That template went in with no problems')
+      await addFirebaseDoc('/recipe_templates/', _recipe, _recipe.id)
+      await handleImageUpload(_recipe)
+      console.log(_recipe)
+      console.log('_recipe')
+      // toast.success('Woo! That template went in with no problems')
     } else {
       const _recipe = {
         id: r,
-        ...form,
-        fields: recipe,
-        checks: selectedChecks,
+
+        recipe_information: recipe,
         ingredients: ingredientList,  
         steps: stepsList,
         tags: tagList  
       }
-
       await updateFirebaseDoc('/recipe_templates/', r, _recipe)
-
       // toast.success('Wicked man! That template was updated')
     }
 
     return router.push('/templates')
-  }
-
-  const uploadLogo = async file => {
-    console.log(file)
-    console.log(file.name)
-
-    // await addStorageItem(`/users/${_user}/logo/`, file, file.name)
   }
 
   const addFormDetails = event => {
@@ -127,25 +118,19 @@ export default ({ recipe: r }) => {
     
   }
 
-  const handleImageUpload = async () => {
+  const handleImageUpload = async (_recipe) => {
     try {
-      addStorageItem(`/recipes/`, file).then(async url => {
-        const _logo = {
+      addStorageItem(`/recipes/${_recipe.id}/main_image/`, file).then(async url => {
+        const mainImage = {
           name: file.name,
           url: url
         }
 
-        // const update = updateFirebaseDoc('users', `${_user}`, {
-        //   logo: _logo
-        // })
+        const update = updateFirebaseDoc('/recipe_templates/', `${_recipe.id}`, {
+          main_image: mainImage
+        })
 
         setFile(null)
-
-        // toast.promise(update, {
-        //   loading: 'Updating company details',
-        //   success: 'Company details updated',
-        //   error: 'Error updating company details'
-        // })
       })
     } catch (error) {
       console.error({ error })
@@ -233,8 +218,6 @@ export default ({ recipe: r }) => {
       })
 
       setRecipe(_recipe.fields)
-
-      setChecks(_recipe.checks)
     }
   }, [r])
 
@@ -299,8 +282,8 @@ export default ({ recipe: r }) => {
 
 
 
-        <Widget title='Company Asset Images' icon='image' color='red'>
-          <Label text={'Logo upload'} />
+        <Widget title='Recipe Images' icon='image' color='red'>
+          <Label text={'Main image upload'} />
           <input
             type='file'
             className='hidden'
@@ -315,29 +298,6 @@ export default ({ recipe: r }) => {
             {file ? `${file.name}` : 'No file selected (.png)'}
           </div>
 
-          <Button
-            type='button'
-            variant='action'
-            onClick={() => handleImageUpload(file)}
-            disabled={!file}
-          >
-            Upload File
-          </Button>
-
-          {/* <div className='w-1/4'>
-            {user && user.logo && (
-              <>
-                <Grid columns={2}>
-                  <Link href={user.logo.url}>
-                    <a target='_blank'>
-                      <Image alt='Logo' src={user.logo.url} width={100} height={100} />
-                    </a>
-                  </Link>
-                  {user.logo.name}
-                </Grid>
-              </>
-            )}
-          </div> */}
           <Grid columns={4}></Grid>
         </Widget>
 

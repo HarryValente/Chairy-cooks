@@ -28,6 +28,7 @@ export default ({ recipe: r }) => {
   const [recipe, setRecipe] = useState({
     ingredients: [],
     tags: [],
+    similar_recipe: [],
     author: '',
     steps: []
   })
@@ -82,10 +83,11 @@ export default ({ recipe: r }) => {
         recipe_information: recipe,
       }
 
-      await addFirebaseDoc('/recipe_templates/', _recipe, _recipe.id)
-      await handleImageUpload(_recipe)
-      console.log(_recipe)
-      console.log('_recipe')
+      await addFirebaseDoc('/recipe_templates/', _recipe, _recipe.id).then(
+
+        await handleImageUpload(_recipe)
+      )
+
       // toast.success('Woo! That template went in with no problems')
     } else {
       const _recipe = {
@@ -151,6 +153,13 @@ export default ({ recipe: r }) => {
     
     setRecipe({...recipe, tags:[...recipe.tags, tag ]})
     setTag([])
+  }
+
+  const addFormSimilarRecipe = event => {
+    event.preventDefault()
+    
+    setRecipe({...recipe, similar_recipe:[ ...recipe.similar_recipe, selectedSimilar ]})
+    setSelectedSimilar('')
   }
 
   const addFormAuthor = event => {
@@ -220,12 +229,10 @@ export default ({ recipe: r }) => {
       setRecipe(_recipe.fields)
     }
   }, [r])
-
   console.log(form)
   console.log('form')
   console.log(recipe)
   console.log('recipe')
-
   return (
     <>
       <Button variant='action' onClick={() => handleSubmit()}>
@@ -267,20 +274,6 @@ export default ({ recipe: r }) => {
             </WidgetContent>
           </Widget>
         </Grid>
-
-        {/* <Widget>
-          <WidgetTitle icon='folder-tree'>Image</WidgetTitle>
-          <Label text={'Main image upload'} />
-          <input type='file' className='hidden' ref={uploader} onChange={e => uploadLogo(e.target.files[0])} />
-          <div
-            className='bg-gray-100 border cursor-pointer flex flex-col items-center justify-center p-2 py-4 rounded text-sm'
-            onClick={() => uploader.current.click()}
-          >
-            {logo ? `${logo.name}` : 'No file selected (.png)'}
-          </div>
-        </Widget> */}
-
-
 
         <Widget title='Recipe Images' icon='image' color='red'>
           <Label text={'Main image upload'} />
@@ -324,7 +317,7 @@ export default ({ recipe: r }) => {
           <WidgetContent>
             <form onSubmit={addFormTag}>
 
-              {!form.similar_recipe_ids && (
+              {recipe.similar_recipe.length == 0 && (
                 <p className='font-medium text-vapta-red text-sm'>You still need to link similar recipes</p>
               )}
 
@@ -335,7 +328,7 @@ export default ({ recipe: r }) => {
                 options={templates
                   .map(template => {
                     return {
-                      name: template.name,
+                      name: template.recipe_information.details.name,
                       value: template.id
                     }
                   })}
@@ -344,14 +337,15 @@ export default ({ recipe: r }) => {
               <FormSubmit
                 variant='action'
                 icon='circle-plus'
-                onClick={() => {
-                  setForm({
-                    similar_recipe_ids: form.similar_recipe_ids
-                      ? [...form.similar_recipe_ids, selectedSimilar]
-                      : [selectedSimilar]
-                  })
-                  setSelectedSimilar('')
-                }}
+                onClick={addFormSimilarRecipe}
+                // onClick={() => {
+                //   setForm({
+                //     similar_recipe_ids: form.similar_recipe_ids
+                //       ? [...form.similar_recipe_ids, selectedSimilar]
+                //       : [selectedSimilar]
+                //   })
+                //   setSelectedSimilar('')
+                // }}
                 className='ml-auto w-fit'
               >
                 Add similar recipe

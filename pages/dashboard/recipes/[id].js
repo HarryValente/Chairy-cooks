@@ -62,8 +62,6 @@ export default ({}) => {
     }
   }, [router, templates])
 
-  console.log(report)
-  console.log('report')
   return (
     <ProtectedRoute>
       <>

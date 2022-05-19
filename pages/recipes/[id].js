@@ -2,34 +2,24 @@
 import { useEffect, useState } from 'react'
 import useFirebase from '../../hooks/useFirebase'
 import useLocalStorage from '../../hooks/useLocalStorage'
-import useToggle from '../../hooks/useToggle'
 
 // Next
 import { useRouter } from 'next/router'
 import Image from 'next/image'
-import Advert from '../../components/Advert'
+import Link from 'next/link'
 
 // Firebase
 import { getFirebaseDoc } from '../../firebase/index'
 
-// Fontawesome
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee, faStar } from '@fortawesome/free-solid-svg-icons'
-
 // Components
-import Layout from '../../components/Layout'
 import ProtectedRoute from '../../components/ProtectedRoute'
 import Grid from '../../components/Grid'
 import SEO from '../../components/SEO'
-import Button from '../../components/Button'
-import Label from '../../components/Label'
-import Page from '../../components/Page'
-import {Widget, WidgetContent, WidgetTitle} from '../../components/Widget'
 
-// Modules
-import moment from 'moment'
-import { uniqueId } from 'lodash'
-import { motion } from 'framer-motion'
+
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import RecipeBuilder from '../../components/RecipeBuilder'
+
 
 export default ({}) => {
   const router = useRouter()
@@ -39,18 +29,6 @@ export default ({}) => {
   const [recipe, setRecipe] = useState()
   const [templates] = useFirebase([], '/recipe_templates/')
 
-  const setFieldStatus = (category_id, field_id, status) => {
-    setRecipe(state => {
-      return {
-        ...state,
-        [category_id]: {
-          ...state[category_id],
-          fields: state[category_id].fields.map(item => (item.id == field_id ? { ...item, status } : item))
-        }
-      }
-    })
-  }
-
   useEffect(async () => {
     if (router.query.id) {
       const _report = await getFirebaseDoc('recipe_templates/', router.query.id)
@@ -59,21 +37,24 @@ export default ({}) => {
         setRecipe(_report)
     }
   }, [router, templates])
-console.log(recipe)
-console.log('recipe123')
-  return (
-    <ProtectedRoute>
+
+return (
+  <ProtectedRoute>
       <>
         {recipe && (
           <>
             <SEO title={recipe.recipe_information.details.name} description={recipe.recipe_information.details.desc}/>
             <Grid columns={2}>
               <div className='image-container'>
-                <Image 
-                    src={'/ad-placeholder.png'}
-                    width={650}
-                    height={650}
-                />
+                {recipe.main_image && (
+                  <Image 
+                  alt={recipe.main_image.name}
+                  // src='/ad-placeholder.png'
+                  src={recipe.main_image.url}
+                  width={650}
+                  height={650}
+                  />
+                )}
                 <h2>{ recipe.recipe_information.details.name }</h2>
               </div>
               <div className="info">
@@ -133,31 +114,34 @@ console.log('recipe123')
                 </ul>
               </div>
             </div>
-
-              <h1 className="similar-title">Similar recipes</h1>
-              <div className="similar-recipe-container">
-
-                  {/* creates similar recipes to click on */}
-                  {/* {similarRecipesArr.map(similarRecipe => {          
+            {console.log(recipe)}
+            {console.log('recipe')}
+            <h1 className="similar-title">Similar recipes</h1>
+            <div className="similar-recipe-container">
+              {recipe.recipe_information.similar_recipe &&
+                recipe.recipe_information.similar_recipe.map(id => {
+                  const similarRecipe = templates.find(item => item.id == id)
+                  console.log(similarRecipe)
+                  console.log('similarRecipe')
+                  if (similarRecipe) {
                     return (
-                      // <Link href={'/recipes/' + slug}>
-                        <div className="similar-recipe">
-                          <Image 
-                            src={'https:' + similarRecipe.image}
-                            width={190}
-                            height={65}
-                            objectFit="cover"
-                          />
-                          <div className="similar-details">
-                            <h4>{similarRecipe.title}</h4>
-                            <p>Ciara Beecroft</p>
-                          </div>
+                      <div key={id} className='similar-recipe'>
+                        {/* <Image 
+                          src={'/ad-placeholder.png'}
+                          width={650}
+                          height={650}
+                        /> */}
+                        <div className="similar-details">
+                          <h4>{similarRecipe.recipe_information.details.name}</h4>
                         </div>
-                      // </Link>
+                      </div>
                     )
-                  })} */}
-
-              </div>
+                  } else {
+                    return null
+                  }
+                })
+              }
+            </div>
                 
 
               <style jsx>{`

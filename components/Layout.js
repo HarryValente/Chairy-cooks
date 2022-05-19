@@ -4,8 +4,7 @@ import Footer from './Footer'
 
 export default function Layout({ children }) {
   const { user } = useAuthContext()
-  console.log(user)
-  console.log('user')
+
   return (
     <div className="layout">
       <header>

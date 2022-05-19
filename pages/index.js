@@ -1,12 +1,8 @@
-// React
-import { useState } from "react/cjs/react.development";
-
 // Contentful
 import { createClient } from "contentful"
 
 // Components
 import RecipeCard from "../components/RecipeCard";
-import Image from "next/image";
 import FeaturedRecipe from "../components/FeaturedRecipe";
 import Advert from "../components/Advert";
 import MainIngrdientsTile from "../components/MainIngredientsTile";
@@ -39,23 +35,19 @@ export default function Recipes({recipes}) {
   return (
     <>
       <SEO title={'Chairy cooks - Homepage'} description={'Welcome to the homepage for Chairy cooks home of cheap tasty homemade meals from all around the world!'}/>
-      {/* <div className="featured-container"> */}
-        <Grid columns={3} className='col-span-full'>
-          <FeaturedRecipe recipes={recipe}/>
-        </Grid>
-      {/* </div> */}
 
-      {/* <div className="recipe-list"> */}
+      <Grid columns={3} className='col-span-full'>
+        <FeaturedRecipe recipes={recipe}/>
+      </Grid>
+
       <Grid columns={2} className='mt-5 col-span-full'>
         {recipes.map(recipe => (
           <RecipeCard key={recipe.sys.id} recipe={recipe}/>
         ))}
       </Grid>
-      {/* </div> */}
 
       <Advert/>
 
-      {/* <div className="main-ingredients"> */}
       <Grid columns={3} className='col-span-full'>
         <MainIngrdientsTile ingredientName="Chicken" image="/ad-placeholder.png"/>
         <MainIngrdientsTile ingredientName="Beef" image="/ad-placeholder.png"/>
@@ -70,56 +62,8 @@ export default function Recipes({recipes}) {
         <MainIngrdientsTile ingredientName="Sausage" image="/ad-placeholder.png"/>
         <MainIngrdientsTile ingredientName="Pork" image="/ad-placeholder.png"/>
       </Grid>
-      {/* </div> */}
 
       <Advert/>
-
-      {/* <style jsx>{`
-        .featured-container {
-          position: relative;
-          max-width: 1200px;
-          height: 300px;
-          margin: auto;
-          margin-top: 50px;
-          display: flex;
-          justify-content: space-around;
-          align-items: center;
-        }
-        .feature{
-          width: 350px;
-          height: 300px;
-          overflow-y: hidden;
-        }
-        .img-here{
-          width: 350px;
-          height: 230px;
-          background-color: #f00
-        }
-        .feature-text p{
-          color: #f14400;
-          font-size: 14px;
-        }
-        .feature-text h1{
-          font-size: 16px;
-        }
-        .recipe-list {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          grid-gap: 20px 40px;
-          width: 1210px;
-          padding:10px;
-          margin: 60px auto;
-        }
-        .main-ingredients{
-          display: grid; 
-          grid-template-columns: 1fr 1fr 1fr; 
-          grid-template-rows: 0.7fr 0.7fr 0.7fr 0.7fr 0.7fr; 
-
-          width: 1050px;
-          margin: auto;
-        }
-      `}
-      </style> */}
 
     </>
   )

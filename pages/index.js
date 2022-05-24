@@ -12,6 +12,10 @@ import Grid from "../components/Grid";
 // Hooks
 import useFirebase from '../hooks/useFirebase';
 
+// Fontawesome
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee, faStar } from '@fortawesome/free-solid-svg-icons'
+
 export async function getStaticProps() {
   // Link to contentful with API-Key / process.env is in the .env.local file for github concerns
   const client = createClient({
@@ -49,18 +53,18 @@ export default function Recipes({recipes}) {
       <Advert/>
 
       <Grid columns={3} className='col-span-full'>
-        <MainIngrdientsTile ingredientName="Chicken" image="/ad-placeholder.png"/>
-        <MainIngrdientsTile ingredientName="Beef" image="/ad-placeholder.png"/>
-        <MainIngrdientsTile ingredientName="Egg" image="/ad-placeholder.png"/>
-        <MainIngrdientsTile ingredientName="Cheese" image="/ad-placeholder.png"/>
-        <MainIngrdientsTile ingredientName="Lamb" image="/ad-placeholder.png"/>
-        <MainIngrdientsTile ingredientName="Pasta" image="/ad-placeholder.png"/>
-        <MainIngrdientsTile ingredientName="Dessert" image="/ad-placeholder.png"/>
-        <MainIngrdientsTile ingredientName="Vegetarian" image="/ad-placeholder.png"/>
-        <MainIngrdientsTile ingredientName="Vegan" image="/ad-placeholder.png"/>
-        <MainIngrdientsTile ingredientName="Fish" image="/ad-placeholder.png"/>
-        <MainIngrdientsTile ingredientName="Sausage" image="/ad-placeholder.png"/>
-        <MainIngrdientsTile ingredientName="Pork" image="/ad-placeholder.png"/>
+        <MainIngrdientsTile ingredientName="Chicken" image="/ad-placeholder.png" test='1' />
+        <MainIngrdientsTile ingredientName="Beef" image="/ad-placeholder.png" test='1'/>
+        <MainIngrdientsTile ingredientName="Egg" image="/ad-placeholder.png" test='2'/>
+        <MainIngrdientsTile ingredientName="Cheese" image="/ad-placeholder.png" test='2'/>
+        <MainIngrdientsTile ingredientName="Lamb" image="/ad-placeholder.png" test='3'/>
+        <MainIngrdientsTile ingredientName="Pasta" image="/ad-placeholder.png" test='3'/>
+        <MainIngrdientsTile ingredientName="Dessert" image="/ad-placeholder.png" test='3'/>
+        <MainIngrdientsTile ingredientName="Vegetarian" image="/ad-placeholder.png" test='4'/>
+        <MainIngrdientsTile ingredientName="Vegan" image="/ad-placeholder.png" test='4'/>
+        <MainIngrdientsTile ingredientName="Fish" image="/ad-placeholder.png" test='4'/>
+        <MainIngrdientsTile ingredientName="Sausage" image="/ad-placeholder.png" test='4'/>
+        <MainIngrdientsTile ingredientName="Pork" image="/ad-placeholder.png" test='4'/>
       </Grid>
 
       <Advert/>

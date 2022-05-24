@@ -65,13 +65,7 @@ return (
                   <p>Takes approx 20 mins to cook.</p>
                   <p>{ recipe.recipe_information.details ? recipe.recipe_information.details.difficulty : '' }</p>
                   <div className='flex justify-center'>
-                    {recipe.recipe_information.tags &&
-                      recipe.recipe_information.tags.map((tag, index) => {
-                        return (
-                          <p key={index}>{tag}, </p>
-                        )
-                      })
-                    }
+                    <p>{recipe.recipe_information.tags.join(', ')}</p>
                   </div>
                 </div>
               </div>
@@ -125,16 +119,18 @@ return (
                   console.log('similarRecipe')
                   if (similarRecipe) {
                     return (
-                      <div key={id} className='similar-recipe'>
-                        {/* <Image 
-                          src={'/ad-placeholder.png'}
-                          width={650}
-                          height={650}
-                        /> */}
-                        <div className="similar-details">
-                          <h4>{similarRecipe.recipe_information.details.name}</h4>
+                      <Link key={similarRecipe.id} href={`/recipes/${similarRecipe.id}`}>         
+                        <div key={id} className='similar-recipe'>
+                            <Image 
+                              src={similarRecipe.main_image.url}
+                              width={150}
+                              height={150}
+                            />
+                            <div className="similar-details">
+                              <h4>{similarRecipe.recipe_information.details.name}</h4>
+                            </div>
                         </div>
-                      </div>
+                      </Link>
                     )
                   } else {
                     return null

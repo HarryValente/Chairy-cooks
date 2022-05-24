@@ -2,16 +2,21 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-export default function MainIngrdientsTile({ingredientName, image}) {
+// Fontawesome
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
 
+export default function MainIngrdientsTile({ingredientName, image, test}) {
+console.log(test)
 
   return (
     <div className="feature">         
-      <Image 
+      {/* <Image 
         src={image}
         width={85} 
         height={85} 
-      />
+      /> */}
+      <FontAwesomeIcon icon={faStar}/>
       <div className="feature-text">
         {`${ingredientName}`}
       </div>

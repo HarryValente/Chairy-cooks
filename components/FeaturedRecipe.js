@@ -38,16 +38,15 @@ export default ({recipes: data}) => {
           <Link key={rec.id} href={`/recipes/${rec.id}`}>
             <div className="feature border border-gray-100 hover:border-gray-200 rounded">
               <Image
-                src='/ad-placeholder.png'
-                // layout='fill'
+                src={rec.main_image.url}
                 width={100}
                 height={100}
               />
               
               <div className="feature-text">
               <div> 
-                <h1>{rec.name}</h1>
-                <p>Comfort, Wintery</p>
+                <h1>{rec.recipe_information.details.name}</h1>
+                <p>{rec.recipe_information.tags.join(', ')}</p>
               </div>
               <Button className={'absolute bottom-0 left-0'} onClick={card => saveRecipeToSavedRecipes(rec)}>
                 +
@@ -65,7 +64,7 @@ export default ({recipes: data}) => {
             transition: 0.3s;
           }
           .feature:hover{
-            background-color: #3e8e41;
+            background-color: #9DC183;
             color: white;
             margin-bottom: 35px;
           }

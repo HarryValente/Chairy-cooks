@@ -6,6 +6,7 @@ import LoginForm from "../../components/LoginForm";
 
 // Next
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 // Firebase
 import { getFirebaseDocs } from "../../firebase";
@@ -24,6 +25,7 @@ import ProtectedRoute from "../../components/ProtectedRoute";
 import SEO from "../../components/SEO";
 
 const profile = () => {
+  const router = useRouter()
   const { user, logout} = useAuthContext()
 
   const [_user] = useLocalStorage('_user')
@@ -41,6 +43,7 @@ const profile = () => {
     e.preventDefault()
 
     await logout()
+    await router.push('/')
     await router.reload()
   }
 
@@ -60,7 +63,7 @@ const profile = () => {
       }
     }
   }, [user])
-
+  console.log('hi')
   return ( 
     <>
       <ProtectedRoute>

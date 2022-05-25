@@ -20,8 +20,6 @@ import {
 import { toast } from 'react-toastify';
 import useLocalStorage from '../hooks/useLocalStorage'
 
-
-
 // Context
 const AuthContext = createContext({ user: null, loading: true })
 
@@ -64,15 +62,11 @@ const getAuth = () => {
 
   const handle = async raw => {
     if (!raw) {
-      setUser(false)
-      setLoading(false)
-
-      return false
+      localStorage.clear()
     } else {
       const user = await format(raw)
 
       setUser(user)
-      setLoading(false)
 
       return user
     }
@@ -85,7 +79,6 @@ const getAuth = () => {
           await handle(response.user)
           setLocalStorage(response.user.uid)
           resolve()
-          // router.push('/')
           return setLoading(false)
         })
         .catch(error => {
@@ -99,10 +92,7 @@ const getAuth = () => {
   const logout = useCallback(async () => {
     await signOut(authentication)
     await handle()
-    toast.success('Logged out successfully')
     setLoading(false)
-    return router.push('/')
-    // return router.reload()
   })
 
   useEffect(async () => {

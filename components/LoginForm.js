@@ -3,7 +3,7 @@ import { addFirebaseDoc, createFirebaseUser, signOutFirebaseUser, loginFirebaseU
 import { auth } from '../firebase'
 
 // React
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 // Next
 import { useRouter } from 'next/router'
@@ -15,7 +15,7 @@ import Button from './Button'
 
 // Context
 import { useAuthContext } from '../context/auth'
-
+import useLocalStorage from '../hooks/useLocalStorage'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Widget, WidgetTitle } from './Widget'
@@ -27,17 +27,17 @@ export default () => {
     password: 'chairy123',
     saved_recipes: []
   })
-
   const { login, logout} = useAuthContext()
   const [error, setError] = useState(null)
-
+  
   const [newAccount, setNewAccount] = useState(false)
+  const [_user] = useLocalStorage('_user')
 
   const handleLogin = async event => {
     event.preventDefault()
 
     // await loginFirebaseUser(form.email, form.password)
-    login(form.email, form.password).catch(error => setError(error))
+    await login(form.email, form.password).catch(error => setError(error))
     router.push('/profile')
   }
 

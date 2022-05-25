@@ -9,12 +9,13 @@ import MainIngrdientsTile from "../components/MainIngredientsTile";
 import SEO from "../components/SEO";
 import Grid from "../components/Grid";
 
+import { getFirebaseDocs } from "../firebase";
+
 // Hooks
 import useFirebase from '../hooks/useFirebase';
 
 // Fontawesome
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee, faStar } from '@fortawesome/free-solid-svg-icons'
+import { useEffect, useState } from "react";
 
 export async function getStaticProps() {
   // Link to contentful with API-Key / process.env is in the .env.local file for github concerns
@@ -35,13 +36,21 @@ export async function getStaticProps() {
 
 export default function Recipes({recipes}) {
   const [recipe] = useFirebase([], '/recipe_templates/')
+  const [featuredRecipes, setFeaturedRecipes] = useState()
+  
+  useEffect( async () => {
+    setFeaturedRecipes(
+      await getFirebaseDocs('/recipe_templates/')
+    )
+
+  }, [])
 
   return (
     <>
       <SEO title={'Chairy cooks - Homepage'} description={'Welcome to the homepage for Chairy cooks home of cheap tasty homemade meals from all around the world!'}/>
 
       <Grid columns={3} className='col-span-full'>
-        <FeaturedRecipe recipes={recipe}/>
+        <FeaturedRecipe recipes={featuredRecipes}/>
       </Grid>
 
       <Grid columns={2} className='mt-5 col-span-full'>
@@ -50,7 +59,7 @@ export default function Recipes({recipes}) {
         ))}
       </Grid>
 
-      <Advert/>
+      {/* <Advert/> */}
 
       <Grid columns={3} className='col-span-full'>
         <MainIngrdientsTile ingredientName="Chicken" image="/ad-placeholder.png" test='1' />

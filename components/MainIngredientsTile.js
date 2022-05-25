@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 export default function MainIngrdientsTile({ingredientName, image, test}) {
-console.log(test)
 
   return (
     <div className="feature">         

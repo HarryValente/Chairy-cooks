@@ -1,41 +1,49 @@
 import { useAuthContext } from "../context/auth";
 import Link from 'next/link'
 import Footer from './Footer'
+import Button from './Button'
+// Components
+import Search from './Search'
+import useFirebase from '../hooks/useFirebase';
 
 export default function Layout({ children }) {
   const { user } = useAuthContext()
+  const [templates] = useFirebase([], '/recipe_templates/')
+  console.log(templates)
 
+  function fullSearchScreen() {
+    console.log('test')
+  }
+
+  console.log(user)
+  console.log('user')
   return (
-    <div className="layout">
-      <header>
-        <Link href="/">
-          <a>
-            <h3 className='test'>Chairy</h3>
-            <h1>Cooks</h1>
-            <h2>Spread The Joy</h2>
-          </a>
-        </Link>
+     <div className="layout">
+       <header>
+         <div>
+          <Link href="/">
+            <a>
+              <h3 className='test'>Chairy</h3>
+              <h1>Cooks</h1>
+              <h2>Spread The Joy</h2>
+            </a>
+          </Link>
+         </div>
 
-        {user ? (
+         <input className="searchInput" placeholder="Search" onClick={fullSearchScreen}></input>
+
+
+         {user ? (
           <>
             <Link href="/profile">
-              <div className='loginContainer'>
-                <a>
-                  Profile
-                </a>
-              </div>
+              <button class="profileBtn" role="button">Profile</button>
             </Link>
           </>
         ) : (
           <Link href="/login">
-            <div className='loginContainer'>
-              <a>
-                Login
-              </a>
-            </div>
+            <button class="profileBtn" role="button">Login</button>
           </Link>
         )}
-
       </header>
 
       <div className="page-content">
@@ -45,7 +53,6 @@ export default function Layout({ children }) {
       <footer>
         <p>Copyright 2021 chairy cooks</p>
       </footer>
-      {/* <Footer /> */}
     </div>
   )
 }

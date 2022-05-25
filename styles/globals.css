@@ -10,8 +10,8 @@ html {
 }
 
 *{
-  /* padding: 0;
-  margin: 0; */
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -29,11 +29,13 @@ body {
   flex-direction: column;
 }
 header {
+  /* background: #e8e4d4; */
+  background-color: #9DC183;
   display: flex;
   justify-content: space-around;
   align-items: center;
   text-align: center;
-  margin: 30px 0;
+  padding: 30px 20px;
 }
 header a {
   text-decoration: none;
@@ -58,6 +60,63 @@ header h2 {
   font-size: 1.2em;
   font-weight: 400;
 }
+
+.searchInput {
+  width: 30% !important;
+  padding: 12px 24px;
+  transition: transform 250ms ease-in-out;
+  font-size: 14px;
+  line-height: 18px;
+  /* background-color: #9DC183; */
+  color: #575756;
+  border-radius: 50px;
+  border: 1px solid #575756;
+  transition: all 250ms ease-in-out;
+}
+
+.searchInput:focus {
+  outline: none;
+}
+
+.profileBtn {
+  background-color: #0a6bff;
+  border-radius: 4px;
+  border: 0;
+  box-shadow: rgba(1,60,136,.5) 0 -1px 3px 0 inset,rgba(0,44,97,.1) 0 3px 6px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inherit;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  margin: 0;
+  min-height: 56px;
+  min-width: 120px;
+  padding: 16px 44px;
+  position: relative;
+  text-align: center;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  transition: all .2s cubic-bezier(.22, .61, .36, 1);
+}
+
+.profileBtn:hover {
+  background-color: #065dd8;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .profileBtn {
+    font-size: 12px;
+    min-height: 36px;
+    padding: 8px 13px;
+    min-width: 65px;
+  }
+}
+
 footer {
   background: #111;
   color: #bbb;
@@ -163,7 +222,7 @@ h3 {
   @apply font-medium mb-4 text-lg text-slate-800;
 }
 
-input:not([type='checkbox']),
+/* input:not([type='checkbox']),
 textarea,
 select {
   @apply bg-transparent border border-gray-300 outline-none rounded text-sm w-full;
@@ -191,7 +250,7 @@ select {
   &:hover {
     @apply border-gray-300;
   }
-}
+} */
 
 label {
   @apply block font-medium mb-1 text-gray-600 text-left text-xs w-full;

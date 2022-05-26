@@ -36,12 +36,12 @@ export default function Layout({ children }) {
          {user ? (
           <>
             <Link href="/profile">
-              <button class="profileBtn" role="button">Profile</button>
+              <button className="profileBtn" role="button">Profile</button>
             </Link>
           </>
         ) : (
           <Link href="/login">
-            <button class="profileBtn" role="button">Login</button>
+            <button className="profileBtn" role="button">Login</button>
           </Link>
         )}
       </header>

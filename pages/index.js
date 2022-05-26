@@ -49,17 +49,17 @@ export default function Recipes({recipes}) {
     <>
       <SEO title={'Chairy cooks - Homepage'} description={'Welcome to the homepage for Chairy cooks home of cheap tasty homemade meals from all around the world!'}/>
 
-      <Grid columns={3} className='col-span-full'>
+      <div className="featuredContainer">
         <FeaturedRecipe recipes={featuredRecipes}/>
-      </Grid>
+      </div>
 
-      <Grid columns={2} className='mt-5 col-span-full'>
+      <div className="homepageRecipes">
         {recipes.map(recipe => (
           <RecipeCard key={recipe.sys.id} recipe={recipe}/>
         ))}
-      </Grid>
+      </div>
 
-      {/* <Advert/> */}
+      <Advert/>
 
       <Grid columns={3} className='col-span-full'>
         <MainIngrdientsTile ingredientName="Chicken" image="/ad-placeholder.png" test='1' />

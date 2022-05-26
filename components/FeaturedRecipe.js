@@ -36,12 +36,17 @@ export default ({recipes: data}) => {
       {recipe &&
         recipe.map(rec => (
           <Link key={rec.id} href={`/recipes/${rec.id}`}>
-            <div className="feature border border-gray-100 hover:border-gray-200 rounded">
-              <Image
-                src={rec.main_image.url}
-                width={100}
-                height={100}
-              />
+            <div className="feature">
+
+              <div className='featureImage'>
+                <Image
+                  src={rec.main_image.url}
+                  // width={275}
+                  // height={275}
+                  placeholder='blue'
+                  layout="fill"
+                />
+              </div>
               
               <div className="feature-text">
               <div> 
@@ -58,15 +63,21 @@ export default ({recipes: data}) => {
       }
       <style jsx>{`
           .feature{
-            width: 350px;
-            height: 300px;
+            margin: auto;
+            width: 275px;
+            height: 350px;
             overflow-y: hidden;
             transition: 0.3s;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+            cursor: pointer;
           }
-          .feature:hover{
-            background-color: #9DC183;
-            color: white;
-            margin-bottom: 35px;
+          .featureImage{
+            width: 100%;
+            height: 60%;
+            position: relative;
+            border-radius: 5px;
           }
           .img-here{
             width: 350px;

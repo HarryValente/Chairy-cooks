@@ -62,18 +62,18 @@ export default function Recipes({recipes}) {
       <Advert/>
 
       <Grid columns={3} className='col-span-full'>
-        <MainIngrdientsTile ingredientName="Chicken" image="/ad-placeholder.png" test='1' />
-        <MainIngrdientsTile ingredientName="Beef" image="/ad-placeholder.png" test='1'/>
-        <MainIngrdientsTile ingredientName="Egg" image="/ad-placeholder.png" test='2'/>
-        <MainIngrdientsTile ingredientName="Cheese" image="/ad-placeholder.png" test='2'/>
-        <MainIngrdientsTile ingredientName="Lamb" image="/ad-placeholder.png" test='3'/>
-        <MainIngrdientsTile ingredientName="Pasta" image="/ad-placeholder.png" test='3'/>
-        <MainIngrdientsTile ingredientName="Dessert" image="/ad-placeholder.png" test='3'/>
-        <MainIngrdientsTile ingredientName="Vegetarian" image="/ad-placeholder.png" test='4'/>
-        <MainIngrdientsTile ingredientName="Vegan" image="/ad-placeholder.png" test='4'/>
-        <MainIngrdientsTile ingredientName="Fish" image="/ad-placeholder.png" test='4'/>
-        <MainIngrdientsTile ingredientName="Sausage" image="/ad-placeholder.png" test='4'/>
-        <MainIngrdientsTile ingredientName="Pork" image="/ad-placeholder.png" test='4'/>
+        <MainIngrdientsTile ingredientName="Chicken" image="/chicken-leg.png" />
+        <MainIngrdientsTile ingredientName="Beef" image="/beef.png"/>
+        <MainIngrdientsTile ingredientName="Egg" image="/fried-egg.png"/>
+        <MainIngrdientsTile ingredientName="Cheese" image="/cheese.png"/>
+        <MainIngrdientsTile ingredientName="Lamb" image="/lamb.png"/>
+        <MainIngrdientsTile ingredientName="Pasta" image="/spaguetti.png"/>
+        <MainIngrdientsTile ingredientName="Dessert" image="/cupcake.png"/>
+        <MainIngrdientsTile ingredientName="Vegetarian" image="/coca-leaves.png"/>
+        <MainIngrdientsTile ingredientName="Vegan" image="/vegan.png"/>
+        <MainIngrdientsTile ingredientName="Fish" image="/fish.png"/>
+        <MainIngrdientsTile ingredientName="Sausage" image="/sausages.png"/>
+        <MainIngrdientsTile ingredientName="Pork" image="/ham.png"/>
       </Grid>
 
       <Advert/>

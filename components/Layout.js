@@ -15,8 +15,6 @@ export default function Layout({ children }) {
     console.log('test')
   }
 
-  console.log(user)
-  console.log('user')
   return (
      <div className="layout">
        <header>

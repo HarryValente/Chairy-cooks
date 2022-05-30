@@ -2,43 +2,20 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-// Fontawesome
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
-
-export default function MainIngrdientsTile({ingredientName, image, test}) {
+export default function MainIngrdientsTile({ingredientName, image}) {
 
   return (
-    <div className="feature">         
-      {/* <Image 
-        src={image}
-        width={85} 
-        height={85} 
-      /> */}
-      <FontAwesomeIcon icon={faStar}/>
-      <div className="feature-text">
-        {`${ingredientName}`}
+    <Link href={'/catagory/' + ingredientName}>
+      <div className="catagory">         
+        <Image 
+          src={image}
+          width={70} 
+          height={70} 
+          />
+        <div className="catagory-text">
+          {`${ingredientName}`}
+        </div>
       </div>
-
-      <style jsx>{`
-        .feature{
-          height: 200px;
-          overflow-y: hidden;
-          border: 1px #B0B3B8 solid;
-          display: flex;
-          justify-content: space-around;
-          align-items: center;
-          flex-direction: column;
-        }
-        .feature:hover{
-          transition: 0.3s;
-          background-color: #f00;
-          box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px;
-          border: 1px solid rgba(71, 71, 71, 0.1);
-        }
-        
-      `}
-      </style>
-   </div>
+    </Link>
   )
 }

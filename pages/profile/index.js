@@ -63,7 +63,7 @@ const profile = () => {
       }
     }
   }, [user])
-  console.log('hi')
+
   return ( 
     <>
       <ProtectedRoute>

@@ -69,7 +69,7 @@ header h2 {
   /* background-color: #9DC183; */
   color: #575756;
   border-radius: 50px;
-  border: 1px solid #575756;
+  border: 1px solid rgba(87, 87, 86);
   transition: all 250ms ease-in-out;
 }
 .searchInput:focus {
@@ -215,15 +215,12 @@ header h2 {
   vertical-align: middle;
   background-color: #9DC183;
 }
-
 .homepageButton:hover {
   box-shadow: rgba(0, 0, 0, .2) 0 2px 4px -1px, rgba(0, 0, 0, .14) 0 4px 5px 0, rgba(0, 0, 0, .12) 0 1px 10px 0;
 }
-
 .homepageButton:focus {
   box-shadow: rgba(0, 0, 0, .2) 0 2px 4px -1px, rgba(0, 0, 0, .14) 0 4px 5px 0, rgba(0, 0, 0, .12) 0 1px 10px 0;
 }
-
 .homepageButton:active {
   box-shadow: rgba(0, 0, 0, .2) 0 5px 5px -3px, rgba(0, 0, 0, .14) 0 8px 10px 1px, rgba(0, 0, 0, .12) 0 3px 14px 2px;
   background: #c3e2ad;
@@ -312,6 +309,30 @@ header h2 {
     padding: 0 10px;
   }
 }
+/* Homepage catagories */
+.catagory{
+  height: 200px;
+  overflow-y: hidden;
+  border: 1px rgba(176, 179, 184, 0.6) solid;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+.catagory:hover{
+  transition: 0.3s;
+  cursor: pointer;
+  background-color: #e8e4d4;
+  box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px;
+  border: 1px solid rgba(71, 71, 71, 0.1);
+}
+@media screen and (max-width: 1350px) {
+  .catagory{
+    height: 180px;
+    margin: 10px;
+  }
+}
+/* Catagory pages */
 footer {
   background: #111;
   color: #bbb;

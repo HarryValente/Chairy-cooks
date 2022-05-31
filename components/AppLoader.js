@@ -26,7 +26,7 @@ export default ({ dark }) => {
       >
         <div className='flex h-5 items-center justify-center relative w-5'>
           <i className='fa-regular fa-spinner fa-spin-pulse text-red-500 text-4xl z-10' />
-          <Image src='/VAPTALogo.png' alt='VAPTA Systems Logo' priority layout='fill' objectFit='cover' />
+          {/* <Image src='/VAPTALogo.png' alt='VAPTA Systems Logo' priority layout='fill' objectFit='cover' /> */}
         </div>
       </motion.div>
 

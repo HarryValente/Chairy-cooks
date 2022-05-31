@@ -16,6 +16,7 @@ import useFirebase from '../hooks/useFirebase';
 
 // Fontawesome
 import { useEffect, useState } from "react";
+import { where } from "firebase/firestore";
 
 export async function getStaticProps() {
   // Link to contentful with API-Key / process.env is in the .env.local file for github concerns
@@ -32,17 +33,17 @@ export async function getStaticProps() {
   }
 }
 
-// const [recipeHead, setRecipeHead] = useState
-
 export default function Recipes({recipes}) {
   const [recipe] = useFirebase([], '/recipe_templates/')
-  const [featuredRecipes, setFeaturedRecipes] = useState()
+  const [featured, setFeatured] = useState()
   
   useEffect( async () => {
-    setFeaturedRecipes(
-      await getFirebaseDocs('/recipe_templates/')
-    )
+    const featuredRecipes = await getFirebaseDocs(`/recipe_templates`, where('homepage_feature', '==', true))
 
+    if (featuredRecipes) {
+      const featured = featuredRecipes.filter(feat => feat.homepage_feature === true)
+      setFeatured(featured)
+    }
   }, [])
 
   return (
@@ -50,7 +51,7 @@ export default function Recipes({recipes}) {
       <SEO title={'Chairy cooks - Homepage'} description={'Welcome to the homepage for Chairy cooks home of cheap tasty homemade meals from all around the world!'}/>
 
       <div className="featuredContainer">
-        <FeaturedRecipe recipes={featuredRecipes}/>
+        <FeaturedRecipe recipes={featured}/>
       </div>
 
       <div className="homepageRecipes">

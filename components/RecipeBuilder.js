@@ -50,18 +50,18 @@ export default ({ recipe: r }) => {
   const [templates] = useFirebase([], '/recipe_templates/')
 
   const RECIPE_CATEGORIES = [
-    { name: 'Chicken', value: 'chicken' },
-    { name: 'Beef', value: 'beef' },
-    { name: 'Egg', value: 'egg' },
-    { name: 'Cheese', value: 'cheese' },
-    { name: 'Lamb', value: 'lamb' },
-    { name: 'Pasta', value: 'pasta' },
-    { name: 'Dessert', value: 'dessert' },
-    { name: 'Vegetarian', value: 'vegetarian' },
-    { name: 'Vegan', value: 'vegan' },
-    { name: 'Fish', value: 'fish' },
-    { name: 'Sausage', value: 'sausage' },
-    { name: 'Pork', value: 'pork' }
+    { name: 'Chicken', value: 'Chicken' },
+    { name: 'Beef', value: 'Beef' },
+    { name: 'Egg', value: 'Egg' },
+    { name: 'Cheese', value: 'Cheese' },
+    { name: 'Lamb', value: 'Lamb' },
+    { name: 'Pasta', value: 'Pasta' },
+    { name: 'Dessert', value: 'Dessert' },
+    { name: 'Vegetarian', value: 'Vegetarian' },
+    { name: 'Vegan', value: 'Vegan' },
+    { name: 'Fish', value: 'Fish' },
+    { name: 'Sausage', value: 'Sausage' },
+    { name: 'Pork', value: 'Pork' }
   ]
 
   const RECIPE_DIFFICULTY = [
@@ -81,6 +81,8 @@ export default ({ recipe: r }) => {
 
         id: generateFirebaseId(),
         recipe_information: recipe,
+        homepage_feature: false,
+        category: recipe.details.category
       }
 
       await addFirebaseDoc('/recipe_templates/', _recipe, _recipe.id).then(

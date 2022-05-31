@@ -1,63 +1,74 @@
 // Hooks
 import { useEffect, useState } from 'react'
-import useLocalStorage from '../hooks/useLocalStorage'
-import useFirebase from '../hooks/useFirebase'
+import { updateFirebaseDoc } from '../firebase'
 
 // Components
 import Grid from '../components/Grid'
+import Search from '../components/Search'
+import { toast } from 'react-toastify'
 
-// Modules
-import moment from 'moment'
-
-export default ({ quote: data, quote, selectQuote }) => {
-  const [quotes, set] = useState([])
+export default ({ quote: data, quote, selectRecipe }) => {
+  const [recipes, setRecipes] = useState([])
   const [snapshot, setSnaphot] = useState([])
+
+  const toggle = async id => {
+    let recipe = recipes.find(r => r.id === id)
+
+    if (recipe) {
+
+      let _recipe = {
+        ...recipe,
+        homepage_feature: recipe.homepage_feature ? false : true
+      }
+      await updateFirebaseDoc(`recipe_templates`, recipe.id, _recipe)
+
+      toast.success('update done nice one')
+    }
+  }
 
   useEffect(() => {
     if (data) {
-      set(data)
+      setRecipes(data)
       setSnaphot(data)
     }
   }, [data])
 
-  useEffect(() => {
-    if (quotes) {
-      set(quotes)
-      setSnaphot(quotes)
-    }
-  }, [quotes])
-
-  console.log(quotes)
-  console.log('quotes')
   return (
     <Grid columns={1}>
-      {/* <Search
+      <Search
         data={snapshot}
-        setData={e => set(e)}
-        keys={['desc', 'job_number', 'registration_number']}
-        placeholder='Search Quotes..'
-      /> */}
+        setData={e => setRecipes(e)}
+        keys={['recipe_information.details.name']}
+        placeholder='Search recipes..'
+      />
       <Grid columns={3} className='bg-gray-100 p-2 rounded text-xs'>
         <p>Recipe</p>
         <p>Catagory</p>
         <p>Author</p>
       </Grid>
-      {quotes.length > 0
-        ? quotes.map(quote => {
+      {recipes.length > 0
+        ? recipes.map(recipe => {
             return (
               <Grid
-                key={quote.id}
+                key={recipe.id}
                 columns={3}
-                onClick={() => selectQuote(quote.id)}
+                // onClick={() => selectRecipe(recipe.id)}
                 className={`hover:bg-gray-50 border hover:border-gray-200 cursor-pointer p-2 relative rounded text-sm`}
               >
-                <span className='flex items-center'>{quote.recipe_information.details.name}</span>
-                <span className='flex items-center'>{quote.recipe_information.details.category}</span>
-                {/* <span className='flex items-center'>{quote.recipe_information.details.author[0]}</span> */}
+                <span className='flex items-center'>{recipe.recipe_information.details.name}</span>
+                <span className='flex items-center'>{recipe.recipe_information.details.category}</span>
+                <button onClick={() => toggle(recipe.id)}>
+                  {/* <i
+                    className={`fa-regular fa-toggle-${
+                      recipe.homepage_feature ? 'on text-green-500' : 'off text-gray-500'
+                    }`}
+                  /> */}
+                  Hi
+                </button>
               </Grid>
             )
           })
-        : 'No quotes found'}
+        : 'No recipes found'}
     </Grid>
   )
 }

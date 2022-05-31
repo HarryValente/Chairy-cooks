@@ -4,6 +4,7 @@ import useLocalStorage from '../../hooks/useLocalStorage'
 
 // Next
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 // Firebase
 import { getFirebaseDocs } from '../../firebase/index'
@@ -25,8 +26,10 @@ export default () => {
   useEffect( async () => {
     setCatagoryName(router.query.id)
 
-    let catagorisedRecipes = await getFirebaseDocs('/recipe_templates/')
+    // THIS WORKS WEIRD FB BUG REDUCES TIME AS NO NEED TO FILTER
+    // const test = await getFirebaseDocs(`/recipe_templates`, where('category', '==', router.query.id))
 
+    let catagorisedRecipes = await getFirebaseDocs('/recipe_templates/')
     catagorisedRecipes = catagorisedRecipes.filter(recipe => recipe.recipe_information.details.category == router.query.id)
     
     if (catagorisedRecipes) {
@@ -42,12 +45,15 @@ export default () => {
       <SEO title={`Chairy cooks - ${catagoryName}`} description={`${catagoryName} chicken`}/>
       <div className='catagoryTitleContainer'>
         <h1>{catagoryName} Recipes</h1>
-        {/* {catagoryFood && (
-          catagoryFood.map(food => {
-            {JSON.stringify(food)}
-            <h1>{food.recipe_information.details.name}</h1>
-          })
-        )} */}
+
+        {catagoryFood &&
+          catagoryFood.map(food => (
+            <Link key={food.id} href={`/recipes/${food.id}`}>
+              <p>{food.recipe_information.details.name}</p>
+            </Link>
+          ))
+        }
+
       </div>
     </>
   )

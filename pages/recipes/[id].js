@@ -39,7 +39,7 @@ export default ({}) => {
   }, [router, templates])
 
 return (
-  <ProtectedRoute>
+  // <ProtectedRoute>
       <>
         {recipe && (
           <>
@@ -331,6 +331,6 @@ return (
           </>
         )}
       </>
-    </ProtectedRoute>
+    // </ProtectedRoute>
   )
 }

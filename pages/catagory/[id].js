@@ -13,7 +13,7 @@ import { where } from 'firebase/firestore'
 // Components
 import Grid from '../../components/Grid'
 import SEO from '../../components/SEO'
-import {Widget} from '../../components/Widget'
+import {Widget, WidgetContent, WidgetTitle} from '../../components/Widget'
 
 
 export default () => {
@@ -53,6 +53,20 @@ export default () => {
             </Link>
           ))
         }
+        <Grid columns={6}>
+          <Widget className={'grid-cols-4'}>
+            <WidgetTitle>Test</WidgetTitle>
+            <WidgetContent>
+              hi
+            </WidgetContent>
+          </Widget>
+          <Widget className={'grid-cols-2'}>
+            <WidgetTitle>Test</WidgetTitle>
+            <WidgetContent>
+              hi
+            </WidgetContent>
+          </Widget>
+        </Grid>
 
       </div>
     </>

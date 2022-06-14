@@ -16,10 +16,12 @@ import { addFirebaseDoc, updateFirebaseDoc, addStorageItem, generateFirebaseId }
 import Button from '../components/Button'
 import Grid from '../components/Grid'
 import Label from '../components/Label'
-import { Widget, WidgetTitle, WidgetContent } from '../components/Widget'
+import Widget from '../components/Widget'
 import { FormField, FormSelect, FormSubmit } from '../components/Form'
 
 import { find, uniqueId } from 'lodash'
+import Field from './Field';
+import Select from './Select';
 
 export default ({ recipe: r }) => {
   const router = useRouter()
@@ -243,9 +245,8 @@ export default ({ recipe: r }) => {
 
       <Grid columns={2} className='bg-gray-100 p-4 rounded text-xs'>
         <Grid columns={1}>
-          <Widget>
-            <WidgetTitle icon='file-lines'>Recipe Details</WidgetTitle>
-            <WidgetContent>
+          <Widget title='Recipe Details'>
+
               <form onSubmit={addFormDetails}>
 
               {!recipe.details && (
@@ -253,17 +254,17 @@ export default ({ recipe: r }) => {
               )}
 
                 <Grid columns={1}>
-                  <FormField label='Name' value={form.name} onChange={e => setForm({ name: e })} /> 
-                  <FormField label='Description' value={form.desc} onChange={e => setForm({ desc: e })} /> 
-                  <FormField label='Time' type='number' value={form.time} onChange={e => setForm({ time: e })} /> 
+                  <Field label='Name' value={form.name} onChange={e => setForm({ name: e })} />
+                  <Field label='Description' value={form.desc} onChange={e => setForm({ desc: e })} />
+                  <Field label='Time' type='number' value={form.time} onChange={e => setForm({ time: e })} />
                   <Grid columns={2}>
-                    <FormSelect
+                    <Select 
                       label='Difficulty'
                       value={form.difficulty}
                       onChange={e => setForm({ difficulty: e })}
                       options={RECIPE_DIFFICULTY}
                     />
-                    <FormSelect
+                    <Select 
                       label='Category'
                       value={form.category}
                       onChange={e => setForm({ category: e })}
@@ -273,7 +274,7 @@ export default ({ recipe: r }) => {
                 </Grid>
                 <FormSubmit disabled={!form}>Add Details</FormSubmit>
               </form>
-            </WidgetContent>
+
           </Widget>
         </Grid>
 
@@ -296,101 +297,89 @@ export default ({ recipe: r }) => {
           <Grid columns={4}></Grid>
         </Widget>
 
+        <Widget title='Author'>
+          <form onSubmit={addFormAuthor}>
+            {recipe.author.length == 0 && (
+              <p className='font-medium text-vapta-red text-sm'>You still need to add an author</p>
+            )}
 
-
-        <Widget>
-          <WidgetTitle icon='folder-tree'>Author</WidgetTitle>
-          <WidgetContent>
-            <form onSubmit={addFormAuthor}>
-              {recipe.author.length == 0 && (
-                <p className='font-medium text-vapta-red text-sm'>You still need to add an author</p>
-              )}
-
-              <Grid columns={1}>
-                <FormField label='Recipe author' value={author} onChange={e => setAuthor(e)} />
-              </Grid>
-              <FormSubmit disabled={!author}>Add Author</FormSubmit>
-            </form>
-          </WidgetContent>
+            <Grid columns={1}>
+              <Field label='Recipe author' value={author} onChange={e => setAuthor(e)} />
+            </Grid>
+            <FormSubmit disabled={!author}>Add Author</FormSubmit>
+          </form>
         </Widget>
 
-        <Widget>
-          <WidgetTitle icon='folder-tree'>Similar recipes</WidgetTitle>
-          <WidgetContent>
-            <form onSubmit={addFormTag}>
+        <Widget title='Similar recipes'>
+          <form onSubmit={addFormTag}>
+            {recipe.similar_recipe.length == 0 && (
+              <p className='font-medium text-vapta-red text-sm'>You still need to link similar recipes</p>
+            )}
 
-              {recipe.similar_recipe.length == 0 && (
-                <p className='font-medium text-vapta-red text-sm'>You still need to link similar recipes</p>
-              )}
-
-              <FormSelect
-                label='All recipes'
-                value={selectedSimilar}
-                onChange={e => setSelectedSimilar(e)}
-                options={templates
-                  .map(template => {
-                    return {
-                      name: template.recipe_information.details.name,
-                      value: template.id
-                    }
-                  })}
-                className='bg-white'
-              />
-              <FormSubmit
-                variant='action'
-                icon='circle-plus'
-                onClick={addFormSimilarRecipe}
-                // onClick={() => {
-                //   setForm({
-                //     similar_recipe_ids: form.similar_recipe_ids
-                //       ? [...form.similar_recipe_ids, selectedSimilar]
-                //       : [selectedSimilar]
-                //   })
-                //   setSelectedSimilar('')
-                // }}
-                className='ml-auto w-fit'
-              >
-                Add similar recipe
-              </FormSubmit>
-              {form.similar_recipe_ids &&
-                form.similar_recipe_ids.map(id => {
-                  const technician = templates.find(item => item.id == id)
-
-                  if (technician) {
-                    return (
-                      <p className='flex items-end space-x-4 group'>
-                        <p className='text-sm'>{technician.name}</p>
-                      </p>
-                    )
-                  } else {
-                    return null
+            <Select
+              label='All recipes'
+              value={selectedSimilar}
+              onChange={e => setSelectedSimilar(e)}
+              options={templates
+                .map(template => {
+                  return {
+                    name: template.recipe_information.details.name,
+                    value: template.id
                   }
-                })
-              }
-     
-              {/* <FormSubmit disabled={!tag}>Add Similar recipes</FormSubmit> */}
-            </form>
-          </WidgetContent>
+                })}
+              className='bg-white'
+            />
+
+            <FormSubmit
+              variant='action'
+              icon='circle-plus'
+              onClick={addFormSimilarRecipe}
+              // onClick={() => {
+              //   setForm({
+              //     similar_recipe_ids: form.similar_recipe_ids
+              //       ? [...form.similar_recipe_ids, selectedSimilar]
+              //       : [selectedSimilar]
+              //   })
+              //   setSelectedSimilar('')
+              // }}
+              className='ml-auto w-fit'
+            >
+              Add similar recipe
+            </FormSubmit>
+
+            {form.similar_recipe_ids &&
+              form.similar_recipe_ids.map(id => {
+                const technician = templates.find(item => item.id == id)
+                if (technician) {
+                  return (
+                    <p className='flex items-end space-x-4 group'>
+                      <p className='text-sm'>{technician.name}</p>
+                    </p>
+                  )
+                } else {
+                  return null
+                }
+              })
+            }
+    
+            {/* <FormSubmit disabled={!tag}>Add Similar recipes</FormSubmit> */}
+          </form>
+
         </Widget>
 
-        <Widget>
-          <WidgetTitle icon='folder-tree'>Tags</WidgetTitle>
-          <WidgetContent>
+        <Widget title='Tags'>
             <form onSubmit={addFormTag}>
               {recipe.tags.length == 0 && (
                 <p className='font-medium text-vapta-red text-sm'>You still need to add relevant tags for this recipe</p>
               )}
               <Grid columns={1}>
-                <FormField label='Recipe tags' value={tag} onChange={e => setTag(e)} />
+                <Field label='Recipe tags' value={tag} onChange={e => setTag(e)} />
               </Grid>
               <FormSubmit disabled={!tag}>Add tag</FormSubmit>
             </form>
-          </WidgetContent>
         </Widget>
 
-        <Widget>
-          <WidgetTitle icon='folder-tree'>Ingredients</WidgetTitle>
-          <WidgetContent>
+        <Widget title='Ingredients'>
             <form onSubmit={addFormIngredient}>
 
               {recipe.ingredients.length == 0 && (
@@ -398,62 +387,53 @@ export default ({ recipe: r }) => {
               )}
 
               <Grid columns={1}>
-                <FormField label='Ingredient' value={ingredient} onChange={e => setIngredient(e)} />
+                <Field label='Ingredient' value={ingredient} onChange={e => setIngredient(e)} />
               </Grid>
               <FormSubmit disabled={!ingredient}>Add Ingredient</FormSubmit>
             </form>
-          </WidgetContent>
         </Widget>
 
-        <Widget>
-          <WidgetTitle icon='folder-tree'>Steps</WidgetTitle>
-          <WidgetContent>
-            <form onSubmit={addFormSteps}>
+        <Widget title='Steps'>
+          <form onSubmit={addFormSteps}>
+            {recipe.steps.length == 0 && (
+              <p className='font-medium text-vapta-red text-sm'>You still need to link add the steps to this recipe</p>
+            )}
 
-              {recipe.steps.length == 0 && (
-                <p className='font-medium text-vapta-red text-sm'>You still need to link add the steps to this recipe</p>
-              )}
-
-              <Grid columns={2}>
-                <FormField label='Name' value={steps.name} onChange={e => setSteps({ name: e })} />
-                <FormField label='ID' value={steps.id} disabled />
-              </Grid>
-              <FormSubmit disabled={!steps.name || !steps.id}>Add A Step</FormSubmit>
-            </form>
-          </WidgetContent>
+            <Grid columns={2}>
+              <Field label='Name' value={steps.name} onChange={e => setSteps({ name: e })} />
+              <Field label='ID' value={steps.id} disabled />
+            </Grid>
+            <FormSubmit disabled={!steps.name || !steps.id}>Add A Step</FormSubmit>
+          </form>
         </Widget>
 
-        <Widget>
-          <WidgetTitle icon='list-tree'>Instructions</WidgetTitle>
-          <WidgetContent>
-            <form onSubmit={addInstructionToStep}>
+        <Widget title='Instructions'>
+          <form onSubmit={addInstructionToStep}>
 
-              {recipe.steps.length > 0 && (
-                <p className='font-medium text-emerald-500 text-sm'>Steps have been added make sure to add instructions :)</p>
-              )}
+            {recipe.steps.length > 0 && (
+              <p className='font-medium text-emerald-500 text-sm'>Steps have been added make sure to add instructions :)</p>
+            )}
 
-              <Grid columns={2}>
-                <FormSelect
-                  label='Step'
-                  value={instruction.category_id}
-                  onChange={e => setInstruction({ category_id: e })}
-                  options={
-                    recipe &&
-                    Object.values(recipe.steps).map(recipe => {
-                      return {
-                        name: recipe.name,
-                        value: recipe.id
-                      }
-                    })
-                  }
-                />
-                <FormField label='Step Instructions' value={instruction.id} onChange={e => setInstruction({ id: e })} />
-              </Grid>
-              <FormSubmit disabled={!instruction.id || !instruction.category_id}>Add Instructions</FormSubmit>
-            </form>
-          </WidgetContent>
+            <Grid columns={2}>
+              <Select
+                label='Step'
+                value={instruction.category_id}
+                onChange={e => setInstruction({ category_id: e })}
+                options={
+                  recipe &&
+                  Object.values(recipe.steps).map(recipe => {
+                    return {
+                      name: recipe.name,
+                      value: recipe.id
+                    }
+                  })
+                }
+              />
+              <Field label='Step Instructions' value={instruction.id} onChange={e => setInstruction({ id: e })} />
+            </Grid>
+            <FormSubmit disabled={!instruction.id || !instruction.category_id}>Add Instructions</FormSubmit>
+          </form>
         </Widget>
-
       </Grid>
 
       <>

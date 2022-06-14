@@ -18,7 +18,8 @@ import { useAuthContext } from '../context/auth'
 import useLocalStorage from '../hooks/useLocalStorage'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Widget, WidgetTitle } from './Widget'
+import Widget from './Widget'
+import Field from './Field'
 
 export default () => {
   const router = useRouter()
@@ -66,12 +67,11 @@ export default () => {
 
   return (
 
-    <Widget>
+    <Widget title='Login'>
       {!newAccount &&
       <Form onSubmit={handleLogin} error={error}>
-        <WidgetTitle icon='file-lines'>Login</WidgetTitle>
         <Grid columns={1}>
-          <FormField
+          <Field
             autoFocus
             label='Email Address'
             value={form.email}
@@ -79,7 +79,7 @@ export default () => {
             onChange={e => setForm(state => ({...state, email: e}))}
             className='text-black'
           />
-          <FormField
+          <Field
             type='password'
             label='Password'
             value={form.password}
@@ -97,9 +97,10 @@ export default () => {
   
       {newAccount && 
       <Form onSubmit={createAccount} error={error}>
-        <WidgetTitle icon='file-lines'>Create New Account</WidgetTitle>
+        {/* TODO this title thats commented out find another solution */}
+        {/* <WidgetTitle icon='file-lines'>Create New Account</WidgetTitle> */}
         <Grid columns={2}>
-          <FormField
+          <Field
             autoFocus
             label='Email Address'
             value={form.email}
@@ -107,7 +108,7 @@ export default () => {
             onChange={e => setForm(state => ({...state, email: e}))}
             className='text-black'
           />
-          <FormField
+          <Field
             type='password'
             label='Password'
             value={form.password}

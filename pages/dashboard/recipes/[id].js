@@ -18,7 +18,7 @@ import Grid from '../../../components/Grid'
 import Button from '../../../components/Button'
 import Label from '../../../components/Label'
 import Page from '../../../components/Page'
-import {Widget} from '../../../components/Widget'
+import Widget from '../../../components/Widget'
 
 // Modules
 import moment from 'moment'

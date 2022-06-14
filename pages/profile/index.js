@@ -20,7 +20,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAuthContext } from "../../context/auth";
 import Grid from "../../components/Grid";
 import Button from "../../components/Button";
-import { Widget,  WidgetContent,  WidgetTitle } from "../../components/Widget";
+import Widget from "../../components/Widget";
 import ProtectedRoute from "../../components/ProtectedRoute";
 import SEO from "../../components/SEO";
 
@@ -66,7 +66,7 @@ const profile = () => {
 
   return ( 
     <>
-      <ProtectedRoute>
+      {/* <ProtectedRoute> */}
         <SEO title={'Chairy cooks - Account'} description={'Chairy cooks accounts page where you can view saved recipes!'}/>
         {user && user.admin && (
           <Link href="/templates">
@@ -74,9 +74,7 @@ const profile = () => {
           </Link>
         )}
         <Grid columns={2}>
-          <Widget>
-            <WidgetTitle>Saved recipes</WidgetTitle>
-            <WidgetContent>
+          <Widget title='Saved Recipes'>
               {savedRecipes.length > 0 && savedRecipes.map(recipe => {
                 return (
                   <Link key={recipe.id} href={`/recipes/${recipe.id}`}>
@@ -91,11 +89,10 @@ const profile = () => {
                 )
                 })
               }
-            </WidgetContent>
           </Widget>
           <button onClick={handleLogout}>Sign out</button>
         </Grid>
-      </ProtectedRoute>
+      {/* </ProtectedRoute> */}
     </>
   );
 }

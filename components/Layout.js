@@ -21,7 +21,7 @@ export default function Layout({ children }) {
          <div>
           <Link href="/">
             <a>
-              <h3 className='test'>Chairy</h3>
+              <h3>Chairy</h3>
               <h1>Cooks</h1>
               <h2>Spread The Joy</h2>
             </a>
@@ -48,9 +48,7 @@ export default function Layout({ children }) {
         { children }
       </div>
 
-      <footer>
-        <p>Copyright 2021 chairy cooks</p>
-      </footer>
+      <Footer />
     </div>
   )
 }

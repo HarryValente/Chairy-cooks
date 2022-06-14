@@ -7,7 +7,7 @@ import {useRouter} from 'next/router'
 import Grid from '../components/Grid'
 import Search from '../components/Search'
 import { toast } from 'react-toastify'
-import { Widget } from './Widget'
+import Widget from './Widget'
 
 export default ({ quote: data, quote, selectRecipe }) => {
   const router = useRouter()

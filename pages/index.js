@@ -63,18 +63,18 @@ export default function Recipes({recipes}) {
       <Advert/>
 
       <Grid columns={3} className='col-span-full'>
+        <MainIngrdientsTile ingredientName="Rice" image="/vegan.png"/>
+        <MainIngrdientsTile ingredientName="Pasta" image="/spaguetti.png"/>
+        <MainIngrdientsTile ingredientName="Potato" image="/sausages.png"/>
         <MainIngrdientsTile ingredientName="Chicken" image="/chicken-leg.png" />
         <MainIngrdientsTile ingredientName="Beef" image="/beef.png"/>
-        <MainIngrdientsTile ingredientName="Egg" image="/fried-egg.png"/>
-        <MainIngrdientsTile ingredientName="Cheese" image="/cheese.png"/>
+        <MainIngrdientsTile ingredientName="Seafood" image="/fish.png"/>
         <MainIngrdientsTile ingredientName="Lamb" image="/lamb.png"/>
-        <MainIngrdientsTile ingredientName="Pasta" image="/spaguetti.png"/>
-        <MainIngrdientsTile ingredientName="Dessert" image="/cupcake.png"/>
-        <MainIngrdientsTile ingredientName="Vegetarian" image="/coca-leaves.png"/>
-        <MainIngrdientsTile ingredientName="Vegan" image="/vegan.png"/>
-        <MainIngrdientsTile ingredientName="Fish" image="/fish.png"/>
-        <MainIngrdientsTile ingredientName="Sausage" image="/sausages.png"/>
+        <MainIngrdientsTile ingredientName="Egg" image="/fried-egg.png"/>
         <MainIngrdientsTile ingredientName="Pork" image="/ham.png"/>
+        <MainIngrdientsTile ingredientName="Cheese" image="/cheese.png"/>
+        <MainIngrdientsTile ingredientName="Vegetarian" image="/coca-leaves.png"/>
+        <MainIngrdientsTile ingredientName="Dessert" image="/cupcake.png"/>
       </Grid>
 
       <Advert/>

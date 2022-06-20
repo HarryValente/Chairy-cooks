@@ -18,22 +18,44 @@ export default () => {
               <RecipeList quote={recipes.filter(recipe => recipe.homepage_feature === true)} />
             </Grid>
           </Widget>
-          <Widget title='Category page selectors' className={'mt-4'}>
-              <Label className={'mt-4'} text='Beef'/>
+          <Widget title='Beef Category Page' className='mt-4'>
+              <Widget title='Beef Feature'>
+                <Grid columns={2}>
+                  <RecipeList quote={recipes.filter(recipe => recipe.category === 'Beef')} categoryType='Beef'/>
+                  <RecipeList quote={recipes.filter(recipe => recipe.category === 'Beef' && recipe.category_feature === true)} categoryType='Beef'/>
+                </Grid>
+              </Widget>
+              {/* <Widget title='Beef Page Recipes'>
+                <Grid columns={2}>
+                  <RecipeList quote={recipes.filter(recipe => recipe.category === 'Beef')} categoryType='Vegetarian'/>
+                </Grid>
+              </Widget> */}
+          </Widget>
+          <Widget title='Vegetarian page selectors' className='mt-4'>
+            <Widget title='Vegetarian Feature'>
               <Grid columns={2}>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Beef')}  />
-                <RecipeList quote={recipes.filter(recipe => recipe.category_feature === true)} />
+                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Vegetarian')} categoryType='Vegetarian'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Vegetarian' && recipe.category_feature === true)} categoryType='Vegetarian' />
               </Grid>
-              <Label className={'mt-4'} text='Vegetarian'/>
+            </Widget>
+            {/* <Widget title='Vegetarian Page Recipes'>
               <Grid columns={2}>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Vegetarian')}  />
-                <RecipeList quote={recipes.filter(recipe => recipe.category_feature === true)} />
+                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Vegetarian')} categoryType='Vegetarian'/>
               </Grid>
-              <Label className={'mt-4'} text='Chicken'/>
+            </Widget> */}
+          </Widget>
+          <Widget title='Chicken page selectors' className='mt-4'>
+            <Widget title='Chicken Feature'>
               <Grid columns={2}>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Chicken')}  />
-                <RecipeList quote={recipes.filter(recipe => recipe.category_feature === true)} />
+                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Chicken')} categoryType='Chicken'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Chicken' && recipe.category_feature === true)} categoryType='Chicken'/>
               </Grid>
+            </Widget>
+            {/* <Widget title='Chicken Page Recipes'>
+              <Grid columns={2}>
+                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Chicken')} categoryType='Chicken'/>
+              </Grid>
+            </Widget> */}
           </Widget>
       </>
   )

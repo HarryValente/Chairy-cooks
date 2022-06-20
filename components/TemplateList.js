@@ -20,7 +20,7 @@ export default ({ templates: data }) => {
   }, [data])
 
   return (
-    <div className='gap-y-4 grid grid-cols-1'>
+    <div className='gap-y-4 grid grid-cols-1 mt-4'>
       <Search data={snapshot} setData={e => set(e)} keys={['recipe_information.details.name']} placeholder='Search Templates..' />
       <div className='bg-gray-100 gap-4 grid grid-cols-4 p-2 rounded text-xs'>
         <p>Name</p>

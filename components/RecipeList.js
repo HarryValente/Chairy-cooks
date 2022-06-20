@@ -8,26 +8,51 @@ import Grid from '../components/Grid'
 import Search from '../components/Search'
 import { toast } from 'react-toastify'
 import Widget from './Widget'
+import Button from './Button'
 
-export default ({ quote: data, quote, selectRecipe }) => {
+export default ({ quote: data, selectRecipe, categoryType}) => {
   const router = useRouter()
   const [recipes, setRecipes] = useState([])
   const [snapshot, setSnaphot] = useState([])
+  const [category, setCategory] = useState()
 
-  const toggle = async id => {
+  const toggle = async (id, categ) => {
     let recipe = recipes.find(r => r.id === id)
 
     if (recipe) {
-
-      let _recipe = {
-        ...recipe,
-        homepage_feature: recipe.homepage_feature ? false : true
+      if (categ) {
+        let _recipe = {
+          ...recipe,
+          category_feature: recipe.category_feature ? false : true
+        }
+        await updateFirebaseDoc(`recipe_templates`, recipe.id, _recipe)
+      } else {
+        let _recipe = {
+          ...recipe,
+          homepage_feature: recipe.homepage_feature ? false : true
+        }
+        await updateFirebaseDoc(`recipe_templates`, recipe.id, _recipe)
       }
-      await updateFirebaseDoc(`recipe_templates`, recipe.id, _recipe)
-
       router.reload()
     }
   }
+
+  useEffect(() => {
+    if (categoryType) {
+      switch (categoryType) {
+        case 'Chicken':
+          setCategory(categoryType)
+          break;
+          case 'Beef':
+          setCategory(categoryType)
+          break;
+          case 'Vegetarian':
+          setCategory(categoryType)
+        default:
+          break;
+      }
+    }
+  }, [categoryType])
 
   useEffect(() => {
     if (data) {
@@ -35,8 +60,7 @@ export default ({ quote: data, quote, selectRecipe }) => {
       setSnaphot(data)
     }
   }, [data])
-console.log(recipes)
-console.log('recipe')
+
   return (
     <>
       <Grid columns={1}>
@@ -62,8 +86,33 @@ console.log('recipe')
                 >
                   <span className='flex items-center'>{recipe.recipe_information.details.name}</span>
                   <span className='flex items-center'>{recipe.recipe_information.details.category}</span>
-                  <span className='flex items-center' onClick={() => toggle(recipe.id)}>{recipe.homepage_feature ? 'Take off' : 'Add'}</span>
-            
+                  {category ? (
+                    <span className='flex items-center' onClick={() => toggle(recipe.id, 'categ')}>
+                      {recipe.category_feature ? 
+                        <Button variant='delete'>Remove Category Feature</Button>
+                        : 
+                        <Button variant='action'>Add Category Feature</Button>
+                      }
+                    </span>
+                    // IDNO HOW I'M GOING TO DO THIS
+                    // ) : category && !category_feature ? (
+                    // <span className='flex items-center' onClick={() => toggle(recipe.id)}>
+                    //   {recipe.homepage_feature ?
+                    //    <Button variant='delete'>Remove From Page</Button>
+                    //    : 
+                    //    <Button variant='action'>Add To Page</Button>
+                    //   }
+                    // </span>
+                    ) : (
+                      <span className='flex items-center' onClick={() => toggle(recipe.id)}>
+                        {recipe.homepage_feature ?
+                        <Button variant='delete'>Remove Home Feature</Button>
+                        : 
+                        <Button variant='action'>Add Home Feature</Button>
+                        }
+                      </span>
+                    )
+                  }
                 </Grid>
               )
             })

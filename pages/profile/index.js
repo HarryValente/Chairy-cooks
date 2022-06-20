@@ -70,10 +70,10 @@ const profile = () => {
         <SEO title={'Chairy cooks - Account'} description={'Chairy cooks accounts page where you can view saved recipes!'}/>
         {user && user.admin && (
           <Link href="/templates">
-            <Button children={'To the recipe builder!!!'} />
+            <Button variant='action'>To the recipe builder!!!</Button>
           </Link>
         )}
-        <Grid columns={2}>
+        <Grid columns={2} className='mt-4'>
           <Widget title='Saved Recipes'>
               {savedRecipes.length > 0 && savedRecipes.map(recipe => {
                 return (

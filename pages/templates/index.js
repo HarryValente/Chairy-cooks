@@ -22,12 +22,11 @@ export default () => {
           <Button variant='action' children={'Add new template'} />
         </Link>
         <Link href='/templates/manager'>
-          <Button variant='action' children={'Manage homescreen'} />
+          <Button variant='action' children={'Manage Recipes'} />
         </Link>
       </Grid>
 
       <TemplateList templates={templates} />
-
     </>
   )
 }

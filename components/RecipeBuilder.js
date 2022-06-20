@@ -60,9 +60,9 @@ export default ({ recipe: r }) => {
     { name: 'Pasta', value: 'Pasta' },
     { name: 'Dessert', value: 'Dessert' },
     { name: 'Vegetarian', value: 'Vegetarian' },
-    { name: 'Vegan', value: 'Vegan' },
-    { name: 'Fish', value: 'Fish' },
-    { name: 'Sausage', value: 'Sausage' },
+    { name: 'Rice', value: 'Rice' },
+    { name: 'Seafood', value: 'Seafood' },
+    { name: 'Potato', value: 'Potato' },
     { name: 'Pork', value: 'Pork' }
   ]
 
@@ -80,30 +80,40 @@ export default ({ recipe: r }) => {
       // Create an object with the information and fields
       // NAME AND DESCRIPTION POSTED TWICE
       const _recipe = {
-
         id: generateFirebaseId(),
-        recipe_information: recipe,
+        // recipe_information: recipe,
+        author: recipe.author,
+        name: recipe.details.name,
+        desc: recipe.details.desc,
+        difficulty: recipe.details.difficulty,
+        time: recipe.details.time,
+        ingredients: recipe.ingredients,
+        similar_recipe: recipe.similar_recipe,
+        steps: recipe.steps,
+        tags: recipe.tags,
         homepage_feature: false,
+        category_feature: false,
+        category_page: false,
         category: recipe.details.category
       }
 
-      await addFirebaseDoc('/recipe_templates/', _recipe, _recipe.id).then(
+      console.log(recipe)
+      console.log('recipe')
+      console.log(_recipe)
+      console.log('_recipe')
 
+      await addFirebaseDoc('/recipe_templates/', _recipe, _recipe.id).then(
         await handleImageUpload(_recipe)
       )
-
-      // toast.success('Woo! That template went in with no problems')
     } else {
       const _recipe = {
         id: r,
-
         recipe_information: recipe,
         ingredients: ingredientList,  
         steps: stepsList,
         tags: tagList  
       }
       await updateFirebaseDoc('/recipe_templates/', r, _recipe)
-      // toast.success('Wicked man! That template was updated')
     }
 
     return router.push('/templates')
@@ -140,8 +150,7 @@ export default ({ recipe: r }) => {
       })
     } catch (error) {
       console.error({ error })
-
-      // toast.error('There was a problem')
+      toast.error('There was a problem contact hario')
     }
   }
 
@@ -193,10 +202,6 @@ export default ({ recipe: r }) => {
       }
     })
 
-    /**
-     * TODO - this code above creates 2 state.steps code below removes duplicates fix it so code below isn't needed
-     * @author Harry
-     */
     let uniqueArray = recipe.steps.filter(function(item, pos) {
       return recipe.steps.indexOf(item) == pos;
     })
@@ -233,10 +238,10 @@ export default ({ recipe: r }) => {
       setRecipe(_recipe.fields)
     }
   }, [r])
-  console.log(form)
-  console.log('form')
-  console.log(recipe)
-  console.log('recipe')
+  // console.log(form)
+  // console.log('form')
+  // console.log(recipe)
+  // console.log('recipe')
   return (
     <>
       <Button variant='action' onClick={() => handleSubmit()}>
@@ -249,8 +254,10 @@ export default ({ recipe: r }) => {
 
               <form onSubmit={addFormDetails}>
 
-              {!recipe.details && (
+              {!recipe.details ? (
                 <p className='font-medium text-vapta-red text-sm'>You still need to link this recipes details</p>
+              ) : (
+                <p className='font-medium text-emerald-500 text-sm'>Recipe details added</p>
               )}
 
                 <Grid columns={1}>
@@ -299,8 +306,10 @@ export default ({ recipe: r }) => {
 
         <Widget title='Author'>
           <form onSubmit={addFormAuthor}>
-            {recipe.author.length == 0 && (
+            {recipe.author.length == 0 ? (
               <p className='font-medium text-vapta-red text-sm'>You still need to add an author</p>
+            ) : (
+              <p className='font-medium text-emerald-500 text-sm'>Author added</p>
             )}
 
             <Grid columns={1}>
@@ -312,8 +321,10 @@ export default ({ recipe: r }) => {
 
         <Widget title='Similar recipes'>
           <form onSubmit={addFormTag}>
-            {recipe.similar_recipe.length == 0 && (
+            {recipe.similar_recipe.length == 0 ? (
               <p className='font-medium text-vapta-red text-sm'>You still need to link similar recipes</p>
+            ) : (
+              <p className='font-medium text-emerald-500 text-sm'>Similar recipes added</p>
             )}
 
             <Select
@@ -369,8 +380,10 @@ export default ({ recipe: r }) => {
 
         <Widget title='Tags'>
             <form onSubmit={addFormTag}>
-              {recipe.tags.length == 0 && (
+              {recipe.tags.length == 0 ? (
                 <p className='font-medium text-vapta-red text-sm'>You still need to add relevant tags for this recipe</p>
+              ) : (
+                <p className='font-medium text-emerald-500 text-sm'>Tags added</p>
               )}
               <Grid columns={1}>
                 <Field label='Recipe tags' value={tag} onChange={e => setTag(e)} />
@@ -382,8 +395,10 @@ export default ({ recipe: r }) => {
         <Widget title='Ingredients'>
             <form onSubmit={addFormIngredient}>
 
-              {recipe.ingredients.length == 0 && (
+              {recipe.ingredients.length == 0 ? (
                 <p className='font-medium text-vapta-red text-sm'>You still need to add ingredients</p>
+              ) : (
+                <p className='font-medium text-emerald-500 text-sm'>Ingredients added</p>
               )}
 
               <Grid columns={1}>
@@ -395,8 +410,10 @@ export default ({ recipe: r }) => {
 
         <Widget title='Steps'>
           <form onSubmit={addFormSteps}>
-            {recipe.steps.length == 0 && (
+            {recipe.steps.length == 0 ? (
               <p className='font-medium text-vapta-red text-sm'>You still need to link add the steps to this recipe</p>
+            ) : (
+              <p className='font-medium text-emerald-500 text-sm'>Steps added, Make sure you add text to each step!</p>
             )}
 
             <Grid columns={2}>
@@ -411,7 +428,7 @@ export default ({ recipe: r }) => {
           <form onSubmit={addInstructionToStep}>
 
             {recipe.steps.length > 0 && (
-              <p className='font-medium text-emerald-500 text-sm'>Steps have been added make sure to add instructions :)</p>
+              <p className='font-medium text-yellow-500 text-sm'>Steps have been added make sure to add instructions :)</p>
             )}
 
             <Grid columns={2}>

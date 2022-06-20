@@ -32,7 +32,7 @@ export default () => {
       const catagorisedRecipes = await getFirebaseDocs(`/recipe_templates`, where('category', '==', router.query.id))
 
       if (catagorisedRecipes) {
-        setCatagoryFood(catagorisedRecipes)
+        setCatagoryFood(catagorisedRecipes.filter(rec => rec.category_page == true))
         setFeatured(catagorisedRecipes.filter(rec => rec.category_feature == true))
       }
     }
@@ -71,58 +71,6 @@ console.log('catagoryFood')
           )}
 
           <div className='categoryGridRecipes'>
-            {catagoryFood &&
-              catagoryFood.map(food => (
-                <Link key={food.id} href={`/recipes/${food.id}`}>
-                  <div className="categoryRecipe">
-                    <div className='categoryRecipeImage'>
-                      <Image
-                        src={food.main_image.url}
-                        // width={275}
-                        // height={275}
-                        placeholder='blue'
-                        layout="fill"
-                      />
-                    </div>
-                    
-                    <div className="categoryRecipeText">
-                      <h1>{food.recipe_information.details.name}</h1>
-                      <h5>{food.recipe_information.author[0]}</h5>
-                      <div className='line'></div>
-                      <p>{food.recipe_information.details.time}mins, {food.recipe_information.details.difficulty} difficulty</p>
-                      <div className='line'></div>
-                      <p>{food.recipe_information.tags.join(', ')}</p>
-                    </div>
-                  </div>
-                </Link>
-              ))
-            }
-            {catagoryFood &&
-              catagoryFood.map(food => (
-                <Link key={food.id} href={`/recipes/${food.id}`}>
-                  <div className="categoryRecipe">
-                    <div className='categoryRecipeImage'>
-                      <Image
-                        src={food.main_image.url}
-                        // width={275}
-                        // height={275}
-                        placeholder='blue'
-                        layout="fill"
-                      />
-                    </div>
-                    
-                    <div className="categoryRecipeText">
-                      <h1>{food.recipe_information.details.name}</h1>
-                      <h5>{food.recipe_information.author[0]}</h5>
-                      <div className='line'></div>
-                      <p>{food.recipe_information.details.time}mins, {food.recipe_information.details.difficulty} difficulty</p>
-                      <div className='line'></div>
-                      <p>{food.recipe_information.tags.join(', ')}</p>
-                    </div>
-                  </div>
-                </Link>
-              ))
-            }
             {catagoryFood &&
               catagoryFood.map(food => (
                 <Link key={food.id} href={`/recipes/${food.id}`}>

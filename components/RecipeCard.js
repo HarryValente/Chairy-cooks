@@ -28,7 +28,7 @@ export default function RecipeCard({recipe}) {
         <h4>Super thick blueberry banana smoothies are a breeze to whip up for a morning on the go. This recipe can be made with or without dairy pick whichever version works best for you!</h4>
         
         <Link href={'/recipe/' + slug}>
-          <button class="homepageButton" role="button">Full recipe</button>
+          <button className="homepageButton" role="button">Full recipe</button>
         </Link>
         {/* <Button className={'absolute bottom-0 left-0'} onClick={card => saveRecipeToLS(card)}>
           +

@@ -40,44 +40,16 @@ export default ({ quote: data, selectRecipe, categoryType}) => {
   useEffect(() => {
     if (categoryType) {
       switch (categoryType) {
-        case 'Rice':
-          setCategory(categoryType)
-          break;
-        case 'Pasta':
-          setCategory(categoryType)
-          break;
-        case 'Potato':
-          setCategory(categoryType)
-          break;
         case 'Chicken':
           setCategory(categoryType)
           break;
-        case 'Beef':
+          case 'Beef':
           setCategory(categoryType)
           break;
-        case 'Seafood':
+          case 'Vegetarian':
           setCategory(categoryType)
-          break;
-        case 'Lamb':
-          setCategory(categoryType)
-          break;
-        case 'Egg':
-          setCategory(categoryType)
-          break;
-        case 'Pork':
-          setCategory(categoryType)
-          break;
-        case 'Cheese':
-          setCategory(categoryType)
-          break;
-        case 'Vegetarian':
-          setCategory(categoryType)
-          break;
-        case 'Dessert':
-          setCategory(categoryType)
-          break;
         default:
-        break;
+          break;
       }
     }
   }, [categoryType])
@@ -114,24 +86,13 @@ export default ({ quote: data, selectRecipe, categoryType}) => {
                 >
                   <span className='flex items-center'>{recipe.recipe_information.details.name}</span>
                   <span className='flex items-center'>{recipe.recipe_information.details.category}</span>
-                  {category ? (
-                    <span className='flex items-center' onClick={() => toggle(recipe.id, 'categ')}>
-                      {recipe.category_feature ? 
-                        <Button variant='delete'>Remove Category Feature</Button>
-                        : 
-                        <Button variant='action'>Add Category Feature</Button>
+                    <span className='flex items-center' onClick={() => toggle(recipe.id)}>
+                      {recipe.category_page ?
+                       <Button variant='delete'>Remove From Page</Button>
+                       : 
+                       <Button variant='action'>Add To Page</Button>
                       }
                     </span>
-                    ) : (
-                      <span className='flex items-center' onClick={() => toggle(recipe.id)}>
-                        {recipe.homepage_feature ?
-                        <Button variant='delete'>Remove Home Feature</Button>
-                        : 
-                        <Button variant='action'>Add Home Feature</Button>
-                        }
-                      </span>
-                    )
-                  }
                 </Grid>
               )
             })

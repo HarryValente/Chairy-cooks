@@ -83,6 +83,27 @@ header h2 {
 .searchInput:focus {
   outline: none;
 }
+.searchFeatureLayout{
+  width: 100vw;
+  height: 100vh;
+  background-color: #00a2d3;
+  z-index: 10;
+  position: relative;
+}
+.searchFeatureHide{
+  position: absolute;
+  cursor: pointer;
+  top: 20px;
+  right: 50px;
+  margin: 20px;
+}
+.searchFeatureContentContainer{
+  z-index: 11;
+  width: 500px;
+  height: 500px;
+  background-color: #a6bd21;
+  margin: auto;
+}
 /* CSS */
 .profileBtn {
   appearance: none;

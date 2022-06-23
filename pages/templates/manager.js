@@ -20,6 +20,12 @@ export default () => {
               <RecipeList quote={recipes.filter(recipe => recipe.homepage_feature === true)} />
             </Grid>
           </Widget>
+          <Widget title='Recipes homepage' className={'mt-4'}>
+            <Grid columns={2}>
+              <RecipeList quote={recipes.sort((a, b) => b['date'] - a['date'])}  />
+              <RecipeList quote={recipes.filter(recipe => recipe.homepage_recipe === true)} />
+            </Grid>
+          </Widget>
           <Widget title='Beef Category Page' className='mt-4'>
               <div>
                 <Image 

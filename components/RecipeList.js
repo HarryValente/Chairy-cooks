@@ -131,6 +131,7 @@ export default ({ quote: data, selectRecipe, categoryType}) => {
                         }
                       </span>
                     )
+                    // Have it so there's an if else staetment and use aprop to differentiate for button
                   }
                 </Grid>
               )

@@ -12,10 +12,7 @@ import { getFirebaseDocs } from '../../firebase/index'
 import { where } from 'firebase/firestore'
 
 // Components
-import Grid from '../../components/Grid'
 import SEO from '../../components/SEO'
-import Widget from '../../components/Widget'
-
 
 export default () => {
   const router = useRouter()
@@ -38,11 +35,6 @@ export default () => {
     }
   }, [router])
 
-console.log(featured)
-console.log('featured')
-console.log(catagoryFood)
-console.log('catagoryFood')
-
   return (
     <>
       <SEO title={`Chairy cooks - ${catagoryName}`} description={`${catagoryName} chicken`}/>
@@ -55,8 +47,6 @@ console.log('catagoryFood')
                 <div className='categoryMainRecipeImage'>
                   <Image
                     src={featured[0].main_image.url}
-                    // width={275}
-                    // height={275}
                     placeholder='blue'
                     layout="fill"
                   />
@@ -78,8 +68,6 @@ console.log('catagoryFood')
                     <div className='categoryRecipeImage'>
                       <Image
                         src={food.main_image.url}
-                        // width={275}
-                        // height={275}
                         placeholder='blue'
                         layout="fill"
                       />
@@ -99,8 +87,6 @@ console.log('catagoryFood')
             }
           </div>
         </div>
-     
-     
     </>
   )
 }

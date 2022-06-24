@@ -1,6 +1,3 @@
-// Contentful
-import { createClient } from "contentful"
-
 // Components
 import RecipeCard from "../components/RecipeCard";
 import FeaturedRecipe from "../components/FeaturedRecipe";
@@ -8,41 +5,21 @@ import Advert from "../components/Advert";
 import MainIngrdientsTile from "../components/MainIngredientsTile";
 import SEO from "../components/SEO";
 import Grid from "../components/Grid";
-
 import { getFirebaseDocs } from "../firebase";
-
-// Hooks
-import useFirebase from '../hooks/useFirebase';
-
-// Fontawesome
 import { useEffect, useState } from "react";
-import { where } from "firebase/firestore";
 
-export async function getStaticProps() {
-  // Link to contentful with API-Key / process.env is in the .env.local file for github concerns
-  const client = createClient({
-    space: process.env.CONTENTFUL_SPACE_ID,
-    accessToken: process.env.CONTENTFUL_ACCESS_KEY,
-  })
-
-  // Gets items from contentful space
-  const res = await client.getEntries({content_type: 'recipe'})
-  return {
-    props: { recipes: res.items },
-    revalidate: 1
-  }
-}
-
-export default function Recipes({recipes}) {
-  const [recipe] = useFirebase([], '/recipe_templates/')
+export default function Recipes() {
   const [featured, setFeatured] = useState()
+  const [recipeHomepage, setRecipeHomepage] = useState()
   
   useEffect( async () => {
-    const featuredRecipes = await getFirebaseDocs(`/recipe_templates`, where('homepage_feature', '==', true))
+    const featuredRecipes = await getFirebaseDocs(`/recipe_templates`)
 
     if (featuredRecipes) {
       const featured = featuredRecipes.filter(feat => feat.homepage_feature === true)
+      const recipeHomepage = featuredRecipes.filter(feat => feat.homepage_page === true)
       setFeatured(featured)
+      setRecipeHomepage(recipeHomepage)
     }
   }, [])
 
@@ -55,9 +32,8 @@ export default function Recipes({recipes}) {
       </div>
 
       <div className="homepageRecipes">
-        {recipes.map(recipe => (
-          <RecipeCard key={recipe.sys.id} recipe={recipe}/>
-        ))}
+        <RecipeCard recipe={recipeHomepage}/>
+        <RecipeCard recipe={recipeHomepage}/>
       </div>
 
       <Advert/>

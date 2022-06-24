@@ -3,7 +3,6 @@ import SEO from '../../components/SEO'
 import Grid from '../../components/Grid'
 import RecipeList from '../../components/RecipeList'
 import RecipeCategoryList from '../../components/RecipeCategoryList'
-import Label from '../../components/Label'
 import Widget from '../../components/Widget'
 import useFirebase from '../../hooks/useFirebase'
 import Image from 'next/image'
@@ -22,8 +21,8 @@ export default () => {
           </Widget>
           <Widget title='Recipes homepage' className={'mt-4'}>
             <Grid columns={2}>
-              <RecipeList quote={recipes.sort((a, b) => b['date'] - a['date'])}  />
-              <RecipeList quote={recipes.filter(recipe => recipe.homepage_recipe === true)} />
+              <RecipeList quote={recipes.sort((a, b) => b['date'] - a['date'])} homepage={true}/>
+              <RecipeList quote={recipes.filter(recipe => recipe.homepage_page === true)} homepage={true}/>
             </Grid>
           </Widget>
           <Widget title='Beef Category Page' className='mt-4'>

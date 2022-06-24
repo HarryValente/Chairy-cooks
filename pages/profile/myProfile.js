@@ -1,13 +1,9 @@
 // Context
-import { useState, useEffect } from 'react'
 import { useAuthContext } from '../../context/auth'
 import Grid from '../../components/Grid'
-import Image from 'next/image'
 
 export default () => {
   const { user } = useAuthContext()
-
-  const [admin, setAdmin] = useState(false)
   
   return (
     <>

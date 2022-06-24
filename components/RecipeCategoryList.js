@@ -20,19 +20,11 @@ export default ({ quote: data, selectRecipe, categoryType}) => {
     let recipe = recipes.find(r => r.id === id)
 
     if (recipe) {
-      if (categ) {
         let _recipe = {
           ...recipe,
-          category_feature: recipe.category_feature ? false : true
+          category_page: recipe.category_page ? false : true
         }
         await updateFirebaseDoc(`recipe_templates`, recipe.id, _recipe)
-      } else {
-        let _recipe = {
-          ...recipe,
-          homepage_feature: recipe.homepage_feature ? false : true
-        }
-        await updateFirebaseDoc(`recipe_templates`, recipe.id, _recipe)
-      }
       router.reload()
     }
   }

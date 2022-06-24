@@ -10,23 +10,33 @@ import { toast } from 'react-toastify'
 import Widget from './Widget'
 import Button from './Button'
 
-export default ({ quote: data, selectRecipe, categoryType}) => {
+export default ({ quote: data, selectRecipe, categoryType, homepage}) => {
   const router = useRouter()
   const [recipes, setRecipes] = useState([])
   const [snapshot, setSnaphot] = useState([])
   const [category, setCategory] = useState()
 
-  const toggle = async (id, categ) => {
+
+  const toggle = async (id, alt) => {
     let recipe = recipes.find(r => r.id === id)
 
     if (recipe) {
-      if (categ) {
+      if (alt == 'categ') {
+        console.log(3)
         let _recipe = {
           ...recipe,
           category_feature: recipe.category_feature ? false : true
         }
         await updateFirebaseDoc(`recipe_templates`, recipe.id, _recipe)
+      } else if(alt == 'pageHome'){
+        console.log(2)
+        let _recipe = {
+          ...recipe,
+          homepage_page: recipe.homepage_page ? false : true
+        }
+        await updateFirebaseDoc(`recipe_templates`, recipe.id, _recipe)
       } else {
+        console.log(1)
         let _recipe = {
           ...recipe,
           homepage_feature: recipe.homepage_feature ? false : true
@@ -114,7 +124,15 @@ export default ({ quote: data, selectRecipe, categoryType}) => {
                 >
                   <span className='flex items-center'>{recipe.recipe_information.details.name}</span>
                   <span className='flex items-center'>{recipe.recipe_information.details.category}</span>
-                  {category ? (
+                  {homepage ? (
+                    <span className='flex items-center' onClick={() => toggle(recipe.id, 'pageHome')}>
+                      {recipe.homepage_page ?
+                        <Button variant='delete'>Remove From Home</Button>
+                        : 
+                        <Button variant='action'>Add To Home</Button>
+                      }
+                    </span>
+                  ) : category ? (
                     <span className='flex items-center' onClick={() => toggle(recipe.id, 'categ')}>
                       {recipe.category_feature ? 
                         <Button variant='delete'>Remove Category Feature</Button>
@@ -122,16 +140,15 @@ export default ({ quote: data, selectRecipe, categoryType}) => {
                         <Button variant='action'>Add Category Feature</Button>
                       }
                     </span>
-                    ) : (
-                      <span className='flex items-center' onClick={() => toggle(recipe.id)}>
-                        {recipe.homepage_feature ?
-                        <Button variant='delete'>Remove Home Feature</Button>
-                        : 
-                        <Button variant='action'>Add Home Feature</Button>
-                        }
-                      </span>
-                    )
-                    // Have it so there's an if else staetment and use aprop to differentiate for button
+                  ) : (
+                    <span className='flex items-center' onClick={() => toggle(recipe.id)}>
+                      {recipe.homepage_feature ?
+                      <Button variant='delete'>Remove Home Feature</Button>
+                      : 
+                      <Button variant='action'>Add Home Feature</Button>
+                      }
+                    </span>
+                  )
                   }
                 </Grid>
               )

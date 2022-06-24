@@ -32,6 +32,7 @@ export default ({ recipe: r }) => {
     tags: [],
     similar_recipe: [],
     author: '',
+    affiliate: [],
     steps: []
   })
 
@@ -43,6 +44,7 @@ export default ({ recipe: r }) => {
   const [stepsList, setStepsList] = useState([])
   const [tag, setTag] = useState([])
   const [author, setAuthor] = useState([])
+  const [affiliate, setAffiliate] = useState([])
   const [tagList, setTagList] = useState([])
   const [file, setFile] = useState(null)
   const [instruction, setInstruction] = useForm()
@@ -91,7 +93,9 @@ export default ({ recipe: r }) => {
         similar_recipe: recipe.similar_recipe,
         steps: recipe.steps,
         tags: recipe.tags,
+        affiliate: recipe.affiliate,
         homepage_feature: false,
+        homepage_page: false,
         category_feature: false,
         category_page: false,
         category: recipe.details.category
@@ -102,9 +106,9 @@ export default ({ recipe: r }) => {
       console.log(_recipe)
       console.log('_recipe')
 
-      await addFirebaseDoc('/recipe_templates/', _recipe, _recipe.id).then(
-        await handleImageUpload(_recipe)
-      )
+      // await addFirebaseDoc('/recipe_templates/', _recipe, _recipe.id).then(
+      //   await handleImageUpload(_recipe)
+      // )
     } else {
       const _recipe = {
         id: r,
@@ -117,21 +121,6 @@ export default ({ recipe: r }) => {
     }
 
     return router.push('/templates')
-  }
-
-  const addFormDetails = event => {
-    event.preventDefault()
-    
-    if (form.category && form.desc && form.difficulty && form.name && form.time) {
-      setRecipe(state => ({
-        ...state,
-        details: form
-      }))
-      setForm(null)
-    } else {
-      alert('You need to fill out the whole details section beany!!!')
-    }
-    
   }
 
   const handleImageUpload = async (_recipe) => {
@@ -154,6 +143,21 @@ export default ({ recipe: r }) => {
     }
   }
 
+  const addFormDetails = event => {
+    event.preventDefault()
+    
+    if (form.category && form.desc && form.difficulty && form.name && form.time) {
+      setRecipe(state => ({
+        ...state,
+        details: form
+      }))
+      setForm(null)
+    } else {
+      alert('You need to fill out the whole details section beany!!!')
+    }
+    
+  }
+
   const addFormIngredient = event => {
     event.preventDefault()
 
@@ -166,6 +170,13 @@ export default ({ recipe: r }) => {
     
     setRecipe({...recipe, tags:[...recipe.tags, tag ]})
     setTag([])
+  }
+
+  const addFormAffiliate = event => {
+    event.preventDefault()
+    
+    setRecipe({...recipe, affiliate:[...recipe.affiliate, affiliate ]})
+    setAffiliate([])
   }
 
   const addFormSimilarRecipe = event => {
@@ -238,10 +249,7 @@ export default ({ recipe: r }) => {
       setRecipe(_recipe.fields)
     }
   }, [r])
-  // console.log(form)
-  // console.log('form')
-  // console.log(recipe)
-  // console.log('recipe')
+
   return (
     <>
       <Button variant='action' onClick={() => handleSubmit()}>
@@ -449,6 +457,21 @@ export default ({ recipe: r }) => {
               <Field label='Step Instructions' value={instruction.id} onChange={e => setInstruction({ id: e })} />
             </Grid>
             <FormSubmit disabled={!instruction.id || !instruction.category_id}>Add Instructions</FormSubmit>
+          </form>
+        </Widget>
+
+        <Widget title='Affiliate Links'>
+          <form onSubmit={addFormAffiliate}>
+            {recipe.affiliate.length == 0 ? (
+              <p className='font-medium text-vapta-red text-sm'>You still need to add an affiliate links</p>
+            ) : (
+              <p className='font-medium text-emerald-500 text-sm'>Affiliate links added</p>
+            )}
+
+            <Grid columns={1}>
+              <Field label='Recipe author' value={affiliate} onChange={e => setAffiliate(e)} />
+            </Grid>
+            <FormSubmit disabled={!affiliate}>Add Affiliate</FormSubmit>
           </form>
         </Widget>
       </Grid>

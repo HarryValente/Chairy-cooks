@@ -35,16 +35,14 @@ export default function Layout({ children }) {
     searchField.addEventListener('keyup', e => {
       if (e.key === 'Enter' && search !== '') {
         const results = recipeLibrary.search(search).map(({item}) => item)
-        console.log(results)
-        console.log('results')
+
         if (results.length > 0) {
           setResults(results)
         }
       }
     })
   }, [search])
-console.log(results)
-console.log('results')
+
   return (
     <div className="layout">
       <header>

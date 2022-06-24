@@ -12,14 +12,7 @@ import Link from 'next/link'
 import { getFirebaseDoc } from '../../firebase/index'
 
 // Components
-import ProtectedRoute from '../../components/ProtectedRoute'
-import Grid from '../../components/Grid'
 import SEO from '../../components/SEO'
-
-
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import RecipeBuilder from '../../components/RecipeBuilder'
-
 
 export default ({}) => {
   const router = useRouter()

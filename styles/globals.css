@@ -99,10 +99,15 @@ header h2 {
 }
 .searchFeatureContentContainer{
   z-index: 11;
-  width: 500px;
-  height: 500px;
+  width: 70%;
+  height: 70%;
   background-color: #a6bd21;
   margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1em;
+  align-items: center;
+  justify-content: space-around;
 }
 /* CSS */
 .profileBtn {

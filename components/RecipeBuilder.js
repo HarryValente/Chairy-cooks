@@ -332,7 +332,7 @@ export default ({ recipe: r }) => {
             {recipe.similar_recipe.length == 0 ? (
               <p className='font-medium text-vapta-red text-sm'>You still need to link similar recipes</p>
             ) : (
-              <p className='font-medium text-emerald-500 text-sm'>Similar recipes added</p>
+              <p className='font-medium text-emerald-500 text-sm'>Similar recipes added {recipe.similar_recipe.length}/4</p>
             )}
 
             <Select
@@ -391,7 +391,7 @@ export default ({ recipe: r }) => {
               {recipe.tags.length == 0 ? (
                 <p className='font-medium text-vapta-red text-sm'>You still need to add relevant tags for this recipe</p>
               ) : (
-                <p className='font-medium text-emerald-500 text-sm'>Tags added</p>
+                <p className='font-medium text-emerald-500 text-sm'>Tags added {recipe.tags.length}/3</p>
               )}
               <Grid columns={1}>
                 <Field label='Recipe tags' value={tag} onChange={e => setTag(e)} />
@@ -465,11 +465,11 @@ export default ({ recipe: r }) => {
             {recipe.affiliate.length == 0 ? (
               <p className='font-medium text-vapta-red text-sm'>You still need to add an affiliate links</p>
             ) : (
-              <p className='font-medium text-emerald-500 text-sm'>Affiliate links added</p>
+              <p className='font-medium text-emerald-500 text-sm'>Affiliate links added {recipe.affiliate.length}/3</p>
             )}
 
             <Grid columns={1}>
-              <Field label='Recipe author' value={affiliate} onChange={e => setAffiliate(e)} />
+              <Field label='Affiliate links' value={affiliate} onChange={e => setAffiliate(e)} />
             </Grid>
             <FormSubmit disabled={!affiliate}>Add Affiliate</FormSubmit>
           </form>

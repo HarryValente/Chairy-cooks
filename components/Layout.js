@@ -92,7 +92,7 @@ export default function Layout({ children }) {
         { children }
       </div>
 
-      <Footer />
+      <Footer recipe={recipe}/>
     </div>
   )
 }

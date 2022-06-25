@@ -5,8 +5,9 @@ import { useState } from 'react'
 import Field from './Field'
 import Button from './Button'
 import { addFirebaseDoc, generateFirebaseId } from '../firebase/index'
+import router from 'next/router'
 
-export default () => {
+export default ({recipe}) => {
   const [name, setName] = useState()
   const [email, setEmail] = useState()
 
@@ -17,6 +18,11 @@ export default () => {
       email: email
     }
     await addFirebaseDoc('/email_list/', _emailList, _emailList.id)
+  }
+
+  const randomRecipe = async () => {
+    const randomInteger = Math.floor(Math.random() * (3 - 1)) + 1
+    router.push(`/recipes/${recipe[randomInteger].id}`)
   }
 
   return (
@@ -30,7 +36,7 @@ export default () => {
             <li>
               <Link href='/about'>About</Link>
             </li>
-            <li>Random Recipe</li>
+            <li onClick={randomRecipe} className='cursor-pointer'>Random Recipe</li>
             <li>
               <Link href='/recipeIndex'>Recipe Index</Link>
             </li>

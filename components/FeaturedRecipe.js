@@ -49,7 +49,7 @@ export default ({recipes: data}) => {
               </div>
               
               <div className="feature-text">
-                <h2>{rec.recipe_information.details.name}</h2>
+                <h2>{rec.name}</h2>
               </div>
             </div>
           </Link>

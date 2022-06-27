@@ -35,7 +35,7 @@ return (
       <>
         {recipe && (
           <>
-            <SEO title={recipe.recipe_information.details.name} description={recipe.recipe_information.details.desc}/>
+            <SEO title={recipe.name} description={recipe.desc}/>
             <div className='recipeHeadlineContainer'>
               <div className='recipePageImageContainer'>
                 {recipe.main_image && (
@@ -46,17 +46,17 @@ return (
                   height={650}
                   />
                 )}
-                <h2>{ recipe.recipe_information.details.name }</h2>
+                <h2>{ recipe.name }</h2>
               </div>
               <div className="recipeInfo">
                 <div className="recipeDescription">
-                  <p>{recipe.recipe_information.details.desc}</p>
+                  <p>{recipe.desc}</p>
                 </div>
                 <div className="recipeCookingInfo">
                   <p>Takes approx 20 mins to cook.</p>
-                  <p>{ recipe.recipe_information.details ? recipe.recipe_information.details.difficulty : '' }</p>
+                  <p>{ recipe.details ? recipe.difficulty : '' }</p>
                   <div>
-                    <p>{recipe.recipe_information.tags.join(', ')}</p>
+                    <p>{recipe.tags.join(', ')}</p>
                   </div>
                 </div>
               </div>
@@ -68,8 +68,8 @@ return (
               <div className="recipeInformationIngredients">
                 <h3>Ingredients:</h3>
                 <ul>
-                  {recipe.recipe_information.ingredients && recipe.recipe_information.ingredients.length > 0 && 
-                    recipe.recipe_information.ingredients.map((ingredient, index) => {
+                  {recipe.ingredients && recipe.ingredients.length > 0 && 
+                    recipe.ingredients.map((ingredient, index) => {
                       return (
                         <li key={index}>
                           <p>○ {ingredient}</p>
@@ -82,8 +82,8 @@ return (
               <div className="recipeMethodContainer">
                 <h3>Method:</h3>
                 <ul>
-                  {recipe.recipe_information.steps &&
-                    recipe.recipe_information.steps.map((step, index) => {
+                  {recipe.steps &&
+                    recipe.steps.map((step, index) => {
                       return (
                         <li key={index}>
                           <h1>{step.name}</h1>
@@ -97,8 +97,8 @@ return (
             </div>
             <h1 className="recipeSimilarTitle">Similar recipes</h1>
             <div className="recipeSimilarRecipeContainer">
-              {recipe.recipe_information.similar_recipe &&
-                recipe.recipe_information.similar_recipe.map(id => {
+              {recipe.similar_recipe &&
+                recipe.similar_recipe.map(id => {
                   const similarRecipe = templates.find(item => item.id == id)
                   if (similarRecipe) {
                     return (
@@ -110,7 +110,7 @@ return (
                               height={150}
                             />
                             <div className="recipeSimilarDetails">
-                              <h4>{similarRecipe.recipe_information.details.name}</h4>
+                              <h4>{similarRecipe.name}</h4>
                             </div>
                         </div>
                       </Link>

@@ -28,7 +28,7 @@ export default ({recipe: data}) => {
               <div className='homepageContent'>
                 <p>Italian, Vegetarian, Light</p>
                 <h1>{rec.title}</h1>
-                <h4>{rec.recipe_information.details.desc}</h4>
+                <h4>{rec.desc}</h4>
                 
                 <Link href={`/recipes/${rec.id}`}>
                   <button className="homepageButton" role="button">Full recipe</button>

@@ -79,7 +79,7 @@ export default function Layout({ children }) {
             {results.length > 0 && results.map(rec => (
               <Link key={rec.id} href={`/recipes/${rec.id}`}>
                 <a className='block hover:bg-gray-50 border border-gray-100 hover:border-gray-200 gap-4 grid grid-cols-4 p-2 rounded text-sm' onClick={() => toggle(state => !state)}>
-                  <p className='flex items-center text-gray-500'>{rec.recipe_information.details.name}</p>
+                  <p className='flex items-center text-gray-500'>{rec.name}</p>
                 </a>
               </Link>
             ))}

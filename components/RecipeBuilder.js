@@ -17,9 +17,9 @@ import Button from '../components/Button'
 import Grid from '../components/Grid'
 import Label from '../components/Label'
 import Widget from '../components/Widget'
-import { FormField, FormSelect, FormSubmit } from '../components/Form'
+import { FormSubmit } from '../components/Form'
 
-import { find, uniqueId } from 'lodash'
+import { uniqueId } from 'lodash'
 import Field from './Field';
 import Select from './Select';
 
@@ -33,6 +33,7 @@ export default ({ recipe: r }) => {
     similar_recipe: [],
     author: '',
     affiliate: [],
+    category: [],
     steps: []
   })
 
@@ -45,6 +46,7 @@ export default ({ recipe: r }) => {
   const [tag, setTag] = useState([])
   const [author, setAuthor] = useState([])
   const [affiliate, setAffiliate] = useState([])
+  const [category, setCategory] = useState([])
   const [tagList, setTagList] = useState([])
   const [file, setFile] = useState(null)
   const [instruction, setInstruction] = useForm()
@@ -88,6 +90,7 @@ export default ({ recipe: r }) => {
         name: recipe.details.name,
         desc: recipe.details.desc,
         difficulty: recipe.details.difficulty,
+        serves: recipe.details.serves,
         time: recipe.details.time,
         ingredients: recipe.ingredients,
         similar_recipe: recipe.similar_recipe,
@@ -98,22 +101,21 @@ export default ({ recipe: r }) => {
         homepage_page: false,
         category_feature: false,
         category_page: false,
-        category: recipe.details.category
+        category: recipe.category
       }
 
-      console.log(recipe)
-      console.log('recipe')
       console.log(_recipe)
       console.log('_recipe')
 
-      // await addFirebaseDoc('/recipe_templates/', _recipe, _recipe.id).then(
-      //   await handleImageUpload(_recipe)
-      // )
+      await addFirebaseDoc('/recipe_templates/', _recipe, _recipe.id).then(
+        await handleImageUpload(_recipe)
+      )
     } else {
       const _recipe = {
         id: r,
         recipe_information: recipe,
-        ingredients: ingredientList,  
+        ingredients: ingredientList,
+        serves: serves,  
         steps: stepsList,
         tags: tagList  
       }
@@ -146,7 +148,7 @@ export default ({ recipe: r }) => {
   const addFormDetails = event => {
     event.preventDefault()
     
-    if (form.category && form.desc && form.difficulty && form.name && form.time) {
+    if (form.desc && form.difficulty && form.name && form.time) {
       setRecipe(state => ({
         ...state,
         details: form
@@ -177,6 +179,13 @@ export default ({ recipe: r }) => {
     
     setRecipe({...recipe, affiliate:[...recipe.affiliate, affiliate ]})
     setAffiliate([])
+  }
+
+  const addFormCategory = event => {
+    event.preventDefault()
+    
+    setRecipe({...recipe, category:[...recipe.category, category ]})
+    setCategory([])
   }
 
   const addFormSimilarRecipe = event => {
@@ -242,13 +251,17 @@ export default ({ recipe: r }) => {
         id: r,
         name: _recipe.name,
         desc: _recipe.desc,
-        category: _recipe.category,
         difficulty: _recipe.difficulty
       })
 
       setRecipe(_recipe.fields)
     }
   }, [r])
+
+  console.log(form)
+  console.log('form')
+  console.log(recipe)
+  console.log('recipe')
 
   return (
     <>
@@ -268,24 +281,17 @@ export default ({ recipe: r }) => {
                 <p className='font-medium text-emerald-500 text-sm'>Recipe details added</p>
               )}
 
-                <Grid columns={1}>
+                <Grid columns={2}>
                   <Field label='Name' value={form.name} onChange={e => setForm({ name: e })} />
                   <Field label='Description' value={form.desc} onChange={e => setForm({ desc: e })} />
                   <Field label='Time' type='number' value={form.time} onChange={e => setForm({ time: e })} />
-                  <Grid columns={2}>
-                    <Select 
-                      label='Difficulty'
-                      value={form.difficulty}
-                      onChange={e => setForm({ difficulty: e })}
-                      options={RECIPE_DIFFICULTY}
-                    />
-                    <Select 
-                      label='Category'
-                      value={form.category}
-                      onChange={e => setForm({ category: e })}
-                      options={RECIPE_CATEGORIES}
-                    />
-                  </Grid>
+                  <Field label='Serves' type='number' value={form.serves} onChange={e => setForm({ serves: e })} />
+                  <Select 
+                    label='Difficulty'
+                    value={form.difficulty}
+                    onChange={e => setForm({ difficulty: e })}
+                    options={RECIPE_DIFFICULTY}
+                  />
                 </Grid>
                 <FormSubmit disabled={!form}>Add Details</FormSubmit>
               </form>
@@ -342,7 +348,7 @@ export default ({ recipe: r }) => {
               options={templates
                 .map(template => {
                   return {
-                    name: template.recipe_information.details.name,
+                    name: template.name,
                     value: template.id
                   }
                 })}
@@ -472,6 +478,27 @@ export default ({ recipe: r }) => {
               <Field label='Affiliate links' value={affiliate} onChange={e => setAffiliate(e)} />
             </Grid>
             <FormSubmit disabled={!affiliate}>Add Affiliate</FormSubmit>
+          </form>
+        </Widget>
+
+        <Widget title='Category'>
+          <form onSubmit={addFormCategory}>
+            {recipe.category.length == 0 ? (
+              <p className='font-medium text-vapta-red text-sm'>You still need to add a category</p>
+            ) : (
+              <p className='font-medium text-emerald-500 text-sm'>Category added {recipe.category.length}/3</p>
+            )}
+
+            <Grid columns={1}>
+              {/* <Field label='Category' value={category} onChange={e => setCategory(e)} /> */}
+              <Select 
+                label='Category'
+                value={category}
+                onChange={e => setCategory(e)}
+                options={RECIPE_CATEGORIES}
+              />
+            </Grid>
+            <FormSubmit disabled={!category}>Add Category</FormSubmit>
           </form>
         </Widget>
       </Grid>

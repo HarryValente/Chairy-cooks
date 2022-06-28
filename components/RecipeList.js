@@ -16,27 +16,63 @@ export default ({ quote: data, selectRecipe, categoryType, homepage}) => {
   const [snapshot, setSnaphot] = useState([])
   const [category, setCategory] = useState()
 
-
-  const toggle = async (id, alt) => {
+  const toggle = async (id, alt, categ) => {
     let recipe = recipes.find(r => r.id === id)
 
     if (recipe) {
       if (alt == 'categ') {
-        console.log(3)
         let _recipe = {
           ...recipe,
-          category_feature: recipe.category_feature ? false : true
+          // category_feature: recipe.category_feature ? false : true
+        }
+        switch (categ) {
+          case 'Beef':
+            _recipe.beef_feature = recipe.beef_feature ? false : true
+            break;
+          case 'Vegetarian':
+            _recipe.vegetarian_feature =  recipe.vegetarian_feature ? false : true
+            break;
+          case 'Chicken':
+            _recipe.chicken_feature = recipe.chicken_feature ? false : true
+            break;
+          case 'Rice':
+            _recipe.rice_feature = recipe.rice_feature ? false : true
+            break;
+          case 'Pasta':
+            _recipe.pasta_feature = recipe.pasta_feature ? false : true
+            break;
+          case 'Potato':
+            _recipe.potato_feature = recipe.potato_feature ? false : true
+            break;
+          case 'Seafood':
+            _recipe.seafood_feature = recipe.seafood_feature ? false : true
+            break;
+          case 'Lamb':
+            _recipe.lamb_feature = recipe.lamb_feature ? false : true
+            break;
+          case 'Egg':
+            _recipe.egg_feature = recipe.egg_feature ? false : true
+            break;
+          case 'Pork':
+            _recipe.pork_feature = recipe.pork_feature ? false : true
+            break;
+          case 'Cheese':
+            _recipe.cheese_feature = recipe.cheese_feature ? false : true
+            break;
+          case 'Dessert':
+            _recipe.dessert_feature = recipe.dessert_feature ? false : true
+            break;
+          default:
+            break;
         }
         await updateFirebaseDoc(`recipe_templates`, recipe.id, _recipe)
       } else if(alt == 'pageHome'){
-        console.log(2)
         let _recipe = {
           ...recipe,
           homepage_page: recipe.homepage_page ? false : true
         }
         await updateFirebaseDoc(`recipe_templates`, recipe.id, _recipe)
       } else {
-        console.log(1)
         let _recipe = {
           ...recipe,
           homepage_feature: recipe.homepage_feature ? false : true
@@ -105,7 +141,7 @@ export default ({ quote: data, selectRecipe, categoryType, homepage}) => {
         <Search
           data={snapshot}
           setData={e => setRecipes(e)}
-          keys={['recipe_information.details.name']}
+          keys={['name']}
           placeholder='Search recipes..'
         />
         <Grid columns={3} className='bg-gray-100 p-2 rounded text-xs'>
@@ -122,8 +158,8 @@ export default ({ quote: data, selectRecipe, categoryType, homepage}) => {
                   // onClick={() => selectRecipe(recipe.id)}
                   className={`hover:bg-gray-50 border hover:border-gray-200 cursor-pointer p-2 relative rounded text-sm`}
                 >
-                  <span className='flex items-center'>{recipe.recipe_information.details.name}</span>
-                  <span className='flex items-center'>{recipe.recipe_information.details.category}</span>
+                  <span className='flex items-center'>{recipe.name}</span>
+                  <span className='flex items-center'>{recipe.category.join(', ')}</span>
                   {homepage ? (
                     <span className='flex items-center' onClick={() => toggle(recipe.id, 'pageHome')}>
                       {recipe.homepage_page ?
@@ -133,8 +169,8 @@ export default ({ quote: data, selectRecipe, categoryType, homepage}) => {
                       }
                     </span>
                   ) : category ? (
-                    <span className='flex items-center' onClick={() => toggle(recipe.id, 'categ')}>
-                      {recipe.category_feature ? 
+                    <span className='flex items-center' onClick={() => toggle(recipe.id, 'categ', categoryType)}>
+                      {recipe.beef_feature || recipe.vegetarian_feature || recipe.chicken_feature || recipe.rice_feature || recipe.pasta_feature || recipe.potato_feature || recipe.seafood_feature || recipe.lamb_feature || recipe.egg_feature || recipe.pork_feature || recipe.cheese_feature || recipe.dessert_feature ? 
                         <Button variant='delete'>Remove Category Feature</Button>
                         : 
                         <Button variant='action'>Add Category Feature</Button>

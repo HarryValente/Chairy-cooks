@@ -59,7 +59,7 @@ export default ({ quote: data, selectRecipe, categoryType}) => {
         <Search
           data={snapshot}
           setData={e => setRecipes(e)}
-          keys={['recipe_information.details.name']}
+          keys={['name']}
           placeholder='Search recipes..'
         />
         <Grid columns={3} className='bg-gray-100 p-2 rounded text-xs'>
@@ -76,8 +76,8 @@ export default ({ quote: data, selectRecipe, categoryType}) => {
                   // onClick={() => selectRecipe(recipe.id)}
                   className={`hover:bg-gray-50 border hover:border-gray-200 cursor-pointer p-2 relative rounded text-sm`}
                 >
-                  <span className='flex items-center'>{recipe.recipe_information.details.name}</span>
-                  <span className='flex items-center'>{recipe.recipe_information.details.category}</span>
+                  <span className='flex items-center'>{recipe.name}</span>
+                  <span className='flex items-center'>{recipe.category.join(', ')}</span>
                     <span className='flex items-center' onClick={() => toggle(recipe.id)}>
                       {recipe.category_page ?
                        <Button variant='delete'>Remove From Page</Button>

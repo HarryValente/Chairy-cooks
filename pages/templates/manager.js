@@ -6,6 +6,7 @@ import RecipeCategoryList from '../../components/RecipeCategoryList'
 import Widget from '../../components/Widget'
 import useFirebase from '../../hooks/useFirebase'
 import Image from 'next/image'
+import { useEffect } from 'react'
 
 export default () => {
   const [recipes, updateRecipe, removeRecipe] = useFirebase([], 'recipe_templates')
@@ -35,14 +36,14 @@ export default () => {
               </div>
               <Widget title='Beef Feature'>
                 <Grid columns={2}>
-                  <RecipeList quote={recipes.filter(recipe => recipe.category === 'Beef')} categoryType='Beef'/>
-                  <RecipeList quote={recipes.filter(recipe => recipe.category === 'Beef' && recipe.category_feature === true)} categoryType='Beef'/>
+                  <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Beef'))} categoryType='Beef'/>
+                  <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Beef') && recipe.beef_feature === true)} categoryType='Beef'/>
                 </Grid>
               </Widget>
               <Widget title='Beef Page Recipes'>
                 <Grid columns={2}>
-                  <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Beef')} categoryType='Vegetarian'/>
-                  <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Beef' && recipe.category_page === true)} categoryType='Vegetarian'/>
+                  <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Beef'))} categoryType='Vegetarian'/>
+                  <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Beef') && recipe.beef_page === true)} categoryType='Vegetarian'/>
                 </Grid>
               </Widget>
           </Widget>
@@ -56,14 +57,14 @@ export default () => {
             </div>
             <Widget title='Vegetarian Feature'>
               <Grid columns={2}>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Vegetarian')} categoryType='Vegetarian'/>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Vegetarian' && recipe.category_feature === true)} categoryType='Vegetarian' />
+                <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Vegetarian'))} categoryType='Vegetarian'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Vegetarian') && recipe.vegetarian_feature === true)} categoryType='Vegetarian' />
               </Grid>
             </Widget>
             <Widget title='Vegetarian Page Recipes'>
               <Grid columns={2}>
-                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Vegetarian')} categoryType='Vegetarian'/>
-                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Vegetarian' && recipe.category_page === true)} categoryType='Vegetarian'/>
+                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Vegetarian'))} categoryType='Vegetarian'/>
+                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Vegetarian') && recipe.vegetarian_page === true)} categoryType='Vegetarian'/>
               </Grid>
             </Widget>
           </Widget>
@@ -77,14 +78,14 @@ export default () => {
             </div>
             <Widget title='Chicken Feature'>
               <Grid columns={2}>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Chicken')} categoryType='Chicken'/>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Chicken' && recipe.category_feature === true)} categoryType='Chicken'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Chicken'))} categoryType='Chicken'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Chicken') && recipe.chicken_feature === true)} categoryType='Chicken'/>
               </Grid>
             </Widget>
             <Widget title='Chicken Page Recipes'>
               <Grid columns={2}>
-                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Chicken')} categoryType='Chicken'/>
-                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Chicken' && recipe.category_page === true)} categoryType='Chicken'/>
+                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Chicken'))} categoryType='Chicken'/>
+                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Chicken') && recipe.chicken_page === true)} categoryType='Chicken'/>
               </Grid>
             </Widget>
           </Widget>
@@ -98,14 +99,14 @@ export default () => {
             </div>
             <Widget title='Rice Feature'>
               <Grid columns={2}>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Rice')} categoryType='Rice'/>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Rice' && recipe.category_feature === true)} categoryType='Rice'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Rice'))} categoryType='Rice'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Rice') && recipe.rice_feature === true)} categoryType='Rice'/>
               </Grid>
             </Widget>
             <Widget title='Rice Page Recipes'>
               <Grid columns={2}>
-                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Rice')} categoryType='Rice'/>
-                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Rice' && recipe.category_page === true)} categoryType='Rice'/>
+                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Rice'))} categoryType='Rice'/>
+                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Rice') && recipe.rice_page === true)} categoryType='Rice'/>
               </Grid>
             </Widget>
           </Widget>
@@ -119,14 +120,14 @@ export default () => {
             </div>
             <Widget title='Pasta Feature'>
               <Grid columns={2}>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Pasta')} categoryType='Pasta'/>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Pasta' && recipe.category_feature === true)} categoryType='Pasta'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Pasta'))} categoryType='Pasta'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Pasta') && recipe.pasta_feature === true)} categoryType='Pasta'/>
               </Grid>
             </Widget>
             <Widget title='Pasta Page Recipes'>
               <Grid columns={2}>
-                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Pasta')} categoryType='Pasta'/>
-                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Pasta' && recipe.category_page === true)} categoryType='Pasta'/>
+                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Pasta'))} categoryType='Pasta'/>
+                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Pasta') && recipe.pasta_page === true)} categoryType='Pasta'/>
               </Grid>
             </Widget>
           </Widget>
@@ -140,14 +141,14 @@ export default () => {
             </div>
             <Widget title='Potato Feature'>
               <Grid columns={2}>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Potato')} categoryType='Potato'/>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Potato' && recipe.category_feature === true)} categoryType='Potato'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Potato'))} categoryType='Potato'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Potato') && recipe.potato_feature === true)} categoryType='Potato'/>
               </Grid>
             </Widget>
             <Widget title='Potato Page Recipes'>
               <Grid columns={2}>
-                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Potato')} categoryType='Potato'/>
-                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Potato' && recipe.category_page === true)} categoryType='Potato'/>
+                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Potato'))} categoryType='Potato'/>
+                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Potato') && recipe.potato_page === true)} categoryType='Potato'/>
               </Grid>
             </Widget>
           </Widget>
@@ -161,14 +162,14 @@ export default () => {
             </div>
             <Widget title='Seafood Feature'>
               <Grid columns={2}>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Seafood')} categoryType='Seafood'/>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Seafood' && recipe.category_feature === true)} categoryType='Seafood'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Seafood'))} categoryType='Seafood'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Seafood') && recipe.seafood_feature === true)} categoryType='Seafood'/>
               </Grid>
             </Widget>
             <Widget title='Seafood Page Recipes'>
               <Grid columns={2}>
-                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Seafood')} categoryType='Seafood'/>
-                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Seafood' && recipe.category_page === true)} categoryType='Seafood'/>
+                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Seafood'))} categoryType='Seafood'/>
+                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Seafood') && recipe.seafood_page === true)} categoryType='Seafood'/>
               </Grid>
             </Widget>
           </Widget>
@@ -182,14 +183,14 @@ export default () => {
             </div>
             <Widget title='Lamb Feature'>
               <Grid columns={2}>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Lamb')} categoryType='Lamb'/>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Lamb' && recipe.category_feature === true)} categoryType='Lamb'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Lamb'))} categoryType='Lamb'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Lamb') && recipe.lamb_feature === true)} categoryType='Lamb'/>
               </Grid>
             </Widget>
             <Widget title='Lamb Page Recipes'>
               <Grid columns={2}>
-                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Lamb')} categoryType='Lamb'/>
-                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Lamb' && recipe.category_page === true)} categoryType='Lamb'/>
+                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Lamb'))} categoryType='Lamb'/>
+                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Lamb') && recipe.lamb_page === true)} categoryType='Lamb'/>
               </Grid>
             </Widget>
           </Widget>
@@ -203,14 +204,14 @@ export default () => {
             </div>
             <Widget title='Egg Feature'>
               <Grid columns={2}>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Egg')} categoryType='Egg'/>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Egg' && recipe.category_feature === true)} categoryType='Egg'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Egg'))} categoryType='Egg'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Egg') && recipe.egg_feature === true)} categoryType='Egg'/>
               </Grid>
             </Widget>
             <Widget title='Egg Page Recipes'>
               <Grid columns={2}>
-                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Egg')} categoryType='Egg'/>
-                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Egg' && recipe.category_page === true)} categoryType='Egg'/>
+                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Egg'))} categoryType='Egg'/>
+                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Egg') && recipe.egg_page === true)} categoryType='Egg'/>
               </Grid>
             </Widget>
           </Widget>
@@ -224,14 +225,14 @@ export default () => {
             </div>
             <Widget title='Pork Feature'>
               <Grid columns={2}>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Pork')} categoryType='Pork'/>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Pork' && recipe.category_feature === true)} categoryType='Pork'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Pork'))} categoryType='Pork'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Pork') && recipe.pork_feature === true)} categoryType='Pork'/>
               </Grid>
             </Widget>
             <Widget title='Pork Page Recipes'>
               <Grid columns={2}>
-                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Pork')} categoryType='Pork'/>
-                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Pork' && recipe.category_page === true)} categoryType='Pork'/>
+                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Pork'))} categoryType='Pork'/>
+                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Pork') && recipe.pork_page === true)} categoryType='Pork'/>
               </Grid>
             </Widget>
           </Widget>
@@ -245,14 +246,14 @@ export default () => {
             </div>
             <Widget title='Cheese Feature'>
               <Grid columns={2}>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Cheese')} categoryType='Cheese'/>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Cheese' && recipe.category_feature === true)} categoryType='Cheese'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Cheese'))} categoryType='Cheese'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Cheese') && recipe.cheese_feature === true)} categoryType='Cheese'/>
               </Grid>
             </Widget>
             <Widget title='Cheese Page Recipes'>
               <Grid columns={2}>
-                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Cheese')} categoryType='Cheese'/>
-                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Cheese' && recipe.category_page === true)} categoryType='Cheese'/>
+                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Cheese'))} categoryType='Cheese'/>
+                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Cheese') && recipe.cheese_page === true)} categoryType='Cheese'/>
               </Grid>
             </Widget>
           </Widget>
@@ -266,14 +267,14 @@ export default () => {
             </div>
             <Widget title='Dessert Feature'>
               <Grid columns={2}>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Dessert')} categoryType='Dessert'/>
-                <RecipeList quote={recipes.filter(recipe => recipe.category === 'Dessert' && recipe.category_feature === true)} categoryType='Dessert'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Dessert'))} categoryType='Dessert'/>
+                <RecipeList quote={recipes.filter(recipe => recipe.category.includes('Dessert') && recipe.dessert_feature === true)} categoryType='Dessert'/>
               </Grid>
             </Widget>
             <Widget title='Dessert Page Recipes'>
               <Grid columns={2}>
-                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Dessert')} categoryType='Dessert'/>
-                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category === 'Dessert' && recipe.category_page === true)} categoryType='Dessert'/>
+                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Dessert'))} categoryType='Dessert'/>
+                <RecipeCategoryList quote={recipes.filter(recipe => recipe.category.includes('Dessert') && recipe.dessert_page === true)} categoryType='Dessert'/>
               </Grid>
             </Widget>
           </Widget>

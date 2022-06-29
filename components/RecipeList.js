@@ -170,11 +170,7 @@ export default ({ quote: data, selectRecipe, categoryType, homepage}) => {
                     </span>
                   ) : category ? (
                     <span className='flex items-center' onClick={() => toggle(recipe.id, 'categ', categoryType)}>
-                      {recipe.beef_feature || recipe.vegetarian_feature || recipe.chicken_feature || recipe.rice_feature || recipe.pasta_feature || recipe.potato_feature || recipe.seafood_feature || recipe.lamb_feature || recipe.egg_feature || recipe.pork_feature || recipe.cheese_feature || recipe.dessert_feature ? 
-                        <Button variant='delete'>Remove Category Feature</Button>
-                        : 
-                        <Button variant='action'>Add Category Feature</Button>
-                      }
+                      <Button variant='action'>Toggle {categoryType} Feature</Button>
                     </span>
                   ) : (
                     <span className='flex items-center' onClick={() => toggle(recipe.id)}>

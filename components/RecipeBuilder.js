@@ -53,7 +53,7 @@ export default ({ recipe: r }) => {
 
   const [selectedSimilar, setSelectedSimilar] = useState('')
 
-  const [templates] = useFirebase([], '/recipe_templates/')
+  const [templates] = useFirebase([], '/all_recipes/')
 
   const RECIPE_CATEGORIES = [
     { name: 'Chicken', value: 'Chicken' },
@@ -107,9 +107,14 @@ export default ({ recipe: r }) => {
       console.log(_recipe)
       console.log('_recipe')
 
-      await addFirebaseDoc('/recipe_templates/', _recipe, _recipe.id).then(
+      await addFirebaseDoc('/all_recipes/', _recipe, _recipe.id)
+      await handleImageUpload(_recipe)
+        
+      _recipe.category.map(async rec => {
+        await addFirebaseDoc(`/${ rec.toLowerCase() + '_recipes'}/`, _recipe, _recipe.id)
         await handleImageUpload(_recipe)
-      )
+      })
+      
     } else {
       const _recipe = {
         id: r,
@@ -119,7 +124,7 @@ export default ({ recipe: r }) => {
         steps: stepsList,
         tags: tagList  
       }
-      await updateFirebaseDoc('/recipe_templates/', r, _recipe)
+      await updateFirebaseDoc('/all_recipes/', r, _recipe)
     }
 
     return router.push('/templates')
@@ -133,7 +138,7 @@ export default ({ recipe: r }) => {
           url: url
         }
 
-        const update = updateFirebaseDoc('/recipe_templates/', `${_recipe.id}`, {
+        const update = updateFirebaseDoc('/all_recipes/', `${_recipe.id}`, {
           main_image: mainImage
         })
 
@@ -245,7 +250,7 @@ export default ({ recipe: r }) => {
   // Place recipe details if existing
   useEffect(async () => {
     if (r) {
-      const _recipe = await getFirebaseDoc('/recipe_templates/', r)
+      const _recipe = await getFirebaseDoc('/all_recipes/', r)
 
       setForm({
         id: r,

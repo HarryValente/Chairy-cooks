@@ -3,7 +3,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 export default function MainIngrdientsTile({ingredientName, image}) {
-
   return (
     <Link href={'/catagory/' + ingredientName}>
       <div className="catagory">         

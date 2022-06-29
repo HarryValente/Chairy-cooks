@@ -26,11 +26,12 @@ export default () => {
     setCatagoryName(router.query.id)
 
     if (router.query.id) {
-      const catagorisedRecipes = await getFirebaseDocs(`/recipe_templates`, where('category', '==', router.query.id))
-
+      const catagorisedRecipes = await getFirebaseDocs(`/recipe_templates`, where('category', "array-contains", router.query.id))
+      console.log(catagorisedRecipes)
+      console.log('catagorisedRecipes')
       if (catagorisedRecipes) {
         setCatagoryFood(catagorisedRecipes.filter(rec => rec.category_page == true))
-        setFeatured(catagorisedRecipes.filter(rec => rec.category_feature == true))
+        // setFeatured(catagorisedRecipes.filter(rec => rec.category_feature == true))
       }
     }
   }, [router])

@@ -19,7 +19,7 @@ export const Dashboard = (props) => {
 }
 
 export async function getServerSideProps() {
-  const [faveRecipes] = await getFirebaseDocs(`/recipe_templates`)
+  const [faveRecipes] = await getFirebaseDocs(`/all_recipes`)
   
   return { props: JSON.stringify(faveRecipes) }
 }

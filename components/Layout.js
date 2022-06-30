@@ -11,7 +11,7 @@ import Fuse from "fuse.js";
 
 export default function Layout({ children }) {
   const { user } = useAuthContext()
-  const [recipe] = useFirebase([], '/recipe_templates/')
+  const [recipe] = useFirebase([], '/all_recipes/')
   const [visible, toggle] = useToggle(false)
   // Recipe Search
   const searchInput = useRef(null)
@@ -51,7 +51,7 @@ export default function Layout({ children }) {
             <a>
               <h3>Chairy</h3>
               <h1>Cooks</h1>
-              <h2>Spread The Joy</h2>
+              <h2>Cooking Together</h2>
             </a>
           </Link>
         </div>
@@ -61,12 +61,12 @@ export default function Layout({ children }) {
         {user ? (
           <>
             <Link href="/profile">
-              <button className="profileBtn" role="button"><span class="text">Profile</span></button>
+              <button className="profileBtn" role="button"><span className="text">Profile</span></button>
             </Link>
           </>
         ) : (
           <Link href="/login">
-            <button className="profileBtn" role="button"><span class="text">Login</span></button>
+            <button className="profileBtn" role="button"><span className="text">Login</span></button>
           </Link>
         )}
       </header>

@@ -12,7 +12,7 @@ import Grid from '../../components/Grid';
 
 
 export default () => {
-  const [templates] = useFirebase([], '/recipe_templates/')
+  const [templates] = useFirebase([], '/all_recipes/')
 
   return (
     <>

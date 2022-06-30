@@ -13,7 +13,7 @@ export default function Recipes() {
   const [recipeHomepage, setRecipeHomepage] = useState()
   
   useEffect( async () => {
-    const featuredRecipes = await getFirebaseDocs(`/recipe_templates`)
+    const featuredRecipes = await getFirebaseDocs(`/all_recipes`)
 
     if (featuredRecipes) {
       const featured = featuredRecipes.filter(feat => feat.homepage_feature === true)

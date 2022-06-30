@@ -37,7 +37,7 @@ export default ({}) => {
 
   const [report, set] = useState()
   const [pause, setPause] = useToggle(true)
-  const [templates] = useFirebase([], '/recipe_templates/')
+  const [templates] = useFirebase([], '/all_recipes/')
 
   const setFieldStatus = (category_id, field_id, status) => {
     set(state => {
@@ -53,7 +53,7 @@ export default ({}) => {
 
   useEffect(async () => {
     if (router.query.id) {
-      const _report = await getFirebaseDoc('recipe_templates/', router.query.id)
+      const _report = await getFirebaseDoc('all_recipes/', router.query.id)
       // const _template = templates.find(t => t.name == _report.report_code)
       const _template = templates.find(t => t.id == _report.id)
 

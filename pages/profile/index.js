@@ -43,7 +43,7 @@ const profile = () => {
         const recipes = user.saved_recipes
 
         recipes.map(async recipeID => {
-          const [faveRecipes] = await getFirebaseDocs(`/recipe_templates`, where('id', '==', recipeID))
+          const [faveRecipes] = await getFirebaseDocs(`/all_recipes`, where('id', '==', recipeID))
           setSavedRecipes(savedRecipes => [...savedRecipes, faveRecipes])
         })
       }

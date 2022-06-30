@@ -23,19 +23,27 @@ export default () => {
   const [featured, setFeatured] = useState()
   
   useEffect( async () => {
-    setCatagoryName(router.query.id)
-
+    
     if (router.query.id) {
-      const catagorisedRecipes = await getFirebaseDocs(`/recipe_templates`, where('category', "array-contains", router.query.id))
+      setCatagoryName(router.query.id)
+
+      // const catagorisedRecipes = await getFirebaseDocs(`/all_recipes`, where('category', "array-contains", router.query.id))
+      const catagorisedRecipes = await getFirebaseDocs(`/recipes/categories/${router.query.id.toLowerCase() + '_recipes'}`, where('category_page', "==", true))
+      const catagorisedFeatureRecipes = await getFirebaseDocs(`/recipes/categories/${router.query.id.toLowerCase() + '_recipes'}`, where('category_feature', "==", true))
       console.log(catagorisedRecipes)
       console.log('catagorisedRecipes')
       if (catagorisedRecipes) {
-        setCatagoryFood(catagorisedRecipes.filter(rec => rec.category_page == true))
+        setCatagoryFood(catagorisedRecipes)
+        // setCatagoryFood(catagorisedRecipes.filter(rec => rec.category_page == true))
         // setFeatured(catagorisedRecipes.filter(rec => rec.category_feature == true))
+      }
+      if (catagorisedFeatureRecipes) {
+        setFeatured(catagorisedFeatureRecipes)
       }
     }
   }, [router])
-
+console.log(catagoryFood)
+console.log('catagoryFood')
   return (
     <>
       <SEO title={`Chairy cooks - ${catagoryName}`} description={`${catagoryName} chicken`}/>
@@ -53,9 +61,9 @@ export default () => {
                   />
                 </div>
                 <div className='categoryMainRecipeText'>
-                  <h1>{featured[0].recipe_information.details.name}</h1>
-                  <h3>{featured[0].recipe_information.details.desc}</h3>
-                  <p>{featured[0].recipe_information.tags.join(', ')}</p>
+                  <h1>{featured[0].name}</h1>
+                  <h3>{featured[0].desc}</h3>
+                  <p>{featured[0].tags.join(', ')}</p>
                 </div>
               </div>
             </Link>
@@ -75,12 +83,12 @@ export default () => {
                     </div>
                     
                     <div className="categoryRecipeText">
-                      <h1>{food.recipe_information.details.name}</h1>
-                      <h5>{food.recipe_information.author[0]}</h5>
+                      <h1>{food.name}</h1>
+                      <h5>{food.author[0]}</h5>
                       <div className='line'></div>
-                      <p>{food.recipe_information.details.time}mins, {food.recipe_information.details.difficulty} difficulty</p>
+                      <p>{food.time}mins, {food.difficulty} difficulty</p>
                       <div className='line'></div>
-                      <p>{food.recipe_information.tags.join(', ')}</p>
+                      <p>{food.tags.join(', ')}</p>
                     </div>
                   </div>
                 </Link>

@@ -111,8 +111,8 @@ export default ({ recipe: r }) => {
       await handleImageUpload(_recipe)
         
       _recipe.category.map(async rec => {
-        await addFirebaseDoc(`/${ rec.toLowerCase() + '_recipes'}/`, _recipe, _recipe.id)
-        await handleImageUpload(_recipe)
+        await addFirebaseDoc(`recipes/categories/${rec.toLowerCase() + '_recipes'}/`, _recipe, _recipe.id)
+        await handleImageUpload(_recipe, rec.toLowerCase() + '_recipes')
       })
       
     } else {
@@ -130,7 +130,7 @@ export default ({ recipe: r }) => {
     return router.push('/templates')
   }
 
-  const handleImageUpload = async (_recipe) => {
+  const handleImageUpload = async (_recipe, catego) => {
     try {
       addStorageItem(`/recipes/${_recipe.id}/main_image/`, file).then(async url => {
         const mainImage = {
@@ -138,9 +138,17 @@ export default ({ recipe: r }) => {
           url: url
         }
 
-        const update = updateFirebaseDoc('/all_recipes/', `${_recipe.id}`, {
+        const update = await updateFirebaseDoc('/all_recipes/', `${_recipe.id}`, {
           main_image: mainImage
         })
+
+        if (catego) {
+          console.log(catego)
+          console.log('catego')
+          await updateFirebaseDoc(`recipes/categories/${catego}/`, `${_recipe.id}`, {
+            main_image: mainImage
+          })
+        }
 
         setFile(null)
       })

@@ -20,11 +20,11 @@ export default ({}) => {
   const [_user] = useLocalStorage('_user')
 
   const [recipe, setRecipe] = useState()
-  const [templates] = useFirebase([], '/recipe_templates/')
+  const [templates] = useFirebase([], '/all_recipes/')
 
   useEffect(async () => {
     if (router.query.id) {
-      const _report = await getFirebaseDoc('recipe_templates/', router.query.id)
+      const _report = await getFirebaseDoc('all_recipes/', router.query.id)
 
       if (_report)
         setRecipe(_report)

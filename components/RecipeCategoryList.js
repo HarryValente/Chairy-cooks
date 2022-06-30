@@ -24,7 +24,7 @@ export default ({ quote: data, selectRecipe, categoryType}) => {
           ...recipe,
           category_page: recipe.category_page ? false : true
         }
-        await updateFirebaseDoc(`recipe_templates`, recipe.id, _recipe)
+        await updateFirebaseDoc(`all_recipes`, recipe.id, _recipe)
       router.reload()
     }
   }
@@ -52,7 +52,8 @@ export default ({ quote: data, selectRecipe, categoryType}) => {
       setSnaphot(data)
     }
   }, [data])
-
+  console.log(recipes)
+  console.log('recipes123')
   return (
     <>
       <Grid columns={1}>
@@ -62,9 +63,9 @@ export default ({ quote: data, selectRecipe, categoryType}) => {
           keys={['name']}
           placeholder='Search recipes..'
         />
-        <Grid columns={3} className='bg-gray-100 p-2 rounded text-xs'>
+        <Grid columns={2} className='bg-gray-100 p-2 rounded text-xs'>
           <p>Recipe</p>
-          <p>Catagory</p>
+          {/* <p>Catagory</p> */}
           <p>Add / Remove</p>
         </Grid>
         {recipes.length > 0
@@ -72,12 +73,12 @@ export default ({ quote: data, selectRecipe, categoryType}) => {
               return (
                 <Grid
                   key={recipe.id}
-                  columns={3}
+                  columns={2}
                   // onClick={() => selectRecipe(recipe.id)}
                   className={`hover:bg-gray-50 border hover:border-gray-200 cursor-pointer p-2 relative rounded text-sm`}
                 >
                   <span className='flex items-center'>{recipe.name}</span>
-                  <span className='flex items-center'>{recipe.category.join(', ')}</span>
+                  {/* <span className='flex items-center'>{recipe.category.join(', ')}</span> */}
                     <span className='flex items-center' onClick={() => toggle(recipe.id)}>
                       {recipe.category_page ?
                        <Button variant='delete'>Remove From Page</Button>

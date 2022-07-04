@@ -20,11 +20,13 @@ export default ({ quote: data, selectRecipe, categoryType}) => {
     let recipe = recipes.find(r => r.id === id)
 
     if (recipe) {
-        let _recipe = {
-          ...recipe,
-          category_page: recipe.category_page ? false : true
-        }
-        await updateFirebaseDoc(`all_recipes`, recipe.id, _recipe)
+      let _recipe = {
+        ...recipe,
+        category_page: recipe.category_page ? false : true
+      }
+
+      let cat = categoryType.toLowerCase()
+      await updateFirebaseDoc(`/recipes/categories/${cat + '_recipes'}`, recipe.id, _recipe)
       router.reload()
     }
   }
@@ -35,11 +37,39 @@ export default ({ quote: data, selectRecipe, categoryType}) => {
         case 'Chicken':
           setCategory(categoryType)
           break;
-          case 'Beef':
+        case 'Beef':
           setCategory(categoryType)
           break;
-          case 'Vegetarian':
+        case 'Dessert':
           setCategory(categoryType)
+          break;
+        case 'Vegetarian':
+          setCategory(categoryType)
+          break;
+        case 'Rice':
+          setCategory(categoryType)
+          break;
+        case 'Pasta':
+          setCategory(categoryType)
+          break;
+        case 'Potato':
+          setCategory(categoryType)
+          break;
+        case 'Seafood':
+          setCategory(categoryType)
+          break;
+        case 'Lamb':
+          setCategory(categoryType)
+          break;
+        case 'Egg':
+          setCategory(categoryType)
+          break;
+        case 'Pork':
+          setCategory(categoryType)
+          break;
+        case 'Cheese':
+          setCategory(categoryType)
+          break;
         default:
           break;
       }
@@ -52,8 +82,7 @@ export default ({ quote: data, selectRecipe, categoryType}) => {
       setSnaphot(data)
     }
   }, [data])
-  console.log(recipes)
-  console.log('recipes123')
+
   return (
     <>
       <Grid columns={1}>

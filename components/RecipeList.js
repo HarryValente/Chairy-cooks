@@ -23,60 +23,15 @@ export default ({ quote: data, selectRecipe, categoryType, homepage}) => {
       if (alt == 'categ') {
         let _recipe = {
           ...recipe,
-          // category_feature: recipe.category_feature ? false : true
         }
+
         if (categ) {
           _recipe.category_feature = recipe.category_feature ? false : true
         }
-        // switch (categ) {
-        //   case 'Beef':
-        //     _recipe.beef_feature = recipe.beef_feature ? false : true
-        //     break;
-        //   case 'Vegetarian':
-        //     _recipe.vegetarian_feature =  recipe.vegetarian_feature ? false : true
-        //     break;
-        //   case 'Chicken':
-        //     _recipe.chicken_feature = recipe.chicken_feature ? false : true
-        //     break;
-        //   case 'Rice':
-        //     _recipe.rice_feature = recipe.rice_feature ? false : true
-        //     break;
-        //   case 'Pasta':
-        //     _recipe.pasta_feature = recipe.pasta_feature ? false : true
-        //     break;
-        //   case 'Potato':
-        //     _recipe.potato_feature = recipe.potato_feature ? false : true
-        //     break;
-        //   case 'Seafood':
-        //     _recipe.seafood_feature = recipe.seafood_feature ? false : true
-        //     break;
-        //   case 'Lamb':
-        //     _recipe.lamb_feature = recipe.lamb_feature ? false : true
-        //     break;
-        //   case 'Egg':
-        //     _recipe.egg_feature = recipe.egg_feature ? false : true
-        //     break;
-        //   case 'Pork':
-        //     _recipe.pork_feature = recipe.pork_feature ? false : true
-        //     break;
-        //   case 'Cheese':
-        //     _recipe.cheese_feature = recipe.cheese_feature ? false : true
-        //     break;
-        //   case 'Dessert':
-        //     _recipe.dessert_feature = recipe.dessert_feature ? false : true
-        //     break;
-        //   default:
-        //     break;
-        // }
-        console.log(homepage)
-        console.log('homepage')
-        console.log(categoryType.toLowerCase())
-        let test = categoryType.toLowerCase()
-        console.log('categoryType')
-        console.log(_recipe)
-        console.log('_recipe')
-        await updateFirebaseDoc(`/recipes/categories/${test + '_recipes'}`, recipe.id, _recipe)
-        // await updateFirebaseDoc(`all_recipes`, recipe.id, _recipe)
+
+        let cat = categoryType.toLowerCase()
+        await updateFirebaseDoc(`/recipes/categories/${cat + '_recipes'}`, recipe.id, _recipe)
+
       } else if(alt == 'pageHome'){
         let _recipe = {
           ...recipe,

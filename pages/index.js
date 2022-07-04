@@ -33,15 +33,14 @@ export default function Recipes() {
 
       <div className="homepageRecipes">
         <RecipeCard recipe={recipeHomepage}/>
-        <RecipeCard recipe={recipeHomepage}/>
       </div>
 
       <Advert/>
 
       <Grid columns={3} className='col-span-full'>
-        <MainIngrdientsTile ingredientName="Rice" image="/vegan.png"/>
+        <MainIngrdientsTile ingredientName="Rice" image="/rice.png"/>
         <MainIngrdientsTile ingredientName="Pasta" image="/spaguetti.png"/>
-        <MainIngrdientsTile ingredientName="Potato" image="/sausages.png"/>
+        <MainIngrdientsTile ingredientName="Potato" image="/potato.png"/>
         <MainIngrdientsTile ingredientName="Chicken" image="/chicken-leg.png" />
         <MainIngrdientsTile ingredientName="Beef" image="/beef.png"/>
         <MainIngrdientsTile ingredientName="Seafood" image="/fish.png"/>

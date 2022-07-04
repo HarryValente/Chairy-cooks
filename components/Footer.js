@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebook, faInstagram, faTiktok, faTwitter } from "@fortawesome/free-brands-svg-icons"
+import { faFacebook, faInstagram, faPinterest, faTiktok, faTwitter } from "@fortawesome/free-brands-svg-icons"
 import { useState } from 'react'
 import Field from './Field'
 import Button from './Button'
@@ -70,11 +70,14 @@ export default ({recipe}) => {
       <Link href='https://www.instagram.com/?hl=en'>
         <a target="_blank"><FontAwesomeIcon icon={faTwitter} /></a>
       </Link>
-      <Link href='https://www.instagram.com/?hl=en'>
+      <Link href='https://www.tiktok.com/@chairycooks'>
         <a target="_blank"><FontAwesomeIcon icon={faTiktok} /></a>
       </Link>
       <Link href='https://www.instagram.com/?hl=en'>
         <a target="_blank"><FontAwesomeIcon icon={faFacebook} /></a>
+      </Link>
+      <Link href='https://www.pinterest.co.uk/chairycooks/_created/'>
+        <a target="_blank"><FontAwesomeIcon icon={faPinterest} /></a>
       </Link>
       </div>
       <p>Copyright 2022 chairy cooks</p>

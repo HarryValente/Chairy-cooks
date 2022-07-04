@@ -82,16 +82,14 @@ export default ({ recipe: r }) => {
 
     if (!existing) {
       // Create an object with the information and fields
-      // NAME AND DESCRIPTION POSTED TWICE
       const _recipe = {
         id: generateFirebaseId(),
-        // recipe_information: recipe,
         author: recipe.author,
         name: recipe.details.name,
         desc: recipe.details.desc,
         difficulty: recipe.details.difficulty,
-        serves: recipe.details.serves,
-        time: recipe.details.time,
+        serves: parseFloat(recipe.details.serves),
+        time: parseFloat(recipe.details.time),
         ingredients: recipe.ingredients,
         similar_recipe: recipe.similar_recipe,
         steps: recipe.steps,
@@ -99,8 +97,6 @@ export default ({ recipe: r }) => {
         affiliate: recipe.affiliate,
         homepage_feature: false,
         homepage_page: false,
-        category_feature: false,
-        category_page: false,
         category: recipe.category
       }
 
@@ -166,7 +162,7 @@ export default ({ recipe: r }) => {
         ...state,
         details: form
       }))
-      setForm(null)
+      setForm({name: '', desc: '', time: '', serves: '', difficulty: null})
     } else {
       alert('You need to fill out the whole details section beany!!!')
     }
@@ -245,7 +241,7 @@ export default ({ recipe: r }) => {
       }
     })
 
-    setInstruction({ id: null, category_id: null })
+    setInstruction({ id: '', category_id: null })
   }
 
   // Auto generate step ID
@@ -313,6 +309,11 @@ export default ({ recipe: r }) => {
         </Grid>
 
         <Widget title='Recipe Images' icon='image' color='red'>
+          {!file ? (
+            <p className='font-medium text-vapta-red text-sm'>You still need to add an image</p>
+          ) : (
+            <p className='font-medium text-emerald-500 text-sm'>Image added</p>
+          )}
           <Label text={'Main image upload'} />
           <input
             type='file'
@@ -372,14 +373,6 @@ export default ({ recipe: r }) => {
               variant='action'
               icon='circle-plus'
               onClick={addFormSimilarRecipe}
-              // onClick={() => {
-              //   setForm({
-              //     similar_recipe_ids: form.similar_recipe_ids
-              //       ? [...form.similar_recipe_ids, selectedSimilar]
-              //       : [selectedSimilar]
-              //   })
-              //   setSelectedSimilar('')
-              // }}
               className='ml-auto w-fit'
             >
               Add similar recipe
@@ -399,8 +392,6 @@ export default ({ recipe: r }) => {
                 }
               })
             }
-    
-            {/* <FormSubmit disabled={!tag}>Add Similar recipes</FormSubmit> */}
           </form>
 
         </Widget>
@@ -425,7 +416,7 @@ export default ({ recipe: r }) => {
               {recipe.ingredients.length == 0 ? (
                 <p className='font-medium text-vapta-red text-sm'>You still need to add ingredients</p>
               ) : (
-                <p className='font-medium text-emerald-500 text-sm'>Ingredients added</p>
+                <p className='font-medium text-emerald-500 text-sm'>{recipe.ingredients.length} Ingredients added</p>
               )}
 
               <Grid columns={1}>
@@ -455,7 +446,7 @@ export default ({ recipe: r }) => {
           <form onSubmit={addInstructionToStep}>
 
             {recipe.steps.length > 0 && (
-              <p className='font-medium text-yellow-500 text-sm'>Steps have been added make sure to add instructions :)</p>
+              <p className='font-medium text-yellow-500 text-sm'>Steps have been added make sure to add instructions to all:)</p>
             )}
 
             <Grid columns={2}>
@@ -499,11 +490,10 @@ export default ({ recipe: r }) => {
             {recipe.category.length == 0 ? (
               <p className='font-medium text-vapta-red text-sm'>You still need to add a category</p>
             ) : (
-              <p className='font-medium text-emerald-500 text-sm'>Category added {recipe.category.length}/3</p>
+              <p className='font-medium text-emerald-500 text-sm'>Category added</p>
             )}
 
             <Grid columns={1}>
-              {/* <Field label='Category' value={category} onChange={e => setCategory(e)} /> */}
               <Select 
                 label='Category'
                 value={category}
@@ -518,24 +508,25 @@ export default ({ recipe: r }) => {
 
       <>
         <div className='mt-5'>
-          <div className="banner">
-            <Image 
-              src={'/ad-placeholder.png'}
-              width={650}
-              height={650}
-            />
-            <h2>{ recipe.details ? recipe.details.name : '' }</h2>
+          <div className="recipeHeadlineContainer">
+            <div className="recipePageImageContainer">
+              <Image 
+                src={'/ad-placeholder.png'}
+                width={650}
+                height={650}
+              />
+              <h2>{ recipe.details ? recipe.details.name : '' }</h2>
+            </div>
 
-            <div className="info">
-              <div className="description">
+            <div className="recipeInfo">
+              <div className="recipeDescription">
                 <p>{recipe.details ? recipe.details.desc : ''}</p>
-                <p>{recipe.details ? recipe.details.time : ''}</p>
-                <p>{recipe.details ? recipe.details.category : ''}</p>
+                <p>{recipe.category ? recipe.category : ''}</p>
               </div>
-              <div className="cooking-info">
-                <p>Takes approx 20 mins to cook.</p>
+              <div className="recipeCookingInfo">
+                <p>Takes approx {recipe.details ? recipe.details.time : 0} mins to cook.</p>
                 <p>{ recipe.details ? recipe.details.difficulty : '' }</p>
-                <div className='flex justify-center'>
+                <div>
                   {recipe.tags &&
                     recipe.tags.map((tag, index) => {
                       return (
@@ -547,16 +538,17 @@ export default ({ recipe: r }) => {
             </div>
           </div>
 
-          <div className="line-break"></div>
-          <div className="cooking-content">
-              <div className="ingredients">
+          <div className="recipeLineBreak"></div>
+
+          <div className="recipeInformationContainer">
+              <div className="recipeInformationIngredients">
                 <h3>Ingredients:</h3>
                 <ul>
                   {recipe.ingredients &&
                     recipe.ingredients.map((ingredient, index) => {
                       const id = uniqueId()
                       return (
-                        <li className={'flex flex-col h-16 items-center justify-center relative w-1/2'} key={id}>
+                        <li key={id}>
                           <p>○ {ingredient}</p>
                         </li>
                       )
@@ -564,18 +556,14 @@ export default ({ recipe: r }) => {
                 </ul>
               </div>
 
-              <div className="ad">
-                ADVERT
-              </div>
-
-              <div className="method-container">
+              <div className="recipeMethodContainer">
               <h3>Method:</h3>
               <ul>
                 {recipe.steps &&
                   recipe.steps.map((step, index) => {
                     const id = uniqueId()
                     return (
-                      <li className={'flex flex-col h-16 items-center justify-center relative w-1/2'} key={id}>
+                      <li key={id}>
                         <h1>{step.name}</h1>
                         <p>{step.instruction}</p>
                       </li>
@@ -591,20 +579,15 @@ export default ({ recipe: r }) => {
               </div>
           </div>
 
-          <h1 className="similar-title">Similar recipes</h1>
-          <div className="similar-recipe-container">
+          <h1 className="recipeSimilarTitle">Similar recipes</h1>
+          <div className="recipeSimilarRecipeContainer">
             {form.similar_recipe_ids &&
               form.similar_recipe_ids.map(id => {
                 const similarRecipe = templates.find(item => item.id == id)
                 if (similarRecipe) {
                   return (
-                    <div key={id} className='similar-recipe'>
-                      {/* <Image 
-                        src={'/ad-placeholder.png'}
-                        width={650}
-                        height={650}
-                      /> */}
-                      <div className="similar-details">
+                    <div key={id} className='recipeSimilarRecipe'>
+                      <div className="recipeSimilarDetails">
                         <h4>{similarRecipe.name}</h4>
                       </div>
                     </div>
@@ -615,212 +598,6 @@ export default ({ recipe: r }) => {
               })
             }
           </div>
-                
-          <style jsx>{`
-                  h2,h3 {
-                    text-transform: uppercase;
-                  }
-                  .banner {
-                    display: flex;
-                    position: relative;
-                  }
-                  .banner h2 {
-                    margin: 0;
-                    background: #fff;
-                    display: inline-block;
-                    padding: 20px;
-                    position: absolute;
-                    bottom: 0px;
-                    left: -10px;
-                    transform: rotateZ(-1deg);
-                    box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
-                  }
-                  .rating{
-                    display: flex;
-                    justify-content: space-around;
-                    align-items: center;
-                  }
-                  .rating-list{
-                    list-style-type: none;
-                  }
-                  .line-break{
-                    width: 100%;
-                    height: 5px;
-                    margin-top: 40px;
-                    background-color: #000;
-                  }
-                  .info{
-                    margin-left: 25px;
-                    padding: 10px;
-                    width: 35%;
-                    background-color: #efece2;
-                    font-size: 20px;
-                    display: flex;
-                    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-                    align-items: center;
-                    justify-content: space-around;
-                    flex-direction: column;
-                  }
-                  .info p {
-                    margin: 0;
-                  }
-                  .description{
-                    text-align: center;
-                  }
-                  .cooking-content{
-                    display: flex;
-                    align-items: flex-start;
-                    justify-content: space-around;
-                    width: 100%;
-                  }
-                  .ingredients{
-                    width: 30%;
-                    height: 50%;
-                    padding: 20px;
-                    font-size: 20px;
-                  }
-                  .ingredients h3{
-                    margin-bottom: 25px;
-                  }
-                  .ingredients-list{
-                    list-style-type: '-';
-                    margin-top: 6px;
-                  }
-                  .ad{
-                    display: none;
-                  }
-                  .method-container{
-                    width: 70%;
-                    font-size: 20px;
-                  }
-                  .method-container h3{
-                    margin-bottom: 25px;
-                    margin: 20px;
-                  }
-                  .method{
-                    margin: 20px;
-                  }
-                  .similar-recipe-container{
-                    margin-top: 40px;
-                    width: 100%;
-                    height: 320px;
-                    display: grid; 
-                    grid-template-columns: 1fr 1fr; 
-                    grid-template-rows: 1fr 1fr; 
-                    grid-gap: 1em;
-                  }
-                  .similar-title{
-                    position: relative;
-                    left: 5px;
-                    top: 35px;
-                    font-size: 18px;
-                  }
-                  .similar-recipe{
-                    height: 100%;
-                    background-color: beige;
-                    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-                    display: flex;
-                  }
-                  .similar-details{
-                    padding: 5px;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: space-around;
-                  }
-                  .similar-details h4{
-                    font-size: 18px;
-                  }
-                  .similar-details p{
-                    font-size: 16px;
-                  }
-                  @media (max-width:900px) {
-                    .banner{
-                      flex-direction: column;
-                      align-items: center;
-                      height: 750px;
-                    }
-                    .banner h2 {
-                      margin-top: -10px;
-                      position: relative;
-                      transform: rotateZ(0deg);
-                      left: 0px;
-                    }
-                    .info{
-                      width: 75%;
-                      margin-top: 10px;
-                      margin-left: 0px;
-                      font-size: 18px;
-                      background-color: beige;
-                    }
-                    .ingredients{
-                      font-size: 14px;
-                    }
-                    .method{
-                      font-size: 18px;
-                    }
-                    .similar-recipe-container{
-                      height: 350px;
-                      display: grid; 
-                      grid-template-columns: 1fr 1fr; 
-                      grid-template-rows: 1fr 1fr; 
-                      grid-gap: 1em;
-                    }
-                    .similar-recipe{
-                      width: 100%;
-                    }
-                    .similar-details{
-                      margin-left: 15px;
-                    }
-                    .similar-details h4{
-                      font-size: 18px;
-                    }
-                    .similar-details p{
-                      font-size: 18px;
-                    }
-                  }
-                  @media (max-width:550px) {
-                    .banner{
-                      flex-direction: column;
-                      align-items: center;
-                      height: 550px;
-                    }
-                    .banner h2 {
-                      font-size: 18px;
-                    }
-                    .info{
-                      width: 90%;
-                      background-color: beige;
-                      font-size: 16px;
-                    }
-                    .cooking-content{
-                      display: flex;
-                      flex-direction: column;
-                      align-items: flex-start;
-                      justify-content: space-around;
-                      width: 100%;
-                    }
-                    .ingredients{
-                      width: 100%;
-                    }
-                    .ad{
-                      position: relative;
-                      background-color: grey;
-                      margin: 40px auto;
-                      display: inline;
-                      height: 150px;
-                      width: 90%;
-                    }
-                    .method{
-                      width: 100%;
-                    }
-                    .similar-recipe-container{
-                      height: 650px;
-                      grid-template-columns: 1fr; 
-                      grid-template-rows: 1fr 1fr 1fr 1fr; 
-                    }
-                  }
-          `}</style>
         </div>
       </>
     </>

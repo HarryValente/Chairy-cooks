@@ -18,12 +18,6 @@ export default function Layout({ children }) {
   const [search, setSearch] = useState('')
   const [results, setResults] = useState([])
 
-  const clearSearch = () => {
-    toggle(state => !state)
-    setResults([])
-    setSearch('')
-  }
-
   const recipeLibrary = new Fuse(recipe, {
     keys: ['name', 'category'],
     threshold: 0.2
@@ -37,6 +31,11 @@ export default function Layout({ children }) {
         const results = recipeLibrary.search(search).map(({item}) => item)
 
         if (results.length > 0) {
+          // Cut off so only limited amount of recipes show up
+          // let length = results.length - 11
+          // if (results.length > 10) {
+          //   results.slice(11, length)
+          // }
           setResults(results)
         }
       }
@@ -84,7 +83,6 @@ export default function Layout({ children }) {
               </Link>
             ))}
           </div>
-
         </div>
       )}
 

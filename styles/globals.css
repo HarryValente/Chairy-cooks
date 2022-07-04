@@ -34,9 +34,9 @@ body {
   background-color: #f3f4f6;
   flex-direction: column;
 }
+/* Header */
 header {
   /* background: #e8e4d4; */
-  /* background-color: #9DC183; */
   /* background-color: #6eda9b; */
   background-color: #9DC183;
   display: flex;
@@ -87,7 +87,7 @@ header h2 {
 .searchFeatureLayout{
   width: 100vw;
   height: 100vh;
-  background-color: #00a2d3;
+  /* background-color: #00a2d3; */
   z-index: 10;
   position: relative;
 }
@@ -102,15 +102,15 @@ header h2 {
   z-index: 11;
   width: 70%;
   height: 70%;
-  background-color: #a6bd21;
+  background-color: #e5e6dc;
   margin: auto;
   display: grid;
+  padding: 30px;
   grid-template-columns: 1fr 1fr;
   grid-gap: 1em;
   align-items: center;
   justify-content: space-around;
 }
-/* CSS */
 .profileBtn {
   appearance: none;
   background-color: #9DC183;
@@ -141,7 +141,6 @@ header h2 {
   vertical-align: baseline;
   white-space: nowrap;
 }
-
 .profileBtn:before {
   animation: opacityFallbackOut .5s step-end forwards;
   backface-visibility: hidden;
@@ -173,6 +172,9 @@ header h2 {
   position: relative;
   color: #000;
 }
+/* @media (max-width: 600px) {
+  
+} */
 /* Homepage Features */
 .featuredContainer {
   display: flex;
@@ -999,9 +1001,10 @@ footer {
   width: 100%;
 }
 .footerInfoContainer{
-  width: 100%;
+  width: 90%;
+  margin: auto;
   display: grid; 
-  grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr; 
+  grid-template-columns: 0.5fr 1fr 1fr 1fr; 
 }
 .footerInfo{
   display: flex;
@@ -1029,6 +1032,21 @@ footer {
   width: 50%;
   height: 50px;
   margin: 5px auto;
+}
+@media (max-width:900px) {
+  .footerInfo ul, .footerEmailList h3{
+    font-size: 12px;
+  }
+}
+@media (max-width:500px) {
+  .footerInfoContainer{ 
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    height: 250px;
+  }
+  footer p{
+    font-size: 14px;
+  }
 }
 .page-content {
   max-width: 1350px;

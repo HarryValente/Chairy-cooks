@@ -1,20 +1,19 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useAuthContext } from "../context/auth";
 import Link from 'next/link'
 import Footer from './Footer'
-import Button from './Button'
 // Components
-import Search from './Search'
 import useFirebase from '../hooks/useFirebase';
 import useToggle from '../hooks/useToggle';
+import useLocalStorage from '../hooks/useLocalStorage';
 import Fuse from "fuse.js";
+import router from "next/router";
 
 export default function Layout({ children }) {
   const { user } = useAuthContext()
   const [recipe] = useFirebase([], '/all_recipes/')
   const [visible, toggle] = useToggle(false)
-  // Recipe Search
-  const searchInput = useRef(null)
+  const [_recipes, setLocalStorage] = useLocalStorage('_recipes', '')
   const [search, setSearch] = useState('')
   const [results, setResults] = useState([])
 
@@ -22,6 +21,12 @@ export default function Layout({ children }) {
     keys: ['name', 'category'],
     threshold: 0.2
   })
+
+  const viewAllRecipes = () => {
+    setLocalStorage(results)
+    toggle(false)
+    router.push('/allRecipes')
+  }
 
   useEffect(() => {
     const searchField = document.querySelector('.searchInput')
@@ -82,6 +87,8 @@ export default function Layout({ children }) {
                 </a>
               </Link>
             ))}
+          
+            {results.length > 0 && <h1 onClick={viewAllRecipes}>View More Recipes</h1>}
           </div>
         </div>
       )}

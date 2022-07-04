@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -110,6 +110,14 @@ header h2 {
   grid-gap: 1em;
   align-items: center;
   justify-content: space-around;
+  position: relative;
+}
+.searchFeatureContentContainer h1{
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translate(-50%);
+  cursor: pointer;
 }
 .profileBtn {
   appearance: none;
@@ -888,6 +896,121 @@ header h2 {
 @media (max-width:350px) {
   .recipeMethodContainer ul li{
     margin-top: 50px;
+  }
+}
+/* Recipe Search */
+.searchedContainer{
+  width: 100%;
+  padding: 0 15px 0 15px;
+  text-align: center;
+  font-family: Montserrat;
+}
+.searchedContainer h1{
+  position: relative;
+  color: #00a2d3;
+  font-size: 48px;
+  font-weight: 800;
+}
+.searchedContainer h3{
+  margin: 20px 150px;
+}
+.searchedRecipesHead{
+  width: 100%;
+  position: relative;
+  margin: auto;
+}
+.searchedRecipesHead h1{
+  position: relative;
+  text-align: left;
+  color: #000;
+  font-size: 24px;
+  font-weight: 400;
+}
+.searchedRecipes{
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+.searchedRecipe{
+  margin: auto;
+  align-self: center;
+  cursor: pointer;
+  width: 240px;
+  height: 340px;
+  transition: 0.2s;
+}
+.searchedRecipe:hover{
+  margin-bottom: 10px;
+}
+.searchedRecipeImage{
+  position: relative;
+  width: 100%;
+  height: 60%;
+}
+.searchedRecipeText{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 8px 0;
+  height: 40%;
+}
+.searchedRecipeText h5{
+  font-size: 15px;
+  color: #bebebe;
+}
+.searchedRecipeText h1{
+  color: #000;
+  text-align: left;
+  font-size: 18px;
+}
+.searchedRecipeText h1:hover{
+  text-decoration: underline;
+}
+.searchedRecipeTime{  
+  display: flex;
+}
+.searchedRecipeTime p{
+  font-size: 14px;
+}
+.searchedRecipeTimeLine{
+  height: 22px;
+  width: 1px;
+  margin: 0 7px;
+  background-color: #000;
+}
+@media (max-width:1000px) {
+  .searchedRecipes{
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .searchedRecipe{
+    margin-bottom: 25px;
+  }
+}
+@media (max-width:750px) {
+  .searchedRecipes{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width:515px) {
+  .searchedRecipes{
+    grid-template-columns: 1fr;
+  }
+  .searchedRecipe{
+    width: 325px;
+    height: 425px;
+  }
+  .searchedRecipeText h5{
+    font-size: 18px;
+  }
+  .searchedRecipeText h1{
+    font-size: 22px;    
+  }
+  .searchedRecipeTime p{
+    font-size: 18px;
   }
 }
 /* Contact */

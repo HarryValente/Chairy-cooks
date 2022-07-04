@@ -1,7 +1,6 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-// import { ChevronDownIcon } from '@heroicons/react/solid'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')

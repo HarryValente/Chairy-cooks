@@ -1,10 +1,6 @@
 // React
 import { useState } from 'react'
 
-// Modules
-// import { motion } from 'framer-motion'
-// import { v4 as uuid } from 'uuid'
-
 export default ({
   children,
   className,

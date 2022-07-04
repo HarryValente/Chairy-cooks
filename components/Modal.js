@@ -1,6 +1,3 @@
-// Components
-// import Button from '@/components/Button'
-
 // Modules
 import { motion } from 'framer-motion'
 

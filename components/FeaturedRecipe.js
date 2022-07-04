@@ -10,21 +10,10 @@ import useLocalStorage from '../hooks/useLocalStorage'
 import Link from 'next/link'
 import Image from 'next/image'
 
-// Components
-import Button from './Button'
-
 export default ({recipes: data}) => {
   const [recipe, set] = useState()
   const [_user] = useLocalStorage('_user')
   
-  const saveRecipeToSavedRecipes = async (rec) => {
-    if (rec.id) {
-      console.log('only one thing gets added push things onto firebase array!!!!')
-      console.log(rec)
-      await updateFirebaseDoc('users', `${_user}`, { saved_recipes: [rec.id] })
-    }
-  }
-
   useEffect(() => {
     if (data) {
       set(data)
@@ -41,8 +30,6 @@ export default ({recipes: data}) => {
               <div className='featureImage'>
                 <Image
                   src={rec.main_image.url}
-                  // width={275}
-                  // height={275}
                   placeholder='blue'
                   layout="fill"
                 />

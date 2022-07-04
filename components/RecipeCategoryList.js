@@ -6,8 +6,6 @@ import {useRouter} from 'next/router'
 // Components
 import Grid from '../components/Grid'
 import Search from '../components/Search'
-import { toast } from 'react-toastify'
-import Widget from './Widget'
 import Button from './Button'
 
 export default ({ quote: data, selectRecipe, categoryType}) => {

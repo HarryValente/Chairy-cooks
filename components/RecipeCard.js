@@ -27,7 +27,7 @@ export default ({recipe: data}) => {
               </div>
               <div className='homepageContent'>
                 <p>Italian, Vegetarian, Light</p>
-                <h1>{rec.title}</h1>
+                <h1>{rec.name}</h1>
                 <h4>{rec.desc}</h4>
                 
                 <Link href={`/recipes/${rec.id}`}>

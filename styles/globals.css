@@ -71,11 +71,12 @@ header h2 {
   font-weight: 400;
 }
 .searchInput {
-  width: 30% !important;
+  width: 500px !important;
   padding: 12px 24px;
   transition: transform 250ms ease-in-out;
   font-size: 14px;
   line-height: 18px;
+  z-index: 12;
   /* background-color: #9DC183; */
   color: #575756;
   border-radius: 50px;
@@ -85,36 +86,34 @@ header h2 {
   outline: none;
 }
 .searchFeatureLayout{
-  width: 100vw;
-  height: 100vh;
-  /* background-color: #00a2d3; */
-  z-index: 10;
-  position: relative;
-}
-.searchFeatureHide{
+  width: 500px;
+  left: 40%;
+  transform: translate(-2%);
+  background-color: white;
+  z-index: 11;
+  top: 77px;
+  padding: 25px 0;
   position: absolute;
-  cursor: pointer;
-  top: 20px;
-  right: 50px;
-  margin: 20px;
+  border-radius: 0 0 20px 20px;
 }
 .searchFeatureContentContainer{
   z-index: 11;
-  width: 70%;
-  height: 70%;
-  background-color: #e5e6dc;
+  width: 100%;
+  height: 100%;
+  background-color: white;
   margin: auto;
-  display: grid;
-  padding: 30px;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 1em;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
   align-items: center;
   justify-content: space-around;
   position: relative;
 }
-.searchFeatureContentContainer h1{
+.viewMore{
   position: absolute;
-  bottom: 5px;
+  bottom: 1px;
+  font-size: 14px;
+  z-index: 95;
   left: 50%;
   transform: translate(-50%);
   cursor: pointer;
@@ -260,20 +259,21 @@ header h2 {
   grid-column-gap: 0.7em;
   grid-row-gap: 0.7em;
   padding: 10px;
+  margin: auto;
+  font-family: Montserrat;
 }
 .homepageCard{
-  padding: 10px;
   margin: auto;
   border-radius: 5px;
-  width: 525px;
-  height: 212px;
+  width: 565px;
+  height: 225px;
   display: flex;
   background-color:#ffedb6;
   box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px;
   border: 1px solid rgba(71, 71, 71, 0.1);
 }
 .homepageCardImage{
-  width: 40%;
+  width: 226px;
   height: 100%;
   position: relative;
 }
@@ -283,30 +283,23 @@ header h2 {
   align-items: center;
   justify-content: space-between;
   text-align: center;
-  padding: 6px;
-  width: 60%;
+  padding: 16px;
+  width: 339px;
 }
 .homepageContent p{
   color: #f14400;
   text-decoration: underline;
-  margin: 0 0 0 5px;
+  margin: 0 0 0 12px;
   align-self: flex-start;
   font-size: 12px;
 }
 .homepageContent h1{
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 600;
 }
 .homepageContent h4{
   font-size: 12px;
   font-weight: 500;
-}
-.homepageContent h5{
-  color: #f14400;
-  align-self: flex-end;
-  margin-right: 10px;
-  font-size: 16px;
-  font-weight: 600;
 }
 .homepageButton {
   align-items: center;
@@ -345,14 +338,13 @@ header h2 {
   box-shadow: rgba(0, 0, 0, .2) 0 5px 5px -3px, rgba(0, 0, 0, .14) 0 8px 10px 1px, rgba(0, 0, 0, .12) 0 3px 14px 2px;
   background: #c3e2ad;
 }
-@media screen and (max-width: 1050px) {
+@media screen and (max-width: 1150px) {
   .homepageCard {
-    width: 455px;
-    height: 170px;
-    padding: 5px;
+    width: 465px;
+    height: 195px;
   }
-  .homepageContent{
-    padding: 3px;
+  .homepageCardImage{
+    width: 186px;
   }
   .homepageContent p{
     font-size: 10px;
@@ -365,65 +357,96 @@ header h2 {
     font-size: 10px;
     font-weight: 500;
   }
+  .homepageButton {
+    height: 24px;
+  }
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 950px) {
   .homepageRecipes {
-    display: grid;
     grid-template-columns: repeat(1, 1fr);
   }
   .homepageCard {
-    width: 70%;
-    height: 170px;
-    padding: 5px;
+    width: 680px;
+    height: 250px;
+  }
+  .homepageCardImage{
+    width: 272px;
+  }
+  .homepageContent{
+    width: 408px;
+    padding: 16px;
+  }
+  .homepageContent p{
+    font-size: 12px;
+  }
+  .homepageContent h1{
+    font-size: 18px;
+  }
+  .homepageContent h4{
+    font-size: 12px;
+  }
+  .homepageButton {
+    height: 28px;
   }
 }
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 690px) {
   .homepageCard {
-    width: 90%;
-    height: 170px;
-    padding: 5px;
+    width: 490px;
+    height: 200px;
+  }
+  .homepageCardImage{
+    width: 196px;
+  }
+  .homepageContent{
+    width: 294px;
+    padding: 10px;
   }
   .homepageContent p{
     font-size: 9px;
   }
   .homepageContent h1{
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 13px;
   }
   .homepageContent h4{
-    font-size: 10px;
-    font-weight: 500;
+    font-size: 11px;
   }
   .homepageButton {
-    border-radius: 4px;
-    font-size: 10px;
-    font-weight: 500;
-    height: 22px;
+    height: 20px;
     letter-spacing: .09em;
-    min-width: 34px;
+    min-width: 30px;
     padding: 0 10px;
   }
 }
-@media screen and (max-width: 430px) {
+@media screen and (max-width: 500px) {
   .homepageCard{
+    width: 310px;
+    height: 425px;
+    flex-direction: column;
+  }
+  .homepageCardImage{
     width: 100%;
-    height: 140px;
+    height: 260px;
+  }
+  .homepageContent{
+    width: 100%;
+    height: 165px;
+    padding: 8px;
   }
   .homepageContent p{
-    font-size: 8px;
+    font-size: 10px;
   }
   .homepageContent h1{
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 600;
   }
   .homepageContent h4{
-    font-size: 8px;
+    font-size: 10px;
     font-weight: 500;
   }
   .homepageButton {
-    font-size: 8px;
+    font-size: 10px;
     font-weight: 500;
-    height: 18px;
+    height: 22px;
     letter-spacing: .09em;
     min-width: 30px;
     padding: 0 10px;
@@ -453,16 +476,17 @@ header h2 {
   }
 }
 /* Catagory pages */
-.catagoryTitleContainer{
-  font-size: 28px;
-  font-weight: 500;
-  margin-top: 20px;
+.categoryContainer{
+  font-family: Montserrat;
+  max-height: 10000px;
+  width: 100%;
   text-align: center;
 }
-.categoryContainer{
-  display: flex;
-  flex-direction: column;
-  max-height: 10000px;
+.catagoryTitle{
+  font-size: 48px;
+  font-weight: 800;
+  margin-top: 20px;
+  text-align: center;
 }
 .categoryMainRecipe{
   margin: 20px;
@@ -500,27 +524,36 @@ header h2 {
 .categoryMainRecipeText p{
   font-size: 13px;
 }
-.categoryGridRecipes{
-  width: 80%;
-  height: 1100px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr; 
-  grid-template-rows: 1fr 1fr 1fr; 
-  grid-gap: 1em;
+.categoryRecipesHead{
+  width: 100%;
+  position: relative;
   margin: auto;
 }
-.categoryRecipe{
+.categoryRecipesHead h1{
   position: relative;
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: 10px;
+  text-align: left;
+  color: #000;
+  font-size: 24px;
+  font-weight: 400;
+}
+.categoryGridRecipes{
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  justify-content: space-around;
+  align-items: center;
   width: 100%;
-  height: 100%;
-  background-color:#ffedb6;
-  border-radius: 5px;
+}
+.categoryRecipe{
+  margin: auto;
+  align-self: center;
+  cursor: pointer;
+  width: 240px;
+  height: 340px;
+  transition: 0.2s;
+}
+.catagoryRecipe:hover{
+  margin-bottom: 10px;
 }
 .categoryRecipeImage{
   width: 100%;
@@ -537,8 +570,8 @@ header h2 {
   height: 40%;
 }
 .categoryRecipeText h1{
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 600;
 }
 .categoryRecipeText h5{
   font-size: 11px;

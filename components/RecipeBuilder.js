@@ -292,7 +292,7 @@ export default ({ recipe: r }) => {
 
                 <Grid columns={2}>
                   <Field label='Name' value={form.name} onChange={e => setForm({ name: e })} />
-                  <Field label='Description' value={form.desc} onChange={e => setForm({ desc: e })} />
+                  <Field label={form.desc ? 'Description ' + form.desc.length + '/250' : 'Description'} value={form.desc} onChange={e => setForm({ desc: e })} />
                   <Field label='Time' type='number' value={form.time} onChange={e => setForm({ time: e })} />
                   <Field label='Serves' type='number' value={form.serves} onChange={e => setForm({ serves: e })} />
                   <Select 
@@ -341,9 +341,9 @@ export default ({ recipe: r }) => {
             )}
 
             <Grid columns={1}>
-              <Field label='Recipe author' value={author} onChange={e => setAuthor(e)} />
+              <Field label='Recipe author' required value={author} onChange={e => setAuthor(e)} />
             </Grid>
-            <FormSubmit disabled={!author}>Add Author</FormSubmit>
+            <FormSubmit>Add Author</FormSubmit>
           </form>
         </Widget>
 
@@ -404,9 +404,9 @@ export default ({ recipe: r }) => {
                 <p className='font-medium text-emerald-500 text-sm'>Tags added {recipe.tags.length}/3</p>
               )}
               <Grid columns={1}>
-                <Field label='Recipe tags' value={tag} onChange={e => setTag(e)} />
+                <Field label='Recipe tags' required value={tag} onChange={e => setTag(e)} />
               </Grid>
-              <FormSubmit disabled={!tag}>Add tag</FormSubmit>
+              <FormSubmit>Add tag</FormSubmit>
             </form>
         </Widget>
 
@@ -420,9 +420,9 @@ export default ({ recipe: r }) => {
               )}
 
               <Grid columns={1}>
-                <Field label='Ingredient' value={ingredient} onChange={e => setIngredient(e)} />
+                <Field label='Ingredient' required value={ingredient} onChange={e => setIngredient(e)} />
               </Grid>
-              <FormSubmit disabled={!ingredient}>Add Ingredient</FormSubmit>
+              <FormSubmit>Add Ingredient</FormSubmit>
             </form>
         </Widget>
 
@@ -479,9 +479,9 @@ export default ({ recipe: r }) => {
             )}
 
             <Grid columns={1}>
-              <Field label='Affiliate links' value={affiliate} onChange={e => setAffiliate(e)} />
+              <Field label='Affiliate links' required value={affiliate} onChange={e => setAffiliate(e)} />
             </Grid>
-            <FormSubmit disabled={!affiliate}>Add Affiliate</FormSubmit>
+            <FormSubmit>Add Affiliate</FormSubmit>
           </form>
         </Widget>
 
@@ -497,6 +497,7 @@ export default ({ recipe: r }) => {
               <Select 
                 label='Category'
                 value={category}
+                required
                 onChange={e => setCategory(e)}
                 options={RECIPE_CATEGORIES}
               />

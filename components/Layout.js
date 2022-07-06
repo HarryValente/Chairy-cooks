@@ -12,7 +12,7 @@ import router from "next/router";
 export default function Layout({ children }) {
   const { user } = useAuthContext()
   const [recipe] = useFirebase([], '/all_recipes/')
-  const [visible, toggle] = useToggle(false)
+  const [visible, toggle] = useToggle()
   const [_recipes, setLocalStorage] = useLocalStorage('_recipes', '')
   const [search, setSearch] = useState('')
   const [results, setResults] = useState([])
@@ -41,6 +41,7 @@ export default function Layout({ children }) {
           // if (results.length > 10) {
           //   results.slice(11, length)
           // }
+          toggle(true)
           setResults(results)
         }
       }
@@ -74,22 +75,20 @@ export default function Layout({ children }) {
           </Link>
         )}
       </header>
-
+  
       {visible && (
-        <div className="searchFeatureLayout">
-          <div className="searchFeatureHide" onClick={() => toggle(state => !state)}>X</div>
-          
+        <div className="searchFeatureLayout">   
           <div className="searchFeatureContentContainer">
             {results.length > 0 && results.map(rec => (
               <Link key={rec.id} href={`/recipes/${rec.id}`}>
-                <a className='block hover:bg-gray-50 border border-gray-100 hover:border-gray-200 gap-4 grid grid-cols-4 p-2 rounded text-sm' onClick={() => toggle(state => !state)}>
+                <a className='block hover:bg-gray-50 border border-gray-100 hover:border-gray-200 w-full p-2 rounded text-sm'>
                   <p className='flex items-center text-gray-500'>{rec.name}</p>
                 </a>
               </Link>
             ))}
           
-            {results.length > 0 && <h1 onClick={viewAllRecipes}>View More Recipes</h1>}
           </div>
+            {results.length > 0 ? <h1 className="viewMore" onClick={viewAllRecipes}>View More Recipes</h1> : <h1 className="viewMore">No Recipes</h1>}
         </div>
       )}
 

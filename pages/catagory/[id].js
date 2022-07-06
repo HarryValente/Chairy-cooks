@@ -27,19 +27,12 @@ export default () => {
     if (router.query.id) {
       setCatagoryName(router.query.id)
 
-      // const catagorisedRecipes = await getFirebaseDocs(`/all_recipes`, where('category', "array-contains", router.query.id))
       const catagorisedRecipes = await getFirebaseDocs(`/recipes/categories/${router.query.id.toLowerCase() + '_recipes'}`, where('category_page', "==", true))
       const catagorisedFeatureRecipes = await getFirebaseDocs(`/recipes/categories/${router.query.id.toLowerCase() + '_recipes'}`, where('category_feature', "==", true))
       console.log(catagorisedRecipes)
       console.log('catagorisedRecipes')
-      if (catagorisedRecipes) {
-        setCatagoryFood(catagorisedRecipes)
-        // setCatagoryFood(catagorisedRecipes.filter(rec => rec.category_page == true))
-        // setFeatured(catagorisedRecipes.filter(rec => rec.category_feature == true))
-      }
-      if (catagorisedFeatureRecipes) {
-        setFeatured(catagorisedFeatureRecipes)
-      }
+      catagorisedRecipes ? setCatagoryFood(catagorisedRecipes) : null
+      catagorisedFeatureRecipes ? setFeatured(catagorisedFeatureRecipes) : null
     }
   }, [router])
 console.log(catagoryFood)
@@ -47,9 +40,8 @@ console.log('catagoryFood')
   return (
     <>
       <SEO title={`Chairy cooks - ${catagoryName}`} description={`${catagoryName} chicken`}/>
-        <h1 className='catagoryTitleContainer'>{catagoryName} Recipes</h1>
-
         <div className='categoryContainer'>
+          <h1 className='catagoryTitle'>{catagoryName} Recipes</h1>
           {featured && (
             <Link key={featured[0].id} href={`/recipes/${featured[0].id}`}>
               <div className='categoryMainRecipe'>
@@ -68,6 +60,11 @@ console.log('catagoryFood')
               </div>
             </Link>
           )}
+
+          <div className='categoryRecipesHead'>
+            <h1>Searched Recipes</h1>
+            <div className='line'></div>
+          </div>
 
           <div className='categoryGridRecipes'>
             {catagoryFood &&

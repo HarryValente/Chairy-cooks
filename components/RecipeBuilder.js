@@ -281,14 +281,13 @@ export default ({ recipe: r }) => {
       <Grid columns={2} className='bg-gray-100 p-4 rounded text-xs'>
         <Grid columns={1}>
           <Widget title='Recipe Details'>
-
               <form onSubmit={addFormDetails}>
 
-              {!recipe.details ? (
-                <p className='font-medium text-vapta-red text-sm'>You still need to link this recipes details</p>
-              ) : (
-                <p className='font-medium text-emerald-500 text-sm'>Recipe details added</p>
-              )}
+                {!recipe.details ? (
+                  <p className='font-medium text-vapta-red text-sm'>You still need to link this recipes details</p>
+                ) : (
+                  <p className='font-medium text-emerald-500 text-sm'>Recipe details added</p>
+                )}
 
                 <Grid columns={2}>
                   <Field label='Name' value={form.name} onChange={e => setForm({ name: e })} />
@@ -304,7 +303,6 @@ export default ({ recipe: r }) => {
                 </Grid>
                 <FormSubmit disabled={!form}>Add Details</FormSubmit>
               </form>
-
           </Widget>
         </Grid>
 

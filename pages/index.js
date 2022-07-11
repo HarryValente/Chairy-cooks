@@ -22,7 +22,7 @@ export default function Recipes() {
       setRecipeHomepage(recipeHomepage)
     }
   }, [])
-
+console.log('test')
   return (
     <>
       <SEO title={'Chairy cooks - Homepage'} description={'Welcome to the homepage for Chairy cooks home of cheap tasty homemade meals from all around the world!'}/>

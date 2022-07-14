@@ -52,14 +52,14 @@ export default function Layout({ children }) {
   return (
     <div className="layout">
       <header>
-        <div>
+        <div className="logoHeaderContainer">
           <Link href="/">
             {/* <a>
               <h3>Chairy</h3>
               <h1>Cooks</h1>
               <h2>Cooking Together</h2>
             </a> */}
-            <Image src='/logo.png' alt='Chairy Cooks Logo' priority layout='fill' objectFit='cover' />
+            <Image src='/logotest.png' alt='Chairy Cooks Logo' priority layout='fill' />
           </Link>
         </div>
 

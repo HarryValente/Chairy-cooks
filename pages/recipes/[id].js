@@ -39,12 +39,13 @@ return (
             <div className='recipeHeadlineContainer'>
               <div className='recipePageImageContainer'>
                 {recipe.main_image && (
-                  <Image 
-                  alt={recipe.main_image.name}
-                  src={recipe.main_image.url}
-                  width={650}
-                  height={650}
-                  />
+                  // <Image 
+                  // alt={recipe.main_image.name}
+                  // src={recipe.main_image.url}
+                  // width={650}
+                  // height={650}
+                  // />
+                  <img src={recipe.main_image.url} alt={recipe.main_image.name}></img>
                 )}
                 <h2>{ recipe.name }</h2>
               </div>

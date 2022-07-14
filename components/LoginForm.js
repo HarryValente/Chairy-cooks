@@ -24,8 +24,8 @@ import Field from './Field'
 export default () => {
   const router = useRouter()
   const [form, setForm] = useState({
-    email: 'harry-joevalente@live.co.uk',
-    password: 'chairy123',
+    // email: 'harry-joevalente@live.co.uk',
+    // password: 'chairy123',
     saved_recipes: []
   })
   const { login, logout} = useAuthContext()

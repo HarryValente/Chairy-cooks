@@ -1,6 +1,6 @@
 // Hooks
 import { useEffect, useState } from 'react'
-import { updateFirebaseDoc } from '../firebase'
+import { updateFirebaseDoc } from '../firebase/index'
 
 import {useRouter} from 'next/router'
 // Components

@@ -51,6 +51,11 @@ header a {
   text-transform: uppercase;
   display: inline-block;
 }
+header div{
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
 header h1, header h2, header h3 {
   margin: 0;
   display: block;
@@ -208,6 +213,11 @@ header h2 {
   position: relative;
   border-radius: 5px;
 }
+.featureImage img{
+  width: 300px;
+  height: 375px;
+  object-fit: cover;
+}
 .feature-text{
   display:flex;
   justify-content: space-between;
@@ -275,6 +285,11 @@ header h2 {
   width: 226px;
   height: 100%;
   position: relative;
+}
+.homepageCardImage img{
+  height: 100%;
+  width: 226px;
+  object-fit: cover;
 }
 .homepageContent {
   display: flex;
@@ -345,6 +360,9 @@ header h2 {
   .homepageCardImage{
     width: 186px;
   }
+  .homepageCardImage img{
+    width: 186px;
+  }
   .homepageContent p{
     font-size: 10px;
   }
@@ -371,6 +389,9 @@ header h2 {
   .homepageCardImage{
     width: 272px;
   }
+  .homepageCardImage img{
+    width: 272px;
+  }
   .homepageContent{
     width: 408px;
     padding: 16px;
@@ -394,6 +415,9 @@ header h2 {
     height: 200px;
   }
   .homepageCardImage{
+    width: 196px;
+  }
+  .homepageCardImage img{
     width: 196px;
   }
   .homepageContent{
@@ -423,6 +447,10 @@ header h2 {
     flex-direction: column;
   }
   .homepageCardImage{
+    width: 100%;
+    height: 260px;
+  }
+  .homepageCardImage img{
     width: 100%;
     height: 260px;
   }
@@ -1222,6 +1250,7 @@ footer {
   grid-template-columns: 0.5fr 1fr 1fr 1fr; 
 }
 .footerInfo{
+  position: relative;
   display: flex;
   flex-direction: column;
 }

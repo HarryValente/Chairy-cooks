@@ -5,7 +5,7 @@ import Advert from "../components/Advert";
 import MainIngrdientsTile from "../components/MainIngredientsTile";
 import SEO from "../components/SEO";
 import Grid from "../components/Grid";
-import { getFirebaseDocs } from "../firebase";
+import { getFirebaseDocs } from "../firebase/index";
 import { useEffect, useState } from "react";
 
 export default function Recipes() {
@@ -22,7 +22,7 @@ export default function Recipes() {
       setRecipeHomepage(recipeHomepage)
     }
   }, [])
-console.log('test')
+
   return (
     <>
       <SEO title={'Chairy cooks - Homepage'} description={'Welcome to the homepage for Chairy cooks home of cheap tasty homemade meals from all around the world!'}/>

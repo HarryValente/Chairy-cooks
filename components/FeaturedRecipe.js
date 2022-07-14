@@ -28,11 +28,12 @@ export default ({recipes: data}) => {
             <div className="feature">
 
               <div className='featureImage'>
-                <Image
+                {/* <Image
                   src={rec.main_image.url}
                   placeholder='blue'
                   layout="fill"
-                />
+                /> */}
+                <img src={rec.main_image.url} alt={rec.main_image.name}></img>
               </div>
               
               <div className="feature-text">

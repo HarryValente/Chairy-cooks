@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 // Firebase
-import { getFirebaseDocs } from "../../firebase";
+import { getFirebaseDocs } from "../../firebase/index";
 import { where } from 'firebase/firestore'
 
 // Hooks

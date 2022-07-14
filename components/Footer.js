@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faInstagram, faPinterest, faTiktok, faTwitter } from "@fortawesome/free-brands-svg-icons"
 import { useState } from 'react'
@@ -29,7 +30,7 @@ export default ({recipe}) => {
     <footer>
       <div className='footerInfoContainer'>
         <div className='footerInfo'>
-          <h1>LOGO</h1>
+          <Image src='/logo.png' alt='Chairy Cooks Logo' priority layout='fill' objectFit='cover' />
         </div>
         <div className='footerInfo'>
           <ul>

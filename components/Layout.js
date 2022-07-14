@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../context/auth";
 import Link from 'next/link'
+import Image from 'next/image'
 import Footer from './Footer'
 // Components
 import useFirebase from '../hooks/useFirebase';
@@ -53,11 +54,12 @@ export default function Layout({ children }) {
       <header>
         <div>
           <Link href="/">
-            <a>
+            {/* <a>
               <h3>Chairy</h3>
               <h1>Cooks</h1>
               <h2>Cooking Together</h2>
-            </a>
+            </a> */}
+            <Image src='/logo.png' alt='Chairy Cooks Logo' priority layout='fill' objectFit='cover' />
           </Link>
         </div>
 
@@ -80,7 +82,7 @@ export default function Layout({ children }) {
         </div>
 
 
-        {user ? (
+        {/* {user ? (
           <>
             <Link href="/profile">
               <button className="profileBtn" role="button"><span className="text">Profile</span></button>
@@ -90,7 +92,7 @@ export default function Layout({ children }) {
           <Link href="/login">
             <button className="profileBtn" role="button"><span className="text">Login</span></button>
           </Link>
-        )}
+        )} */}
       </header>
 
       <div className="page-content">

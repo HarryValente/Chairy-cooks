@@ -40,11 +40,13 @@ header {
   /* background-color: #6eda9b; */
   background-color: #9DC183;
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
   text-align: center;
   padding: 30px 20px;
   position: relative;
+  transition: 0.2s ease-in;
 }
 header a {
   text-decoration: none;
@@ -56,6 +58,7 @@ header .logoHeaderContainer{
   position: relative;
   width: 225px;
   height: 100px;
+  cursor: pointer;
 }
 header h1, header h2, header h3 {
   margin: 0;
@@ -76,6 +79,9 @@ header h2 {
   font-size: 0.9em;
   font-weight: 400;
 }
+.searchContainer{
+  margin-top: 15px;
+}
 .searchInput {
   width: 500px !important;
   padding: 16px 24px;
@@ -85,20 +91,29 @@ header h2 {
   z-index: 12;
   /* background-color: #9DC183; */
   color: #575756;
-  border-radius: 50px;
+  border-radius: 5px;
   transition: all 250ms ease-in-out;
 }
-.searchInput:focus {
+.searchInput:focus, .searchInput.active:focus {
   outline: none;
 }
 .searchFeatureLayout{
   width: 500px;
   background-color: white;
-  z-index: 10;
-  top: 87px;
+  z-index: 1000;
+  margin-top: -10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 38px 0;
+  border-radius: 0 0 10px 10px;
+}
+.searchClose{
   position: absolute;
-  border-radius: 0 0 20px 20px;
+  right: 35%;
+  top: 35px;
+  color: red;
+  font-weight: 900;
 }
 .searchFeatureContentContainer{
   z-index: 11;
@@ -114,12 +129,12 @@ header h2 {
   position: relative;
 }
 .viewMore{
-  position: absolute;
+  position: relative;
   bottom: 1px;
+  left: 1px;
+  margin-top: 20px;
   font-size: 14px;
   z-index: 95;
-  left: 50%;
-  transform: translate(-50%);
   cursor: pointer;
   color: #000;
 }
@@ -186,30 +201,33 @@ header h2 {
 }
 @media (max-width: 850px) {
   header .logoHeaderContainer{
-    width: 175px;
-    height: 80px;
+    width: 210px;
+    height: 100px;
   }
-  .searchInput{
-    width: 350px !important;
+  .searchInput, .searchFeatureLayout{
+    width: 450px !important;
   }
 }
 @media (max-width: 650px) {
-  header .logoHeaderContainer{
-    width: 140px;
-    height: 65px;
+  header {
+    flex-direction: column;
   }
-  .searchInput{
-    width: 270px !important;
+  header .logoHeaderContainer{
+    width: 210px;
+    height: 95px;
+  }
+  .searchInput, .searchFeatureLayout{
+    width: 380px !important;
   }
 }
 @media (max-width: 470px) {
   header .logoHeaderContainer{
-    width: 120px;
-    height: 55px;
+    width: 190px;
+    height: 85px;
   }
-  .searchInput{
-    width: 180px !important;
+  .searchInput, .searchFeatureLayout{
     padding: 10px 18px;
+    width: 280px !important;
   }
 }
 /* Homepage Features */
@@ -985,16 +1003,19 @@ header h2 {
 @media (max-width:650px){
   .recipeHeadlineContainer{
     padding: 10px;
-  }
-  .recipeHeadlineContainer{
-    height: 360px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    height: 675px;
+    width: 475px;
+    align-items: center;
   }
   .recipeInfo{
-    font-size: 13px;
+    font-size: 14px;
     padding: 10px;
   }
   .recipeCookingInfo{
-    font-size: 10px;
+    margin-top: 8px;
+    font-size: 12px;
   }
   .recipeMethodContainer h3,
   .recipeInformationIngredients h3{
@@ -1017,18 +1038,21 @@ header h2 {
   .recipeHeadlineContainer{
     grid-template-columns: 1fr;
     grid-template-rows: 0.8fr;
-    height: 600px;
+    height: 650px;
+    width: 370px;
   }
   .recipePageImageContainer h2{
     padding: 10px;
-    font-size: 14px;
+    font-size: 18px;
+    left: 4px;
+    transform: rotateZ(358deg);
   }
   .recipeInfo{
     padding: 5px;
-    font-size: 12px;
+    font-size: 14px;
   }
   .recipeCookingInfo{
-    font-size: 9px;
+    font-size: 12px;
   }
   .recipeInformationContainer{
     flex-direction: column;
@@ -1270,10 +1294,15 @@ footer {
   width: 100%;
 }
 .footerInfoContainer{
-  width: 90%;
+  width: 92%;
   margin: auto;
   display: grid; 
   grid-template-columns: 0.5fr 1fr 1fr 1fr; 
+}
+.footerInfoImg{
+  position: relative;
+  width: 170px;
+  height: 80px;
 }
 .footerInfo{
   position: relative;
@@ -1306,6 +1335,10 @@ footer {
 @media (max-width:900px) {
   .footerInfo ul, .footerEmailList h3{
     font-size: 12px;
+  }
+  .footerInfoImg{
+    width: 125px;
+    height: 60px;
   }
 }
 @media (max-width:500px) {

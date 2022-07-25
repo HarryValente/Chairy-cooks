@@ -29,8 +29,8 @@ export default ({recipe}) => {
   return (
     <footer>
       <div className='footerInfoContainer'>
-        <div className='footerInfo'>
-          <Image src='/logo.png' alt='Chairy Cooks Logo' priority layout='fill' objectFit='cover' />
+        <div className='footerInfoImg'>
+          <Image src='/logotest.png' alt='Chairy Cooks Logo' priority layout='fill' />
         </div>
         <div className='footerInfo'>
           <ul>

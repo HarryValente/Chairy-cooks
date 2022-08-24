@@ -94,6 +94,7 @@ export default ({ recipe: r }) => {
         similar_recipe: recipe.similar_recipe,
         steps: recipe.steps,
         tags: recipe.tags,
+        rating: 0,
         affiliate: recipe.affiliate,
         homepage_feature: false,
         homepage_page: false,

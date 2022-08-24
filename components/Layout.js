@@ -7,12 +7,15 @@ import Footer from './Footer'
 import useFirebase from '../hooks/useFirebase';
 import useToggle from '../hooks/useToggle';
 import useLocalStorage from '../hooks/useLocalStorage';
+import { getFirebaseDocs } from "../firebase/index";
 import Fuse from "fuse.js";
 import router from "next/router";
 
 export default function Layout({ children }) {
   const { user } = useAuthContext()
-  const [recipe] = useFirebase([], '/all_recipes/')
+  const [recipe, setRecipe] = useState()
+  console.log(recipe)
+  console.log('recipe')
   // const [visible, toggle] = useToggle()
   const [visible, toggle] = useState(false)
   const [_recipes, setLocalStorage] = useLocalStorage('_recipes', '')
@@ -24,11 +27,22 @@ export default function Layout({ children }) {
     threshold: 0.2
   })
 
+  /**
+   * When a user clicks on view more recipes it sets the search result into LS redirects then searches on that page using the saved LS 
+   */
   const viewAllRecipes = () => {
     setLocalStorage(results)
     toggle(false)
     router.push('/allRecipes')
   }
+
+  useEffect(async () => {
+    if (!recipe) {
+      const _report = await getFirebaseDocs('all_recipes/')
+      setRecipe(_report)
+    }
+
+  }, [])
 
   useEffect(() => {
     const searchField = document.querySelector('.searchInput')
@@ -36,7 +50,9 @@ export default function Layout({ children }) {
     searchField.addEventListener('keyup', e => {
       if (e.key === 'Enter' && search !== '') {
         const results = recipeLibrary.search(search).map(({item}) => item)
-
+        console.log(results)
+        console.log('results')
+        console.log('enter')
         if (results.length > 0) {
           // Cut off so only limited amount of recipes show up
           // let length = results.length - 11

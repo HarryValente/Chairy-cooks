@@ -46,11 +46,12 @@ console.log('catagoryFood')
             <Link key={featured[0].id} href={`/recipes/${featured[0].id}`}>
               <div className='categoryMainRecipe'>
                 <div className='categoryMainRecipeImage'>
-                  <Image
+                  {/* <Image
                     src={featured[0].main_image.url}
                     placeholder='blue'
                     layout="fill"
-                  />
+                  /> */}
+                  <img src={featured[0].main_image.url}></img>
                 </div>
                 <div className='categoryMainRecipeText'>
                   <h1>{featured[0].name}</h1>
@@ -72,11 +73,12 @@ console.log('catagoryFood')
                 <Link key={food.id} href={`/recipes/${food.id}`}>
                   <div className="categoryRecipe">
                     <div className='categoryRecipeImage'>
-                      <Image
+                      {/* <Image
                         src={food.main_image.url}
                         placeholder='blue'
                         layout="fill"
-                      />
+                      /> */}
+                      <img src={food.main_image.url}></img>
                     </div>
                     
                     <div className="categoryRecipeText">

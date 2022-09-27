@@ -4,7 +4,7 @@ export const About = () => {
   return(
     <div className="aboutUsContainer">
       <h1>About Us</h1>
-      <h3>This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test.</h3>
+      <h3>Hi we're Ciara & Harry a couple who love to cook together! We found our passion of cooking by spending countless hours in the kitchen bonding over our love for not just food but the craft of creating food.</h3>
       <div className="aboutUsMain">
         <div className='aboutUsPhoto'>
           <Image 
@@ -14,24 +14,24 @@ export const About = () => {
           />
         </div>
         <div className='aboutUsText'>
-          I started deliciously ella back in 2012 whilst I was still at university. In 2011, I had been diagnosed with a condition called postural tachycardia syndrome, as well as ehlers-danlos and mast cell activation disorder, following four months in and out of hospital. The condition affected the workings of my autonomic nervous system  I couldnt control my heart rate and blood pressure properly, while also struggling with digestive issues, chronic fatigue, a series of infections and a whole host of other symptoms. I was prescribed a cocktail of medication, but unfortunately, they had limited success in managing the condition and after about a year I hit rock bottom, both physically and mentally.
+          We started Chairy cooks in 2021 when we both graduated from university. It was seen as a new passion project for us both to embark on and continue to explore new foods and different cuisines from around the world. By expanding our cooking habits we believe to have curated a tasty portfolio of easy and delicious dishes which will go down a treat for any household. Our recipes range from simple student meals to extravagant Asian dishes all without losing out on that punchy flavour we all desire in our food. We are in no way professional chefs but we pride ourselves in our authentic homely cooking that we believe can be made by anyone. 
           <br />
           <br />
-          At this point, I started looking into other ways of managing the condition and began researching whether a change in diet and lifestyle may be able to help.
+          At this point, we believe that it is time to share Chairycooks to the world and for everyone to have a taste of some of our favourite dishes that we've made over the years.
           <br />
           <br />
-          Encouraged by stories I read, I decided to turn to a whole foods, plant-based diet, and overhauled my lifestyle. I had three major obstacles at this point though: 1 I couldnt cook; 2 I had no idea how to make plant-based recipes; and 3 I had lost all of my sense of drive. I decided the way to combat all three issues was to start a diary of my culinary experiments, pushing myself to try new things in the kitchen each day and rediscover a sense of creativity. I did this online through my website deliciouslyella.com.
+          Inspired by others in the food industry, we believe our recipes are a blend of what we find online mixed in with our love and passion for the hobby and we hope you see this when recreating any of our recipes. We would encourage anyone to add their own takes to recipes and share them with us as we'd love to hear how you've transformed our recipes into your own creations and made them your own. For example neither of us are very tolerant to spice when it comes to food so if you feel like adding chilli flakes etc to our food be our guest! 
         </div>
       </div>
       <div className="aboutUsMainTwo">
         <div className='aboutUsTextTwo'>
-          I started deliciously ella back in 2012 whilst I was still at university. In 2011, I had been diagnosed with a condition called postural tachycardia syndrome, as well as ehlers-danlos and mast cell activation disorder, following four months in and out of hospital. The condition affected the workings of my autonomic nervous system  I couldnt control my heart rate and blood pressure properly, while also struggling with digestive issues, chronic fatigue, a series of infections and a whole host of other symptoms. I was prescribed a cocktail of medication, but unfortunately, they had limited success in managing the condition and after about a year I hit rock bottom, both physically and mentally.
+          Chairycooks was created by Harry and his girlfriend Ciara, they both bring something different to the table when it comes to cooking. Harry very much started as a "uni-chef" with very little experience in the kitchen and kind of winged it, however Harry had the passion to learn and when Ciara came along with her lifelong joy of cooking and baking it was a match made in heaven. Food has always been something they've bonded over and cooking together is something they hold close to their hearts. 
           <br />
           <br />
-          At this point, I started looking into other ways of managing the condition and began researching whether a change in diet and lifestyle may be able to help.
+          As time has progressed Harry has become the "Chief chopper" and Ciara likes to think of herself as the headchef but best believe they both create their dishes and as much as Ciara likes to think she is in charge she couldn't do it without her trusty assistant.
           <br />
           <br />
-          Encouraged by stories I read, I decided to turn to a whole foods, plant-based diet, and overhauled my lifestyle. I had three major obstacles at this point though: 1 I couldnt cook; 2 I had no idea how to make plant-based recipes; and 3 I had lost all of my sense of drive. I decided the way to combat all three issues was to start a diary of my culinary experiments, pushing myself to try new things in the kitchen each day and rediscover a sense of creativity. I did this online through my website deliciouslyella.com.
+          In terms of Ciara's background she brings a Irish homely cooking feel to a lot of the dishes which makes some of the winter warming dishes amazing and a must try. As well as this, baking has been a big part of Ciaras upbringing which has given her a warchest of family recipes to indulge in and makes any cheat day/week worthwhile. Harry's experience growing up around his Italian nonna allowed him to experirence Italian flavours from a young age and has passed down a few authentic Italian recipes for him to share.
         </div>
         <div className='aboutUsPhotoTwo'>
           <Image 
@@ -52,7 +52,7 @@ export const About = () => {
             width={250}
             height={250}
           />
-          <h5>we now have six #1 bestselling cookbooks; a plant-based food and wellness app; seven lines of food products in 7,000 stores across the uk; a restaurant, plants by de, in central london; and a podcast.</h5>
+          <h5>We now have plans to continue building our Chairycooks recipe collection. We really hope you enjoy what we've made along on our journey and we really hope you join us for the ride!</h5>
       </div>
     </div>
   )

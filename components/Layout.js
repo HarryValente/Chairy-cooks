@@ -14,8 +14,6 @@ import router from "next/router";
 export default function Layout({ children }) {
   const { user } = useAuthContext()
   const [recipe, setRecipe] = useState()
-  console.log(recipe)
-  console.log('recipe')
   // const [visible, toggle] = useToggle()
   const [visible, toggle] = useState(false)
   const [_recipes, setLocalStorage] = useLocalStorage('_recipes', '')
@@ -50,9 +48,6 @@ export default function Layout({ children }) {
     searchField.addEventListener('keyup', e => {
       if (e.key === 'Enter' && search !== '') {
         const results = recipeLibrary.search(search).map(({item}) => item)
-        console.log(results)
-        console.log('results')
-        console.log('enter')
         if (results.length > 0) {
           // Cut off so only limited amount of recipes show up
           // let length = results.length - 11

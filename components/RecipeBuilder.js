@@ -101,9 +101,6 @@ export default ({ recipe: r }) => {
         category: recipe.category
       }
 
-      console.log(_recipe)
-      console.log('_recipe')
-
       await addFirebaseDoc('/all_recipes/', _recipe, _recipe.id)
       await handleImageUpload(_recipe)
         
@@ -140,8 +137,6 @@ export default ({ recipe: r }) => {
         })
 
         if (catego) {
-          console.log(catego)
-          console.log('catego')
           await updateFirebaseDoc(`recipes/categories/${catego}/`, `${_recipe.id}`, {
             main_image: mainImage
           })
@@ -267,11 +262,6 @@ export default ({ recipe: r }) => {
       setRecipe(_recipe.fields)
     }
   }, [r])
-
-  console.log(form)
-  console.log('form')
-  console.log(recipe)
-  console.log('recipe')
 
   return (
     <>

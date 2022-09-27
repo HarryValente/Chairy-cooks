@@ -29,14 +29,12 @@ export default () => {
 
       const catagorisedRecipes = await getFirebaseDocs(`/recipes/categories/${router.query.id.toLowerCase() + '_recipes'}`, where('category_page', "==", true))
       const catagorisedFeatureRecipes = await getFirebaseDocs(`/recipes/categories/${router.query.id.toLowerCase() + '_recipes'}`, where('category_feature', "==", true))
-      console.log(catagorisedRecipes)
-      console.log('catagorisedRecipes')
+
       catagorisedRecipes ? setCatagoryFood(catagorisedRecipes) : null
       catagorisedFeatureRecipes ? setFeatured(catagorisedFeatureRecipes) : null
     }
   }, [router])
-console.log(catagoryFood)
-console.log('catagoryFood')
+
   return (
     <>
       <SEO title={`Chairy cooks - ${catagoryName}`} description={`${catagoryName} chicken`}/>

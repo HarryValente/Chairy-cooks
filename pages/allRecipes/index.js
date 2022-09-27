@@ -7,8 +7,7 @@ import Image from 'next/image'
 
 export default () => {
   const [_recipes] = useLocalStorage('_recipes')
-  console.log(_recipes)
-  console.log('_recipes')
+
   return (
     <>
     <div className="searchedContainer">

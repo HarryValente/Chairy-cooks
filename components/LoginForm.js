@@ -24,11 +24,9 @@ import Field from './Field'
 export default () => {
   const router = useRouter()
   const [form, setForm] = useState({
-    // email: 'harry-joevalente@live.co.uk',
-    // password: 'chairy123',
     saved_recipes: []
   })
-  const { login, logout} = useAuthContext()
+  const {login, logout} = useAuthContext()
   const [error, setError] = useState(null)
   
   const [newAccount, setNewAccount] = useState(false)
@@ -87,11 +85,11 @@ export default () => {
             className='text-black'
           />
           <FormSubmit>Login to Chairy Cooks</FormSubmit>
-          <Button
+          {/* <Button
           onClick={() => setNewAccount(state => !state)}
           >
             Create account
-          </Button>
+          </Button> */}
         </Grid>
       </Form>}
   

@@ -28,11 +28,8 @@ export default ({ recipe }) => {
       homepage_feature: form.homepageFeature ? true : false
     }
 
-    console.log(_recipe)
-    console.log('_recipe')
   }
-  console.log(form)
-  console.log('form')
+
   return (
     <form onSubmit={handleSubmit}>
       <Grid columns={1}>

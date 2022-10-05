@@ -65,17 +65,12 @@ export default () => {
             <div className='line'></div>
           </div>
 
-          <div className='categoryGridRecipes'>
+          {/* <div className='categoryGridRecipes'>
             {catagoryFood &&
               catagoryFood.map(food => (
                 <Link key={food.id} href={`/recipes/${food.id}`}>
                   <div className="categoryRecipe">
                     <div className='categoryRecipeImage'>
-                      {/* <Image
-                        src={food.main_image.url}
-                        placeholder='blue'
-                        layout="fill"
-                      /> */}
                       <img src={food.main_image.url}></img>
                     </div>
                     
@@ -86,6 +81,30 @@ export default () => {
                       <p>{food.time}mins, {food.difficulty} difficulty</p>
                       <div className='line'></div>
                       <p>{food.tags.join(', ')}</p>
+                    </div>
+                  </div>
+                </Link>
+              ))
+            }
+          </div> */}
+
+          <div className='searchedRecipes'>
+            {catagoryFood &&
+              catagoryFood.map(food => (
+                <Link key={food.id} href={`/recipes/${food.id}`}>
+                  <div className="searchedRecipe">
+                    <div className='searchedRecipeImage'>
+                      <img src={food.main_image.url} alt={food.main_image.name}></img>
+                    </div>
+                        
+                    <div className="searchedRecipeText">
+                      <h5>{food.tags.join(', ')}</h5>
+                      <h1>{food.name}</h1>
+                      <div className='searchedRecipeTime'>
+                        <p>{food.time} Mins</p>
+                        <div className='searchedRecipeTimeLine'></div>
+                        <p>{food.difficulty} difficulty</p>
+                      </div>
                     </div>
                   </div>
                 </Link>

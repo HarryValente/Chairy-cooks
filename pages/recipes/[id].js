@@ -105,11 +105,12 @@ return (
                     return (
                       <Link key={similarRecipe.id} href={`/recipes/${similarRecipe.id}`}>         
                         <div key={id} className='recipeSimilarRecipe'>
-                            <Image 
+                            {/* <Image 
                               src={similarRecipe.main_image.url}
                               width={150}
                               height={150}
-                            />
+                            /> */}
+                            <img src={similarRecipe.main_image.url}></img>
                             <div className="recipeSimilarDetails">
                               <h4>{similarRecipe.name}</h4>
                             </div>

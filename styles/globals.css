@@ -305,6 +305,12 @@ header h2 {
     height: 330px;
   }
 }
+.tempSpace{
+  position: relative;
+  margin: 60px auto;
+  width: 1000px;
+  height: 50px;
+}
 /* Homepage Recipe Highlight */
 .homepageRecipes{
   display: grid;
@@ -573,6 +579,11 @@ header h2 {
 .categoryMainRecipeImage{
   position: relative;
   width: 450px;
+  height: 100%;
+}
+.categoryMainRecipeImage img{
+  object-fit: cover;
+  width: 100%;
   height: 100%;
 }
 .categoryMainRecipeText{
@@ -948,6 +959,11 @@ header h2 {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   display: flex;
 }
+.recipeSimilarRecipe img{
+  height: 150px;
+  width: 150px;
+  object-fit: cover;
+}
 .recipeSimilarDetails{
   padding: 5px;
   display: flex;
@@ -1110,7 +1126,7 @@ header h2 {
   cursor: pointer;
   width: 240px;
   height: 340px;
-  transition: 0.2s;
+  transition: 1s;
 }
 .searchedRecipe:hover{
   margin-bottom: 10px;
@@ -1119,6 +1135,11 @@ header h2 {
   position: relative;
   width: 100%;
   height: 60%;
+}
+.searchedRecipeImage img{
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 .searchedRecipeText{
   display: flex;
@@ -1130,7 +1151,7 @@ header h2 {
 }
 .searchedRecipeText h5{
   font-size: 15px;
-  color: #bebebe;
+  color: #666161;
 }
 .searchedRecipeText h1{
   color: #000;
@@ -1249,6 +1270,10 @@ header h2 {
   width: 40%;
   position: relative;
 }
+.aboutUsPhoto img{
+  height: 100%;
+  object-fit: cover;
+}
 .aboutUsText{
   width: 50%;
   position: relative;
@@ -1265,6 +1290,10 @@ header h2 {
   width: 40%;
   position: relative;
 }
+.aboutUsPhotoTwo img{
+  height: 100%;
+  object-fit: cover;
+}
 .aboutUsTextTwo{
   width: 50%;
   position: relative;
@@ -1276,6 +1305,16 @@ header h2 {
   grid-gap: 2em; 
   margin: 100px;
   text-align: center;
+}
+.aboutUsImage{
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+.aboutUsImage img{
+  height: 100%;
+  width: 300px;
+  object-fit: cover;
 }
 .aboutUsGrid h5{
   font-size: 18px;
@@ -1303,6 +1342,7 @@ footer {
   position: relative;
   width: 170px;
   height: 80px;
+  cursor: pointer;
 }
 .footerInfo{
   position: relative;

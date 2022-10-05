@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://example.com</loc><lastmod>2022-09-27T19:14:11.695Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/about</loc><lastmod>2022-09-27T19:14:11.695Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/allRecipes</loc><lastmod>2022-09-27T19:14:11.695Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/contact</loc><lastmod>2022-09-27T19:14:11.695Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/login</loc><lastmod>2022-09-27T19:14:11.695Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/profile</loc><lastmod>2022-09-27T19:14:11.695Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/profile/myProfile</loc><lastmod>2022-09-27T19:14:11.695Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/recipeIndex</loc><lastmod>2022-09-27T19:14:11.695Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/resources</loc><lastmod>2022-09-27T19:14:11.695Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/sponsered</loc><lastmod>2022-09-27T19:14:11.695Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/templates</loc><lastmod>2022-09-27T19:14:11.695Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/templates/manager</loc><lastmod>2022-09-27T19:14:11.696Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/templates/new</loc><lastmod>2022-09-27T19:14:11.696Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://chairycooks.com</loc><lastmod>2022-09-27T19:14:11.695Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://chairycooks.com/about</loc><lastmod>2022-09-27T19:14:11.695Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://chairycooks.com/allRecipes</loc><lastmod>2022-09-27T19:14:11.695Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://chairycooks.com/contact</loc><lastmod>2022-09-27T19:14:11.695Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://chairycooks.com/recipeIndex</loc><lastmod>2022-09-27T19:14:11.695Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://chairycooks.com/resources</loc><lastmod>2022-09-27T19:14:11.695Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://chairycooks.com/sponsered</loc><lastmod>2022-09-27T19:14:11.695Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 </urlset>

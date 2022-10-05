@@ -1,6 +1,8 @@
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 export const About = () => {
+  const router = useRouter()
   return(
     <div className="aboutUsContainer">
       <h1>About Us</h1>
@@ -8,7 +10,7 @@ export const About = () => {
       <div className="aboutUsMain">
         <div className='aboutUsPhoto'>
           <Image 
-            src={'/ad-placeholder.png'}
+            src={'/harryCiaraTongue.png'}
             width={550}
             height={650}
           />
@@ -35,23 +37,28 @@ export const About = () => {
         </div>
         <div className='aboutUsPhotoTwo'>
           <Image 
-            src={'/ad-placeholder.png'}
+            src={'/harryCiaraSunset.png'}
             width={550}
             height={650}
           />
         </div>
       </div>
       <div className='aboutUsGrid'>
+        <div className='aboutUsImage'>
           <Image 
-            src={'/ad-placeholder.png'}
+            src={'harryNepal.png'}
             width={250}
             height={250}
           />
+        </div>
+        <div className='aboutUsImage'>
           <Image 
-            src={'/ad-placeholder.png'}
-            width={250}
-            height={250}
+            src={'/ciaraLake.png'}
+            // width={250}
+            // height={250}
+            layout='fill'
           />
+        </div>
           <h5>We now have plans to continue building our Chairycooks recipe collection. We really hope you enjoy what we've made along on our journey and we really hope you join us for the ride!</h5>
       </div>
     </div>

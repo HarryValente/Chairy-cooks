@@ -24,11 +24,7 @@ export default () => {
             <Link key={food.id} href={`/recipes/${food.id}`}>
               <div className="searchedRecipe">
                 <div className='searchedRecipeImage'>
-                  <Image
-                    src={food.main_image.url}
-                    placeholder='blue'
-                    layout="fill"
-                  />
+                  <img src={food.main_image.url} alt={food.main_image.name}></img>
                 </div>
                     
                 <div className="searchedRecipeText">

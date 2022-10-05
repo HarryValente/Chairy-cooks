@@ -13,7 +13,6 @@ export default () => {
           margin: 120px auto;
           width: 1000px;
           height: 300px;
-          background-color: red;
         }
       `}
       </style>

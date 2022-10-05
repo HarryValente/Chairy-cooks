@@ -4,6 +4,7 @@ module.exports = {
     loader: 'akamai',
     path: '/'
   },
+  trailingSlash: true,
   webpack(config, options) {
     config.module.rules.push({
       test: /\.mp3$/,

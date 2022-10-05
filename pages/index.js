@@ -35,7 +35,8 @@ export default function Recipes() {
         <RecipeCard recipe={recipeHomepage}/>
       </div>
 
-      <Advert/>
+      {/* <Advert/> */}
+      <div className="tempSpace"></div>
 
       <Grid columns={3} className='col-span-full'>
         <MainIngrdientsTile ingredientName="Rice" image="/rice.png"/>
@@ -52,8 +53,8 @@ export default function Recipes() {
         <MainIngrdientsTile ingredientName="Dessert" image="/cupcake.png"/>
       </Grid>
 
-      <Advert/>
-
+      <div className="tempSpace"></div>
+      {/* <Advert/> */}
     </>
   )
 }

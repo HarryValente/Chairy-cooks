@@ -19,7 +19,8 @@ export default ({recipes: data}) => {
       set(data)
     }
   }, [data])
-
+  console.log(recipe)
+  console.log('recipe')
   return (
     <>
       {recipe &&

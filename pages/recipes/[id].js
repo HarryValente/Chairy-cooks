@@ -13,24 +13,19 @@ import { getFirebaseDoc } from '../../firebase/index'
 
 // Components
 import SEO from '../../components/SEO'
+import SimilarRecipe from '../../components/SimilarRecipe'
 
 export default ({data}) => {
   const router = useRouter()
-console.log(data)
-console.log('data123')
   const [_user] = useLocalStorage('_user')
 
   const [recipe, setRecipe] = useState()
   const [templates] = useFirebase([], '/all_recipes/')
 
   useEffect(async () => {
-    // console.log(router)
-    // console.log('router')
     if (router.query.id) {
-      const _report = await getFirebaseDoc('all_recipes/', router.query.id)
 
-      if (_report)
-        setRecipe(_report)
+      if (data) setRecipe(data)
     }
   }, [router, templates])
 
@@ -42,12 +37,6 @@ console.log('data123')
           <div className='recipeHeadlineContainer'>
             <div className='recipePageImageContainer'>
               {recipe.main_image && (
-                // <Image 
-                // alt={recipe.main_image.name}
-                // src={recipe.main_image.url}
-                // width={650}
-                // height={650}
-                // />
                 <img src={recipe.main_image.url} alt={recipe.main_image.name}></img>
               )}
               <h2>{ recipe.name }</h2>
@@ -100,24 +89,20 @@ console.log('data123')
           </div>
 
           <h1 className="recipeSimilarTitle">Similar recipes</h1>
-          <div className="recipeSimilarRecipeContainer">
+           <div className="recipeSimilarRecipeContainer">
             {recipe.similar_recipe &&
               recipe.similar_recipe.map(id => {
                 const similarRecipe = templates.find(item => item.id == id)
                 if (similarRecipe) {
                   return (
                     <Link key={similarRecipe.id} href={`/recipes/${similarRecipe.id}`}>         
-                      <div key={id} className='recipeSimilarRecipe'>
-                          {/* <Image 
-                            src={similarRecipe.main_image.url}
-                            width={150}
-                            height={150}
-                          /> */}
-                          <img src={similarRecipe.main_image.url}></img>
-                          <div className="recipeSimilarDetails">
-                            <h4>{similarRecipe.name}</h4>
-                          </div>
-                      </div>
+                    <SimilarRecipe recipe={similarRecipe} />
+                      {/*<div key={id} className='recipeSimilarRecipe'>
+                        <img src={similarRecipe.main_image.url}></img>
+                        <div className="recipeSimilarDetails">
+                          <h4>{similarRecipe.name}</h4>
+                        </div>
+                      </div>*/}
                     </Link>
                   )
                 } else {
@@ -125,7 +110,7 @@ console.log('data123')
                 }
               })
             }
-          </div>
+          </div> 
         </>
       )}
     </>
@@ -133,19 +118,11 @@ console.log('data123')
 }
 
 export async function getServerSideProps(context) {
-  // console.log(context)
-  console.log(context.query.id)
-  console.log('context')
   const data = await getFirebaseDoc('all_recipes/', context.query.id)
-  console.log(data)
 
   if (!data) {
     return {
       notFound:true,
-      // redirect: {
-      //   destination: '/',
-      //   permanent: false,
-      // },
     }
   } 
 
@@ -155,12 +132,3 @@ export async function getServerSideProps(context) {
     props: { data }, // will be passed to the page component as props
   }
 }
-
-// export async function getServerSideProps(context) {
-//   const { id } = context.params; // Use `context.params` to get dynamic params
-//   const res = await fetch(`https://restcountries.com/v2/name/${id}`); // Using `restcountries.com` as `restcountries.eu` is no longer accessible
-//   const countryList = await res.json();
-//   const [country] = countryList; // Get first item in array returned from API
-
-//   return { props: { country } };
-// }

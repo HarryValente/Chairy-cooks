@@ -19,8 +19,7 @@ export default ({recipes: data}) => {
       set(data)
     }
   }, [data])
-  console.log(recipe)
-  console.log('recipe')
+
   return (
     <>
       {recipe &&
@@ -29,11 +28,6 @@ export default ({recipes: data}) => {
             <div className="feature">
 
               <div className='featureImage'>
-                {/* <Image
-                  src={rec.main_image.url}
-                  placeholder='blue'
-                  layout="fill"
-                /> */}
                 <img src={rec.main_image.url} alt={rec.main_image.name}></img>
               </div>
               

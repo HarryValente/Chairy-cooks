@@ -1,0 +1,111 @@
+[debug] [2023-04-04T21:53:44.239Z] ----------------------------------------------------------------------
+[debug] [2023-04-04T21:53:44.241Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Vapta Systems\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2023-04-04T21:53:44.241Z] CLI Version:   11.25.2
+[debug] [2023-04-04T21:53:44.242Z] Platform:      win32
+[debug] [2023-04-04T21:53:44.242Z] Node Version:  v16.16.0
+[debug] [2023-04-04T21:53:44.244Z] Time:          Tue Apr 04 2023 22:53:44 GMT+0100 (British Summer Time)
+[debug] [2023-04-04T21:53:44.244Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-04-04T21:53:44.339Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-04-04T21:53:44.339Z] > authorizing via signed-in user (harry-joevalente@live.co.uk)
+[debug] [2023-04-04T21:53:44.339Z] [iam] checking project chairy-cooks for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-04-04T21:53:44.342Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/chairy-cooks:testIamPermissions [none]
+[debug] [2023-04-04T21:53:44.343Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/chairy-cooks:testIamPermissions x-goog-quota-user=projects/chairy-cooks
+[debug] [2023-04-04T21:53:44.343Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/chairy-cooks:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-04-04T21:53:45.050Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/chairy-cooks:testIamPermissions 200
+[debug] [2023-04-04T21:53:45.050Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/chairy-cooks:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-04-04T21:53:45.052Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/chairy-cooks [none]
+[debug] [2023-04-04T21:53:45.360Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/chairy-cooks 200
+[debug] [2023-04-04T21:53:45.361Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/chairy-cooks {"projectId":"chairy-cooks","projectNumber":"932235974846","displayName":"chairy cooks","name":"projects/chairy-cooks","resources":{"hostingSite":"chairy-cooks","storageBucket":"chairy-cooks.appspot.com","locationId":"europe-west"},"state":"ACTIVE","etag":"1_c147d359-0974-45ee-8727-3200bba8f452"}
+[debug] [2023-04-04T21:53:49.981Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/chairy-cooks/sites pageToken=&pageSize=10
+[debug] [2023-04-04T21:53:50.873Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/chairy-cooks/sites 200
+[debug] [2023-04-04T21:53:50.873Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/chairy-cooks/sites {"sites":[{"name":"projects/chairy-cooks/sites/chairy-cooks","defaultUrl":"https://chairy-cooks.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2023-04-04T21:53:50.873Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/chairy-cooks/sites 
+[debug] [2023-04-04T21:53:51.735Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/chairy-cooks/sites 200
+[debug] [2023-04-04T21:53:51.735Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/chairy-cooks/sites {"sites":[{"name":"projects/chairy-cooks/sites/chairy-cooks","defaultUrl":"https://chairy-cooks.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2023-04-04T21:53:51.735Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/chairy-cooks/webApps/-/config [none]
+[debug] [2023-04-04T21:53:52.504Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/chairy-cooks/webApps/-/config 200
+[debug] [2023-04-04T21:53:52.504Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/chairy-cooks/webApps/-/config {"projectId":"chairy-cooks","appId":"1:932235974846:web:450a03e69f378a1399e6ef","storageBucket":"chairy-cooks.appspot.com","locationId":"europe-west","apiKey":"AIzaSyD7lln8DFMGkvjqcjEStICg6cBptRd_W-A","authDomain":"chairy-cooks.firebaseapp.com","messagingSenderId":"932235974846","measurementId":"G-JQHQBCJY2S"}
+[debug] [2023-04-04T21:54:32.833Z] Error: Unable to load next.config.js.
+    at getConfig (C:\Users\Vapta Systems\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\next\index.js:311:23)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async build (C:\Users\Vapta Systems\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\next\index.js:60:40)
+    at async prepareFrameworks (C:\Users\Vapta Systems\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\index.js:261:108)
+    at async deploy (C:\Users\Vapta Systems\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:53:13)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2023-04-04T21:55:28.710Z] ----------------------------------------------------------------------
+[debug] [2023-04-04T21:55:28.713Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Vapta Systems\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2023-04-04T21:55:28.714Z] CLI Version:   11.25.2
+[debug] [2023-04-04T21:55:28.714Z] Platform:      win32
+[debug] [2023-04-04T21:55:28.714Z] Node Version:  v16.16.0
+[debug] [2023-04-04T21:55:28.718Z] Time:          Tue Apr 04 2023 22:55:28 GMT+0100 (British Summer Time)
+[debug] [2023-04-04T21:55:28.719Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-04-04T21:55:28.840Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-04-04T21:55:28.841Z] > authorizing via signed-in user (harry-joevalente@live.co.uk)
+[debug] [2023-04-04T21:55:28.841Z] [iam] checking project chairy-cooks for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-04-04T21:55:28.844Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/chairy-cooks:testIamPermissions [none]
+[debug] [2023-04-04T21:55:28.844Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/chairy-cooks:testIamPermissions x-goog-quota-user=projects/chairy-cooks
+[debug] [2023-04-04T21:55:28.845Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/chairy-cooks:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-04-04T21:55:29.530Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/chairy-cooks:testIamPermissions 200
+[debug] [2023-04-04T21:55:29.531Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/chairy-cooks:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-04-04T21:55:29.532Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/chairy-cooks [none]
+[debug] [2023-04-04T21:55:29.787Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/chairy-cooks 200
+[debug] [2023-04-04T21:55:29.787Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/chairy-cooks {"projectId":"chairy-cooks","projectNumber":"932235974846","displayName":"chairy cooks","name":"projects/chairy-cooks","resources":{"hostingSite":"chairy-cooks","storageBucket":"chairy-cooks.appspot.com","locationId":"europe-west"},"state":"ACTIVE","etag":"1_fa733ce5-a9f5-40c2-9ed9-86297d039254"}
+[debug] [2023-04-04T21:55:35.846Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/chairy-cooks/sites pageToken=&pageSize=10
+[debug] [2023-04-04T21:55:36.731Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/chairy-cooks/sites 200
+[debug] [2023-04-04T21:55:36.731Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/chairy-cooks/sites {"sites":[{"name":"projects/chairy-cooks/sites/chairy-cooks","defaultUrl":"https://chairy-cooks.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2023-04-04T21:55:36.732Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/chairy-cooks/sites 
+[debug] [2023-04-04T21:55:37.564Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/chairy-cooks/sites 200
+[debug] [2023-04-04T21:55:37.565Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/chairy-cooks/sites {"sites":[{"name":"projects/chairy-cooks/sites/chairy-cooks","defaultUrl":"https://chairy-cooks.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2023-04-04T21:55:37.565Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/chairy-cooks/webApps/-/config [none]
+[debug] [2023-04-04T21:55:38.317Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/chairy-cooks/webApps/-/config 200
+[debug] [2023-04-04T21:55:38.318Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/chairy-cooks/webApps/-/config {"projectId":"chairy-cooks","appId":"1:932235974846:web:450a03e69f378a1399e6ef","storageBucket":"chairy-cooks.appspot.com","locationId":"europe-west","apiKey":"AIzaSyD7lln8DFMGkvjqcjEStICg6cBptRd_W-A","authDomain":"chairy-cooks.firebaseapp.com","messagingSenderId":"932235974846","measurementId":"G-JQHQBCJY2S"}
+[debug] [2023-04-04T21:56:05.625Z] Error: Unable to load next.config.js.
+    at getConfig (C:\Users\Vapta Systems\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\next\index.js:311:23)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async build (C:\Users\Vapta Systems\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\next\index.js:60:40)
+    at async prepareFrameworks (C:\Users\Vapta Systems\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\index.js:261:108)
+    at async deploy (C:\Users\Vapta Systems\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:53:13)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2023-04-04T22:06:19.983Z] ----------------------------------------------------------------------
+[debug] [2023-04-04T22:06:19.985Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Vapta Systems\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2023-04-04T22:06:19.986Z] CLI Version:   11.25.2
+[debug] [2023-04-04T22:06:19.987Z] Platform:      win32
+[debug] [2023-04-04T22:06:19.987Z] Node Version:  v16.16.0
+[debug] [2023-04-04T22:06:19.998Z] Time:          Tue Apr 04 2023 23:06:19 GMT+0100 (British Summer Time)
+[debug] [2023-04-04T22:06:19.999Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-04-04T22:06:20.098Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-04-04T22:06:20.098Z] > authorizing via signed-in user (harry-joevalente@live.co.uk)
+[debug] [2023-04-04T22:06:20.099Z] [iam] checking project chairy-cooks for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-04-04T22:06:20.101Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/chairy-cooks:testIamPermissions [none]
+[debug] [2023-04-04T22:06:20.102Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/chairy-cooks:testIamPermissions x-goog-quota-user=projects/chairy-cooks
+[debug] [2023-04-04T22:06:20.102Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/chairy-cooks:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-04-04T22:06:20.803Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/chairy-cooks:testIamPermissions 200
+[debug] [2023-04-04T22:06:20.803Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/chairy-cooks:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-04-04T22:06:20.805Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/chairy-cooks [none]
+[debug] [2023-04-04T22:06:21.112Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/chairy-cooks 200
+[debug] [2023-04-04T22:06:21.112Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/chairy-cooks {"projectId":"chairy-cooks","projectNumber":"932235974846","displayName":"chairy cooks","name":"projects/chairy-cooks","resources":{"hostingSite":"chairy-cooks","storageBucket":"chairy-cooks.appspot.com","locationId":"europe-west"},"state":"ACTIVE","etag":"1_fa733ce5-a9f5-40c2-9ed9-86297d039254"}
+[debug] [2023-04-04T22:06:25.565Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/chairy-cooks/sites pageToken=&pageSize=10
+[debug] [2023-04-04T22:06:26.474Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/chairy-cooks/sites 200
+[debug] [2023-04-04T22:06:26.475Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/chairy-cooks/sites {"sites":[{"name":"projects/chairy-cooks/sites/chairy-cooks","defaultUrl":"https://chairy-cooks.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2023-04-04T22:06:26.475Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/chairy-cooks/sites 
+[debug] [2023-04-04T22:06:27.318Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/chairy-cooks/sites 200
+[debug] [2023-04-04T22:06:27.318Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/chairy-cooks/sites {"sites":[{"name":"projects/chairy-cooks/sites/chairy-cooks","defaultUrl":"https://chairy-cooks.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2023-04-04T22:06:27.318Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/chairy-cooks/webApps/-/config [none]
+[debug] [2023-04-04T22:06:28.023Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/chairy-cooks/webApps/-/config 200
+[debug] [2023-04-04T22:06:28.023Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/chairy-cooks/webApps/-/config {"projectId":"chairy-cooks","appId":"1:932235974846:web:450a03e69f378a1399e6ef","storageBucket":"chairy-cooks.appspot.com","locationId":"europe-west","apiKey":"AIzaSyD7lln8DFMGkvjqcjEStICg6cBptRd_W-A","authDomain":"chairy-cooks.firebaseapp.com","messagingSenderId":"932235974846","measurementId":"G-JQHQBCJY2S"}
+[debug] [2023-04-04T22:06:59.137Z] Error: Unable to load next.config.js.
+    at getConfig (C:\Users\Vapta Systems\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\next\index.js:311:23)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async build (C:\Users\Vapta Systems\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\next\index.js:60:40)
+    at async prepareFrameworks (C:\Users\Vapta Systems\AppData\Roaming\npm\node_modules\firebase-tools\lib\frameworks\index.js:261:108)
+    at async deploy (C:\Users\Vapta Systems\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:53:13)
+[error] 
+[error] Error: An unexpected error has occurred.

@@ -1,14 +1,13 @@
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faInstagram, faPinterest, faTiktok, faTwitter } from "@fortawesome/free-brands-svg-icons"
 import { useState } from 'react'
 import Field from './Field'
 import Button from './Button'
 import { addFirebaseDoc, generateFirebaseId } from '../firebase/index'
-import router from 'next/router'
 
-export default ({recipe}) => {
+export default () => {
   const [name, setName] = useState()
   const [email, setEmail] = useState()
 
@@ -21,15 +20,10 @@ export default ({recipe}) => {
     await addFirebaseDoc('/email_list/', _emailList, _emailList.id)
   }
 
-  const randomRecipe = async () => {
-    const randomInteger = Math.floor(Math.random() * (3 - 1)) + 1
-    router.push(`/recipes/${recipe[randomInteger].id}`)
-  }
-
   return (
     <footer>
       <div className='footerInfoContainer'>
-        <div className='footerInfoImg'>
+      <div className='footerInfoImg'>
           <Image src='/logotest.png' alt='Chairy Cooks Logo' priority layout='fill' />
         </div>
         <div className='footerInfo'>
@@ -37,7 +31,6 @@ export default ({recipe}) => {
             <li>
               <Link href='/about'>About</Link>
             </li>
-            <li onClick={randomRecipe} className='cursor-pointer'>Random Recipe</li>
             <li>
               <Link href='/recipeIndex'>Recipe Index</Link>
             </li>
@@ -81,7 +74,7 @@ export default ({recipe}) => {
         <a target="_blank"><FontAwesomeIcon icon={faPinterest} /></a>
       </Link>
       </div>
-      <p>Copyright 2022 chairy cooks</p>
+      <p>Copyright 2023 chairy cooks</p>
     </footer>
   )
 }

@@ -7,32 +7,44 @@ import SEO from "../components/SEO";
 import Grid from "../components/Grid";
 import { getFirebaseDocs } from "../firebase/index";
 import { useEffect, useState } from "react";
+import { createClient } from 'contentful'
+import safeJsonStringify from 'safe-json-stringify'
 
-export default function Recipes() {
-  const [featured, setFeatured] = useState()
-  const [recipeHomepage, setRecipeHomepage] = useState()
-  
-  useEffect( async () => {
-    const featuredRecipes = await getFirebaseDocs(`/all_recipes`)
+export async function getStaticProps() {
+  const client = createClient({
+    space: process.env.CONTENTFUL_SPACE_ID,
+    accessToken: process.env.CONTENTFUL_ACCESS_KEY
+  })
 
-    if (featuredRecipes) {
-      const featured = featuredRecipes.filter(feat => feat.homepage_feature === true)
-      const recipeHomepage = featuredRecipes.filter(feat => feat.homepage_page === true)
-      setFeatured(featured)
-      setRecipeHomepage(recipeHomepage)
+  let res = await client.getEntries({ content_type: 'pageLanding' })
+  const stringifiedData = safeJsonStringify(res)
+  const data = JSON.parse(stringifiedData)
+
+  // that revalidate will need to be higher that means every 10 seconds if a new user goes on it'll do an api call to see if any data has changed
+  return {
+    props: {
+      homepage: data.items,
+      revalidate: 10
     }
-  }, [])
+  }
+}
+
+export default function Recipes({ homepage }) {
+  const info = homepage[0].fields
+  const { seoFields, featuredBlogPost, featuredRecipes, latestRecipes } = info
 
   return (
     <>
-      <SEO title={'Chairy cooks - Homepage'} description={'Welcome to the homepage for Chairy cooks home of cheap tasty homemade meals from all around the world!'}/>
-
       <div className="featuredContainer">
-        <FeaturedRecipe recipes={featured}/>
+        {featuredRecipes.map(recipe => (
+          <FeaturedRecipe recipe={recipe}/>
+        ))}
       </div>
 
       <div className="homepageRecipes">
-        <RecipeCard recipe={recipeHomepage}/>
+        {latestRecipes.map(recipe => (
+          <RecipeCard recipe={recipe}/>
+        ))}
       </div>
 
       {/* <Advert/> */}

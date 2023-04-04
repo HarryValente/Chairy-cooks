@@ -1,12 +1,13 @@
 import Link from "next/link";
 
-const SimilarRecipe = ({recipe}) => {
+const SimilarRecipe = ({simRecipes}) => {
+  const { slug, title, shortDescription, featuredImage } = simRecipes.fields
   return ( 
-    <Link key={recipe.id} href={`/recipes/${recipe.id}`}>         
+    <Link key={slug} href={`/recipes/${slug}`}>         
       <div className='recipeSimilarRecipe'>
-        <img src={recipe.main_image.url}></img>
+        <img src={featuredImage.fields.file.url}></img>
         <div className="recipeSimilarDetails">
-          <h4>{recipe.name}</h4>
+          <h4>{title}</h4>
         </div>
       </div>
     </Link>

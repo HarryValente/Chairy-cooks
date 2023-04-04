@@ -899,8 +899,9 @@ header h2 {
 }
 .recipeMethodContainer h3,
 .recipeInformationIngredients h3{
-  margin: 20px 0px 20px 0;
+  margin: 30px 0px 20px 0;
   text-transform: uppercase;
+  font-weight: bold;
 }
 .recipeInformationIngredients{
   padding: 5px;
@@ -924,7 +925,7 @@ header h2 {
   width: 64%;
 }
 .recipeMethodContainer ul{
-  min-height: 500px;
+  min-height: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1121,6 +1122,7 @@ header h2 {
   justify-content: space-around;
   align-items: center;
   width: 100%;
+  transition: 1s ease-in;
 }
 .searchedRecipe{
   margin: auto;
@@ -1128,10 +1130,11 @@ header h2 {
   cursor: pointer;
   width: 240px;
   height: 340px;
-  transition: 1s;
+  transition: 1s ease-in;
 }
 .searchedRecipe:hover{
   margin-bottom: 10px;
+  transition: 1s ease-in;
 }
 .searchedRecipeImage{
   position: relative;

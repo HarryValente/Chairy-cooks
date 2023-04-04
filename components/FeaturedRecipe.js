@@ -1,43 +1,25 @@
-// React
-import { useState, useEffect } from 'react'
-
-// Firebase
-import { updateFirebaseDoc } from '../firebase'
-
-// Hooks
-import useLocalStorage from '../hooks/useLocalStorage'
 // Next
 import Link from 'next/link'
 import Image from 'next/image'
 
-export default ({recipes: data}) => {
-  const [recipe, set] = useState()
-  const [_user] = useLocalStorage('_user')
-  
-  useEffect(() => {
-    if (data) {
-      set(data)
-    }
-  }, [data])
-
+export default function FeaturedRecipe({ recipe }) {
+  const { featuredImage, title, slug } = recipe.fields
   return (
-    <>
-      {recipe &&
-        recipe.map(rec => (
-          <Link key={rec.id} href={`/recipes/${rec.id}`}>
-            <div className="feature">
+    <Link key={title} href={`/recipes/${slug}`}>
+      <div className="feature">
 
-              <div className='featureImage'>
-                <img src={rec.main_image.url} alt={rec.main_image.name}></img>
-              </div>
+        <div className='featureImage'>
+          <Image
+            src={'https:' + featuredImage.fields.file.url}
+            placeholder='blue'
+            layout="fill"
+          />
+        </div>
               
-              <div className="feature-text">
-                <h2>{rec.name}</h2>
-              </div>
-            </div>
-          </Link>
-        ))
-      }
-   </>
+        <div className="feature-text">
+          <h2>{title}</h2>
+        </div>
+      </div>
+    </Link>
   )
 }

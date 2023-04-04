@@ -1,65 +1,64 @@
 import { useState, useEffect } from "react";
-import { useAuthContext } from "../context/auth";
+// import { useAuthContext } from "../context/auth";
 import Link from 'next/link'
 import Image from 'next/image'
 import Footer from './Footer'
 // Components
-import useFirebase from '../hooks/useFirebase';
-import useToggle from '../hooks/useToggle';
-import useLocalStorage from '../hooks/useLocalStorage';
-import { getFirebaseDocs } from "../firebase/index";
-import Fuse from "fuse.js";
-import router from "next/router";
+// import useFirebase from '../hooks/useFirebase';
+// import useToggle from '../hooks/useToggle';
+// import useLocalStorage from '../hooks/useLocalStorage';
+// import { getFirebaseDocs } from "../firebase/index";
+// import Fuse from "fuse.js";
+// import router from "next/router";
 
 export default function Layout({ children }) {
-  const { user } = useAuthContext()
-  const [recipe, setRecipe] = useState()
-  // const [visible, toggle] = useToggle()
+  // const { user } = useAuthContext()
+  // const [recipe, setRecipe] = useState()
   const [visible, toggle] = useState(false)
-  const [_recipes, setLocalStorage] = useLocalStorage('_recipes', '')
-  const [search, setSearch] = useState('')
-  const [results, setResults] = useState([])
+  // const [_recipes, setLocalStorage] = useLocalStorage('_recipes', '')
+  // const [search, setSearch] = useState('')
+  // const [results, setResults] = useState([])
 
-  const recipeLibrary = new Fuse(recipe, {
-    keys: ['name', 'category'],
-    threshold: 0.2
-  })
+  // const recipeLibrary = new Fuse(recipe, {
+  //   keys: ['name', 'category'],
+  //   threshold: 0.2
+  // })
 
   /**
    * When a user clicks on view more recipes it sets the search result into LS redirects then searches on that page using the saved LS 
    */
-  const viewAllRecipes = () => {
-    setLocalStorage(results)
-    toggle(false)
-    router.push('/allRecipes')
-  }
+  // const viewAllRecipes = () => {
+  //   setLocalStorage(results)
+  //   toggle(false)
+  //   router.push('/allRecipes')
+  // }
 
-  useEffect(async () => {
-    if (!recipe) {
-      const _report = await getFirebaseDocs('all_recipes/')
-      setRecipe(_report)
-    }
+  // useEffect(async () => {
+  //   if (!recipe) {
+  //     const _report = await getFirebaseDocs('all_recipes/')
+  //     setRecipe(_report)
+  //   }
 
-  }, [])
+  // }, [])
 
-  useEffect(() => {
-    const searchField = document.querySelector('.searchInput')
+  // useEffect(() => {
+  //   const searchField = document.querySelector('.searchInput')
 
-    searchField.addEventListener('keyup', e => {
-      if (e.key === 'Enter' && search !== '') {
-        const results = recipeLibrary.search(search).map(({item}) => item)
-        if (results.length > 0) {
-          // Cut off so only limited amount of recipes show up
-          // let length = results.length - 11
-          // if (results.length > 10) {
-          //   results.slice(11, length)
-          // }
-          toggle(true)
-          setResults(results)
-        }
-      }
-    })
-  }, [search])
+  //   searchField.addEventListener('keyup', e => {
+  //     if (e.key === 'Enter' && search !== '') {
+  //       const results = recipeLibrary.search(search).map(({item}) => item)
+  //       if (results.length > 0) {
+  //         // Cut off so only limited amount of recipes show up
+  //         // let length = results.length - 11
+  //         // if (results.length > 10) {
+  //         //   results.slice(11, length)
+  //         // }
+  //         toggle(true)
+  //         setResults(results)
+  //       }
+  //     }
+  //   })
+  // }, [search])
 
   return (
     <div className="layout">
@@ -70,7 +69,7 @@ export default function Layout({ children }) {
           </Link>
         </div>
 
-        <div className="searchContainer">
+        {/* <div className="searchContainer">
           <input className="searchInput" type='text' placeholder="Search" onChange={(e) => setSearch(e.target.value)} onClick={() => toggle(true)}></input>
           {visible && (
             <>
@@ -88,7 +87,7 @@ export default function Layout({ children }) {
               </div>
             </>
           )}
-        </div>
+        </div> */}
 
 
         {/* {user ? (
@@ -108,7 +107,7 @@ export default function Layout({ children }) {
         { children }
       </div>
 
-      <Footer recipe={recipe}/>
+      <Footer/>
     </div>
   )
 }

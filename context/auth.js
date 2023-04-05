@@ -1,5 +1,5 @@
 // React
-import { createContext, FC, useCallback, useContext, useEffect, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
 // Next
 import { useRouter } from 'next/router'
@@ -17,7 +17,6 @@ import {
 } from 'firebase/auth'
 
 // Modules
-import { toast } from 'react-toastify';
 import useLocalStorage from '../hooks/useLocalStorage'
 
 // Context

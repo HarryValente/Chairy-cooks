@@ -1,23 +1,23 @@
 // Hooks
-import { useEffect, useState } from 'react'
-import useFirebase from '../../hooks/useFirebase'
-import useLocalStorage from '../../hooks/useLocalStorage'
+// import { useEffect, useState } from 'react'
+// import useFirebase from '../../hooks/useFirebase'
+// import useLocalStorage from '../../hooks/useLocalStorage'
 
 // Next
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 
 import Skeleton from '../../components/Skeleton'
 import Image from 'next/image'
-import Link from 'next/link'
+// import Link from 'next/link'
 import { createClient } from 'contentful'
 import safeJsonStringify from 'safe-json-stringify'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 // Firebase
-import { getFirebaseDoc } from '../../firebase/index'
+// import { getFirebaseDoc } from '../../firebase/index'
 
 // Components
-import SEO from '../../components/SEO'
+// import SEO from '../../components/SEO'
 import SimilarRecipe from '../../components/SimilarRecipe'
 
 const client = createClient({

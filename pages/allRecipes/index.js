@@ -1,9 +1,9 @@
 // Context
-import { useAuthContext } from '../../context/auth'
-import Grid from '../../components/Grid'
+// import { useAuthContext } from '../../context/auth'
+// import Grid from '../../components/Grid'
 import useLocalStorage from '../../hooks/useLocalStorage'
 import Link from 'next/link'
-import Image from 'next/image'
+// import Image from 'next/image'
 
 export default () => {
   const [_recipes] = useLocalStorage('_recipes')

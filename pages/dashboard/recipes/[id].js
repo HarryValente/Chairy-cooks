@@ -12,18 +12,18 @@ import { useRouter } from 'next/router'
 import { getFirebaseDoc } from '../../../firebase/index'
 
 // Components
-import Layout from '../../../components/Layout'
+// import Layout from '../../../components/Layout'
 import ProtectedRoute from '../../../components/ProtectedRoute'
 import Grid from '../../../components/Grid'
 import Button from '../../../components/Button'
 import Label from '../../../components/Label'
-import Page from '../../../components/Page'
+// import Page from '../../../components/Page'
 import Widget from '../../../components/Widget'
 
 // Modules
 import moment from 'moment'
-import { uniqueId } from 'lodash'
-import { motion } from 'framer-motion'
+// import { uniqueId } from 'lodash'
+// import { motion } from 'framer-motion'
 
 // const Timer = ({ pause }) => {
 //   const { elapsedTime } = useElapsedTime({ isPlaying: pause, updateInterval: 1 })

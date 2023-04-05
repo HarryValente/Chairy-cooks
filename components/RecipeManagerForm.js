@@ -1,18 +1,14 @@
-// Hooks
-import { useEffect, useState } from 'react'
-
 // Context
 import { useAuthContext } from '../context/auth'
 
 // Components
-import { FormSubmit, FormField } from '../components/Form'
+import { FormSubmit } from '../components/Form'
 import Grid from '../components/Grid'
 import Label from './Label'
 
 // Modules
 import useLocalStorage from '../hooks/useLocalStorage'
 import useForm from '../hooks/useForm'
-import useFirebase from '../hooks/useFirebase'
 
 export default ({ recipe }) => {
   const { user } = useAuthContext()

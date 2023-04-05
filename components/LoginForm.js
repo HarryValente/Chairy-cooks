@@ -1,15 +1,15 @@
 // Firebase
-import { addFirebaseDoc, createFirebaseUser, signOutFirebaseUser, loginFirebaseUser } from '../firebase/index'
-import { auth } from '../firebase'
+import { addFirebaseDoc, createFirebaseUser } from '../firebase/index'
+// import { auth } from '../firebase'
 
 // React
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 // Next
 import { useRouter } from 'next/router'
 
 // Components
-import { Form, FormField, FormSubmit } from './Form'
+import { Form, FormSubmit } from './Form'
 import Grid from './Grid'
 import Button from './Button'
 

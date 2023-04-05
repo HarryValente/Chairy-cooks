@@ -1,12 +1,12 @@
 // Components
 import RecipeCard from "../components/RecipeCard";
 import FeaturedRecipe from "../components/FeaturedRecipe";
-import Advert from "../components/Advert";
+// import Advert from "../components/Advert";
 import MainIngrdientsTile from "../components/MainIngredientsTile";
-import SEO from "../components/SEO";
+// import SEO from "../components/SEO";
 import Grid from "../components/Grid";
-import { getFirebaseDocs } from "../firebase/index";
-import { useEffect, useState } from "react";
+// import { getFirebaseDocs } from "../firebase/index";
+// import { useEffect, useState } from "react";
 import { createClient } from 'contentful'
 import safeJsonStringify from 'safe-json-stringify'
 

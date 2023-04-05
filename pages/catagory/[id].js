@@ -5,7 +5,7 @@ import useLocalStorage from '../../hooks/useLocalStorage'
 // Next
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import Image from 'next/image'
+// import Image from 'next/image'
 
 // Firebase
 import { getFirebaseDocs } from '../../firebase/index'

@@ -11,6 +11,8 @@ import { motion } from 'framer-motion'
 export default ({ dark }) => {
   return (
     <>
+      {/* <SEO /> */}
+
       <motion.div
         key='app-loader'
         initial={{

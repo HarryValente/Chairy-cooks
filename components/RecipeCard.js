@@ -7,23 +7,31 @@ export default ({recipe}) => {
 
   return (
     <>
-      <Link key={title} href={`/recipes/${slug}`}>
-        <div className="homepageCard">
-          <div className="homepageCardImage">
-            <Image 
-              alt={'https:' + featuredImage.fields.description}
-              src={'https:' + featuredImage.fields.file.url}
-              layout='fill'  
-            />
-          </div>
-          <div className='homepageContent'>
-            <p>Italian, Vegetarian, Light</p>
-            <h1>{title}</h1>
-            <h4>{shortDescription}</h4>
-              <button className="homepageButton" role="button">Full recipe</button>
-          </div>
-        </div>
-      </Link>
+      {recipes &&
+        recipes.map(rec => (
+          <Link key={rec.id} href={`/recipes/${rec.id}`}>
+            <div className="homepageCard">
+              <div className="homepageCardImage">
+                {/* <Image 
+                  alt={rec.main_image.name}
+                  src={rec.main_image.url}
+                  layout='fill'  
+                /> */}
+                <img src={rec.main_image.url} alt={rec.main_image.name}></img>
+              </div>
+              <div className='homepageContent'>
+                <p>Italian, Vegetarian, Light</p>
+                <h1>{rec.name}</h1>
+                <h4>{rec.desc}</h4>
+                
+                <Link href={`/recipes/${rec.id}`}>
+                  <button className="homepageButton" role="button">Full recipe</button>
+                </Link>
+              </div>
+            </div>
+          </Link>
+        ))
+      }
     </>
   )
 }

@@ -22,6 +22,7 @@ body {
   /* font-family: 'Roboto'; */
   font-size: 1.5em;  
 }
+
 .test{
   background-color: red;
   width: 50px;
@@ -1425,54 +1426,6 @@ footer {
 
 .button {
   @apply block border border-gray-700 flex font-medium items-center justify-center px-4 py-2 rounded text-gray-600 text-xs whitespace-nowrap;
-
-  &:hover {
-    @apply bg-gray-700 text-white;
-  }
-
-  &.button-add {
-    @apply bg-green-500 border-green-500 text-white;
-
-    &:hover {
-      @apply bg-green-100 border-green-100 text-green-500;
-    }
-  }
-
-  &.button-danger {
-    @apply bg-red-500 border-red-500 text-white;
-
-    &:hover {
-      @apply bg-red-100 border-red-100 text-red-500;
-    }
-  }
-
-  &.button-danger-alt {
-    @apply border-red-500 text-red-500;
-
-    &:hover {
-      @apply bg-red-100 border-red-100 text-red-500;
-    }
-  }
-
-  &.button-primary {
-    @apply border-red-500 px-6 text-red-500;
-
-    &:hover {
-      @apply bg-red-500 shadow-md shadow-red-600/50 text-white;
-    }
-  }
-
-  &.button-secondary {
-    @apply border-gray-400 text-gray-600;
-
-    &:hover {
-      @apply bg-gray-50 border-gray-50 shadow-md shadow-white/25 text-black;
-    }
-  }
-
-  svg {
-    @apply mr-2;
-  }
 }
 
 form,
@@ -1535,12 +1488,6 @@ select {
 
 label {
   @apply block font-medium mb-1 text-gray-600 text-left text-xs w-full;
-
-  &.required:after {
-    @apply text-red-500;
-
-    content: ' *';
-  }
 }
 
 #landing {
@@ -1549,16 +1496,4 @@ label {
 
 .price {
   @apply before:content-["£"] font-medium;
-
-  .quantity {
-    @apply ml-2 text-gray-500 text-sm;
-  }
-
-  &.sale {
-    @apply text-gray-400;
-
-    .sale_price {
-      @apply before:content-["£"] bg-red-100 decoration-0 ml-1 px-2 rounded text-red-500;
-    }
-  }
 }

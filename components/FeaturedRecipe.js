@@ -12,7 +12,7 @@ export default ({recipes: data}) => {
     }
   }, [data])
   console.log(recipe)
-  console.log('recipe')
+
   return (
     <Link key={title} href={`/recipes/${slug}`}>
       <div className="feature">
